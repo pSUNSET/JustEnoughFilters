@@ -17,5 +17,5 @@ dependencies {
 //    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:$rei_version"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
-//    modCompileOnly "dev.emi:emi-xplat-intermediary:$emi_version+$minecraft_version"
+    modCompileOnly "dev.emi:emi-xplat-intermediary:$emi_version+$minecraft_version"
 }

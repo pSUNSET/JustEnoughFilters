@@ -41,7 +41,7 @@ dependencies {
 
     modImplementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
-//    modCompileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+    modCompileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
