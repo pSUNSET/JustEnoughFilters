@@ -111,8 +111,6 @@ publishMods {
         serverRequired = false
 
         changelogType = "markdown"
-
-        optional("jei", "roughly-enough-items", "emi")
     }
 
     def modrinthSettings = modrinthOptions {
@@ -122,14 +120,15 @@ publishMods {
             start = "1.21"
             end = "1.21.1"
         }
-
-        optional("jei", "rei", "emi")
     }
 
     curseforge("curseforgeFabric") {
         from curseforgeSettings
         file project(":fabric")
+
         requires("fabric-language-kotlin")
+        optional("jei", "roughly-enough-items", "emi")
+
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
         version.set "fabric-$mod_version+$minecraft_version_file_range"
         modLoaders.addAll "fabric", "quilt"
@@ -138,7 +137,10 @@ publishMods {
     curseforge("curseforgeNeoForge") {
         from curseforgeSettings
         file project(":neoforge")
+
         requires("kotlin-for-forge")
+        optional("jei", "roughly-enough-items", "emi")
+
         displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
         version.set "neoforge-$mod_version+$minecraft_version_file_range"
         modLoaders.add "neoforge"
@@ -147,7 +149,10 @@ publishMods {
     modrinth("modrinthFabric") {
         from modrinthSettings
         file project(":fabric")
+
         requires("fabric-language-kotlin")
+        optional("jei", "rei", "emi")
+
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
         version.set "fabric-$mod_version+$minecraft_version_file_range"
         modLoaders.addAll "fabric", "quilt"
@@ -156,7 +161,10 @@ publishMods {
     modrinth("modrinthNeoForge") {
         from modrinthSettings
         file project(":neoforge")
+
         requires("kotlin-for-forge")
+        optional("jei", "rei", "emi")
+
         displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
         version.set "neoforge-$mod_version+$minecraft_version_file_range"
         modLoaders.add "neoforge"
