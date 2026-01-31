@@ -3,6 +3,8 @@
 A lightweight add-on for **JEI**, **REI**, and **EMI**.
 Filtering exact items is just a click away!
 
+![Gameplay Image](/docs/gallery/jei_gameplay.png)
+
 ## For Developers
 
 ### Depend on JEF

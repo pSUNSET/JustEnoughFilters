@@ -4,6 +4,8 @@ A lightweight add-on for **JEI**, **REI**, and **EMI**.
 It adds a dedicated filter bar to your item list,
 allowing you to quickly find exactly what you need without typing complex search queries.
 
+![Gameplay Image](https://raw.githubusercontent.com/pSUNSET/JustEnoughFilters/refs/heads/1.21.1/docs/gallery/jei_gameplay.png)
+
 ## 📝 Important Notes
 
 - This mod is **client-sided** only!
