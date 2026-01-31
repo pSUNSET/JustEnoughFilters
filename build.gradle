@@ -1,0 +1,164 @@
+plugins {
+    id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.4-SNAPSHOT'
+    id 'com.gradleup.shadow' version '8.3.6' apply false
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0"
+    id 'org.jetbrains.kotlin.jvm' version '2.2.20' apply false
+}
+
+def secrets = new Properties()
+def secretsFile = file('secrets.properties')
+if (secretsFile.exists()) {
+    secretsFile.withInputStream {
+        stream -> secrets.load(stream)
+    }
+}
+
+architectury {
+    minecraft = "$minecraft_version"
+}
+
+allprojects {
+    apply plugin: 'architectury-plugin'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+
+    group = "$maven_group"
+    version = "${mod_version}+${minecraft_version_file_range}"
+
+    repositories {
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+        maven {
+            name = "Jared's maven"
+            url = "https://maven.blamejared.com/"
+        }
+        maven {
+            name = "Shedaniel"
+            url = "https://maven.shedaniel.me"
+        }
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'dev.architectury.loom'
+
+    base {
+        archivesName = "$mod_id-$project.name"
+    }
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    repositories {
+    }
+
+    dependencies {
+        minecraft "net.minecraft:minecraft:$minecraft_version"
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-$minecraft_version:$parchment_mappings_version@zip")
+        }
+    }
+
+    java {
+        withSourcesJar()
+
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = 21
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = base.archivesName.get()
+                from components.java
+            }
+        }
+
+        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+        repositories {
+        }
+    }
+}
+
+publishMods {
+    changelog = file("CHANGELOG.md").text
+    type = STABLE
+
+    def curseforgeSettings = curseforgeOptions {
+        accessToken = secrets.getProperty("CURSEFORGE_TOKEN")
+        projectId = "1419713"
+        minecraftVersionRange {
+            start = "1.21"
+            end = "1.21.1"
+        }
+        javaVersions.add JavaVersion.VERSION_21
+
+        clientRequired = true
+        serverRequired = false
+
+        changelogType = "markdown"
+
+        optional("jei", "roughly-enough-items", "emi")
+    }
+
+    def modrinthSettings = modrinthOptions {
+        accessToken = secrets.getProperty("MODRINTH_TOKEN")
+        projectId = "Ka9cnIsF"
+        minecraftVersionRange {
+            start = "1.21"
+            end = "1.21.1"
+        }
+
+        optional("jei", "rei", "emi")
+    }
+
+    curseforge("curseforgeFabric") {
+        from curseforgeSettings
+        file project(":fabric")
+        requires("fabric-language-kotlin")
+        displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
+        version.set "fabric-$mod_version+$minecraft_version_file_range"
+        modLoaders.addAll "fabric", "quilt"
+    }
+
+    curseforge("curseforgeNeoForge") {
+        from curseforgeSettings
+        file project(":neoforge")
+        requires("kotlin-for-forge")
+        displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
+        version.set "neoforge-$mod_version+$minecraft_version_file_range"
+        modLoaders.add "neoforge"
+    }
+
+    modrinth("modrinthFabric") {
+        from modrinthSettings
+        file project(":fabric")
+        requires("fabric-language-kotlin")
+        displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
+        version.set "fabric-$mod_version+$minecraft_version_file_range"
+        modLoaders.addAll "fabric", "quilt"
+    }
+
+    modrinth("modrinthNeoForge") {
+        from modrinthSettings
+        file project(":neoforge")
+        requires("kotlin-for-forge")
+        displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
+        version.set "neoforge-$mod_version+$minecraft_version_file_range"
+        modLoaders.add "neoforge"
+    }
+}

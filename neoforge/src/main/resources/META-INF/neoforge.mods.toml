@@ -1,0 +1,47 @@
+modLoader = "kotlinforforge"
+loaderVersion = "${kff_version_range}"
+clientSideOnly = true
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/just-enough-filters"
+issueTrackerURL = "https://github.com/pSUNSET/JustEnoughFilters/issues"
+logoFile = "icon.png"
+authors = "LShiftLess"
+credits = "Everyone who contributed to this mod"
+license = "MIT"
+
+[[mods]]
+modId = "justenoughfilters"
+version = "${version}"
+displayName = "Just Enough Filters"
+description = '''
+Add filters to JEI mod.
+'''
+
+[[dependencies.justenoughfilters]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neoforge_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.justenoughfilters]]
+modId = "kotlinforforge"
+type = "required"
+versionRange = "${kff_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.justenoughfilters]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_neoforge_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "justenoughfilters.neoforge.mixins.json"
+
+[[mixins]]
+config = "justenoughfilters.mixins.json"
+
+[[accessTransformers]]
+file="accesstransformer.cfg"

@@ -1,0 +1,17 @@
+{
+    "jef.item_type_filter.title": "Type Filter",
+    "jef.item_type_filter.justenoughfilters.item": "Item",
+    "jef.item_type_filter.justenoughfilters.block": "Block",
+    "jef.item_type_filter.justenoughfilters.non_item": "Non-Item",
+
+    "jef.logic_mode.title": "Logic Mode",
+    "jef.logic_mode.justenoughfilters.or": "OR",
+    "jef.logic_mode.justenoughfilters.and": "AND",
+
+    "jef.toggled_filter.justenoughfilters.entity_blocks": "Entity Blocks",
+    "jef.toggled_filter.justenoughfilters.enchanted_books": "Enchanted Books",
+    "jef.toggled_filter.justenoughfilters.food": "Food",
+    "jef.toggled_filter.justenoughfilters.fuels": "Fuels",
+    "jef.toggled_filter.justenoughfilters.tools": "Tools & Weapons",
+    "jef.toggled_filter.justenoughfilters.armor": "Armor"
+}

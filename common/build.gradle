@@ -1,0 +1,21 @@
+architectury {
+    common('fabric', 'neoforge')
+}
+
+loom {
+    accessWidenerPath = project(":fabric").file("src/main/resources/justenoughfilters.accesswidener")
+}
+
+dependencies {
+    // For using @Environment and EnvType
+    modCompileOnly "net.fabricmc:fabric-loader:$fabric_loader_version"
+
+    modCompileOnly "mezz.jei:jei-$minecraft_version-common:$jei_version"
+    modCompileOnly "mezz.jei:jei-$minecraft_version-gui:$jei_version"
+
+    // We need mixin implementation code so cannot compile api only
+//    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:$rei_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+
+//    modCompileOnly "dev.emi:emi-xplat-intermediary:$emi_version+$minecraft_version"
+}

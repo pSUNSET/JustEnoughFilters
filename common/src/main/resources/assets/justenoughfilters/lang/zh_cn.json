@@ -1,0 +1,17 @@
+{
+    "jef.item_type_filter.title": "类型筛选器",
+    "jef.item_type_filter.justenoughfilters.item": "物品",
+    "jef.item_type_filter.justenoughfilters.block": "方块",
+    "jef.item_type_filter.justenoughfilters.non_item": "非物品",
+
+    "jef.logic_mode.title": "筛选模式",
+    "jef.logic_mode.justenoughfilters.or": "OR",
+    "jef.logic_mode.justenoughfilters.and": "AND",
+
+    "jef.toggled_filter.justenoughfilters.entity_blocks": "实体方块",
+    "jef.toggled_filter.justenoughfilters.enchanted_books": "附魔书",
+    "jef.toggled_filter.justenoughfilters.food": "食物",
+    "jef.toggled_filter.justenoughfilters.fuels": "燃料",
+    "jef.toggled_filter.justenoughfilters.tools": "工具&武器",
+    "jef.toggled_filter.justenoughfilters.armor": "装备"
+}

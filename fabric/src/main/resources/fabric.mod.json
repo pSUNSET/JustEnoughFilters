@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "justenoughfilters",
+  "version": "${version}",
+  "name": "Just Enough Filters",
+  "description": "A mod for swift, light and convenient auto translation.",
+  "authors": [
+    "LShiftLess"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/project/just-enough-filters",
+    "sources": "https://github.com/pSUNSET/JustEnoughFilters",
+    "issues": "https://github.com/pSUNSET/JustEnoughFilters/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "net.psunset.jef.fabric.JefImpl"
+      }
+    ]
+  },
+  "mixins": [
+    "justenoughfilters.fabric.mixins.json",
+    "justenoughfilters.mixins.json"
+  ],
+  "accessWidener": "justenoughfilters.accesswidener",
+  "depends": {
+    "minecraft": "${minecraft_version_fabric_range}",
+    "fabricloader": "${fabric_loader_version_range}",
+    "fabric-api": "${fabric_api_version_range}",
+    "fabric-language-kotlin": "${fabric_kotlin_version_range}"
+  }
+}
