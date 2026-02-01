@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AsyncSearchManager.class)
+@Mixin(value = AsyncSearchManager.class, remap = false)
 public class ReiAsyncSearchManagerMixin {
 
     @Inject(method = "test", at = @At("RETURN"), cancellable = true)

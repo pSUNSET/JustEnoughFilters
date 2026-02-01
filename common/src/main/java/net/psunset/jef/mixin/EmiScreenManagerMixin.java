@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(EmiScreenManager.class)
+@Mixin(value = EmiScreenManager.class, remap = false)
 public class EmiScreenManagerMixin {
     @Unique
     private static final int jef$BUTTON_SIZE = 20;

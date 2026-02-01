@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ScreenOverlayImpl.class)
+@Mixin(value = ScreenOverlayImpl.class, remap = false)
 public class ReiScreenOverlayMixin {
     @Unique
     private static final int jef$BUTTON_SIZE = 20;

@@ -44,9 +44,9 @@ dependencies {
     forge "net.minecraftforge:forge:$minecraft_version-$forge_version"
     implementation "thedarkcolour:kotlinforforge:$kff_version"
 
-    modCompileOnly "mezz.jei:jei-$minecraft_version-forge:$jei_version"
+    modImplementation "mezz.jei:jei-$minecraft_version-forge:$jei_version"
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
 
     modCompileOnly "dev.emi:emi-forge:$emi_version+$minecraft_version"
 

@@ -5,7 +5,7 @@ import net.psunset.jef.platform.Platform;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(Platform.class)
+@Mixin(value = Platform.class, remap = false)
 public class PlatformMixin {
 
     @Overwrite

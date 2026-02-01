@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.stream.Stream;
 
-@Mixin(IngredientFilter.class)
+@Mixin(value = IngredientFilter.class, remap = false)
 public abstract class JeiIngredientFilterMixin implements IFilterProxy {
 
     @Shadow

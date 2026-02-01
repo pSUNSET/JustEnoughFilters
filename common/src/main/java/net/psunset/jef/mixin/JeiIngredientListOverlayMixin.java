@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Set;
 
-@Mixin(IngredientListOverlay.class)
+@Mixin(value = IngredientListOverlay.class, remap = false)
 public class JeiIngredientListOverlayMixin {
 
     @Final
