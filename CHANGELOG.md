@@ -1,1 +1,1 @@
-## First Release!
+An edition of `v1.0.1` for `MC1.20.1`
