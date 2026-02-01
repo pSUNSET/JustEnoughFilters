@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "justenoughfilters",
   "version": "${version}",
-  "name": "Just Enough Filters",
-  "description": "A mod for swift, light and convenient auto translation.",
+  "name": "Just Enough Filters (JEF)",
+  "description": "A lightweight add-on for JEI/REI/EMI. Filtering exact items is just a click away!",
   "authors": [
     "LShiftLess"
   ],

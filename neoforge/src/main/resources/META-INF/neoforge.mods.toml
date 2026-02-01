@@ -11,9 +11,10 @@ license = "MIT"
 [[mods]]
 modId = "justenoughfilters"
 version = "${version}"
-displayName = "Just Enough Filters"
+displayName = "Just Enough Filters (JEF)"
 description = '''
-Add filters to JEI mod.
+A lightweight add-on for JEI/REI/EMI.
+Filtering exact items is just a click away!
 '''
 
 [[dependencies.justenoughfilters]]
