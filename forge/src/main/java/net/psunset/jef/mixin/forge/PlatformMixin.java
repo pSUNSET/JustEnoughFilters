@@ -1,6 +1,6 @@
-package net.psunset.jef.mixin.neoforge;
+package net.psunset.jef.mixin.forge;
 
-import net.neoforged.fml.ModList;
+import net.minecraftforge.fml.ModList;
 import net.psunset.jef.platform.Platform;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -14,7 +14,7 @@ public class PlatformMixin {
     }
 
     @Overwrite
-    public static boolean isNeoForge() {
+    public static boolean isForge() {
         return true;
     }
 

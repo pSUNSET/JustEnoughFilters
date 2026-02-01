@@ -6,16 +6,21 @@ import net.psunset.jef.JustEnoughFilters
 object RLUtl {
     @JvmStatic
     fun of(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(JustEnoughFilters.ID, path)
+        return ResourceLocation(JustEnoughFilters.ID, path)
     }
 
     @JvmStatic
     fun ofC(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath("c", path)
+        return ResourceLocation("c", path)
+    }
+
+    @JvmStatic
+    fun ofForge(path: String): ResourceLocation {
+        return ResourceLocation("forge", path)
     }
 
     @JvmStatic
     fun ofVanilla(path: String): ResourceLocation {
-        return ResourceLocation.withDefaultNamespace(path)
+        return ResourceLocation(path)
     }
 }

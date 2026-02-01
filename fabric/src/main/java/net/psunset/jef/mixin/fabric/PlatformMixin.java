@@ -14,7 +14,7 @@ public class PlatformMixin {
     }
 
     @Overwrite
-    public static boolean isNeoForge() {
+    public static boolean isForge() {
         return false;
     }
 

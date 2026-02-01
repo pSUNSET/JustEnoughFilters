@@ -2,9 +2,16 @@ plugins {
     id 'com.gradleup.shadow'
 }
 
+loom {
+    forge {
+        mixinConfig "justenoughfilters.forge.mixins.json", "justenoughfilters.mixins.json"
+    }
+}
+
+
 architectury {
     platformSetupLoomIde()
-    neoForge()
+    forge()
 }
 
 configurations {
@@ -14,7 +21,7 @@ configurations {
     }
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentNeoForge.extendsFrom common
+    developmentForge.extendsFrom common
 
     shadowBundle {
         canBeResolved = true
@@ -24,8 +31,8 @@ configurations {
 
 repositories {
     maven {
-        name = "NeoForged"
-        url = "https://maven.neoforged.net/releases"
+        name = "Forge"
+        url = "https://files.minecraftforge.net/maven/"
     }
     maven {
         name = "Kotlin for Forge"
@@ -34,27 +41,27 @@ repositories {
 }
 
 dependencies {
-    neoForge "net.neoforged:neoforge:$neoforge_version"
-    implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
+    forge "net.minecraftforge:forge:$minecraft_version-$forge_version"
+    implementation "thedarkcolour:kotlinforforge:$kff_version"
 
-    modCompileOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    modCompileOnly "mezz.jei:jei-$minecraft_version-forge:$jei_version"
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
 
-    modCompileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+    modCompileOnly "dev.emi:emi-forge:$emi_version+$minecraft_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 }
 
 processResources {
     inputs.property 'version', "$mod_version"
 
-    filesMatching('META-INF/neoforge.mods.toml') {
+    filesMatching('META-INF/mods.toml') {
         expand([
                 version: "$mod_version",
-                neoforge_version_range: "$neoforge_version_range",
-                minecraft_version_neoforge_range: "$minecraft_version_neoforge_range",
+                forge_version_range: "$forge_version_range",
+                minecraft_version_forge_range: "$minecraft_version_forge_range",
                 kff_version_range: "$kff_version_range"
         ])
     }

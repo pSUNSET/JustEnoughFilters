@@ -3,7 +3,7 @@ plugins {
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
     id "me.modmuss50.mod-publish-plugin" version "1.1.0"
-    id 'org.jetbrains.kotlin.jvm' version '2.2.20' apply false
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21' apply false
 }
 
 def secrets = new Properties()
@@ -102,10 +102,10 @@ publishMods {
         accessToken = secrets.getProperty("CURSEFORGE_TOKEN")
         projectId = "1419713"
         minecraftVersionRange {
-            start = "1.21"
-            end = "1.21.1"
+            start = "1.20"
+            end = "1.20.1"
         }
-        javaVersions.add JavaVersion.VERSION_21
+        javaVersions.add JavaVersion.VERSION_17
 
         clientRequired = true
         serverRequired = false
@@ -117,8 +117,8 @@ publishMods {
         accessToken = secrets.getProperty("MODRINTH_TOKEN")
         projectId = "Ka9cnIsF"
         minecraftVersionRange {
-            start = "1.21"
-            end = "1.21.1"
+            start = "1.20"
+            end = "1.20.1"
         }
     }
 
@@ -134,16 +134,16 @@ publishMods {
         modLoaders.addAll "fabric", "quilt"
     }
 
-    curseforge("curseforgeNeoForge") {
+    curseforge("curseforgeForge") {
         from curseforgeSettings
-        file project(":neoforge")
+        file project(":forge")
 
         requires("kotlin-for-forge")
         optional("jei", "roughly-enough-items", "emi")
 
-        displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
-        version.set "neoforge-$mod_version+$minecraft_version_file_range"
-        modLoaders.add "neoforge"
+        displayName = "[Forge $minecraft_version_file_range] v$mod_version"
+        version.set "forge-$mod_version+$minecraft_version_file_range"
+        modLoaders.add "forge"
     }
 
     modrinth("modrinthFabric") {
@@ -158,15 +158,15 @@ publishMods {
         modLoaders.addAll "fabric", "quilt"
     }
 
-    modrinth("modrinthNeoForge") {
+    modrinth("modrinthForge") {
         from modrinthSettings
-        file project(":neoforge")
+        file project(":forge")
 
         requires("kotlin-for-forge")
         optional("jei", "rei", "emi")
 
-        displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
-        version.set "neoforge-$mod_version+$minecraft_version_file_range"
-        modLoaders.add "neoforge"
+        displayName = "[Forge $minecraft_version_file_range] v$mod_version"
+        version.set "forge-$mod_version+$minecraft_version_file_range"
+        modLoaders.add "forge"
     }
 }
