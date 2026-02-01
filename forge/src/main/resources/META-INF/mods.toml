@@ -1,0 +1,42 @@
+modLoader = "kotlinforforge"
+loaderVersion = "${kff_version_range}"
+clientSideOnly = true
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/just-enough-filters"
+issueTrackerURL = "https://github.com/pSUNSET/JustEnoughFilters/issues"
+logoFile = "icon.png"
+authors = "LShiftLess"
+credits = "Everyone who contributed to this mod"
+license = "MIT"
+
+[[mods]]
+modId = "justenoughfilters"
+version = "${version}"
+displayName = "Just Enough Filters (JEF)"
+description = '''
+A lightweight add-on for JEI/REI/EMI.
+Filtering exact items is just a click away!
+'''
+
+[[dependencies.justenoughfilters]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.justenoughfilters]]
+modId = "kotlinforforge"
+mandatory = true
+versionRange = "${kff_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.justenoughfilters]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version_forge_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[accessTransformers]]
+file="accesstransformer.cfg"
