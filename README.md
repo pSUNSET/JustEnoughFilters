@@ -17,7 +17,7 @@ Also, Most API in JEF is still not mature yet, but following parts are already u
 
 ### Registering New Toggled Filters
 
-You can register your own filters by extending `ToggledFilter` and calling `JefRegistries.registerFilter()`.
+You can register your own filters by extending `ToggledFilter` and calling `JefRegistries.registerToggledFilter()`.
 
 ### Registering New Type Filters
 
