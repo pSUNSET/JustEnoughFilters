@@ -20,6 +20,7 @@ object JefRegistries {
         TOGGLED_FILTERS[filter.id.toString()] = filter
     }
 
+    @JvmStatic
     internal fun registerItemTypeFilter(index: Int, filter: ItemTypeFilter) {
         ITEM_TYPE_FILTERS.add(index, filter.id.toString() to filter)
     }
