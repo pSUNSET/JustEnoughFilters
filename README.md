@@ -15,15 +15,20 @@ Since we have no own maven repo yet, please use
 
 Also, Most API in JEF is still not mature yet, but following parts are already usable.
 
-### Registering New Filters
+### Registering New Toggled Filters
 
-You can register your own filters by extending `ToggledFilter` and calling `FilterManager.registerFilter()`.
+You can register your own filters by extending `ToggledFilter` and calling `JefRegistries.registerFilter()`.
+
+### Registering New Type Filters
+
+Similar to preceding one.
+Create a object extending `ItemTypeFilter` and call `JefRegistries.registerItemTypeFilter()`.
 
 ### Refresh Proxies
 
 JEF uses `IFilterProxy` to notify item viewers when they need to refresh their ingredient lists.
 If you are integrating a new item viewer,
-implement this interface and register it via `FilterManager.registerProxy()`.
+implement this interface and register it via `JefRegistries.registerProxy()`.
 
 ## Acknowledgements
 
