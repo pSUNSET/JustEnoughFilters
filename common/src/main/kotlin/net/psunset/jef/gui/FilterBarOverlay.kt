@@ -2,8 +2,11 @@ package net.psunset.jef.gui
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
-import net.psunset.jef.JefCore
 import net.psunset.jef.core.FilterManager
+import net.psunset.jef.gui.widget.ClearButton
+import net.psunset.jef.gui.widget.FilterToggleButton
+import net.psunset.jef.gui.widget.ItemTypeCycleButton
+import net.psunset.jef.gui.widget.LogicModeCycleButton
 
 class FilterBarOverlay {
     private val buttons = mutableListOf<Button>()
@@ -12,7 +15,7 @@ class FilterBarOverlay {
     fun init(x: Int, y: Int, availableWidth: Int? = null, checkButtonWidth: Int = 20, padding: Int = 2) {
         buttons.clear()
 
-        val buttonCount = JefCore.allButtonsCount()
+        val buttonCount = JefOverlayManager.allButtonsCount()
         
         var btnSize = checkButtonWidth
         var totalWidth = (btnSize + padding) * buttonCount - padding // removing last padding

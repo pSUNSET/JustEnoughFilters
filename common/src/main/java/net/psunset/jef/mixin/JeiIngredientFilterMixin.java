@@ -6,6 +6,7 @@ import mezz.jei.gui.ingredients.IngredientFilter;
 import net.minecraft.world.item.ItemStack;
 import net.psunset.jef.core.FilterManager;
 import net.psunset.jef.api.IFilterProxy;
+import net.psunset.jef.core.JefRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,7 +29,7 @@ public abstract class JeiIngredientFilterMixin implements IFilterProxy {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void jef$registerProxy(CallbackInfo ci) {
-        FilterManager.INSTANCE.registerProxy(this);
+        JefRegistries.registerProxy(this);
     }
 
     @Unique

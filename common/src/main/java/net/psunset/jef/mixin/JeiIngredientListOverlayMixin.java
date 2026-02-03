@@ -6,7 +6,7 @@ import mezz.jei.gui.overlay.IngredientGridWithNavigation;
 import mezz.jei.gui.overlay.IngredientListOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.psunset.jef.JefCore;
+import net.psunset.jef.gui.JefOverlayManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -51,11 +51,11 @@ public class JeiIngredientListOverlayMixin {
 
     @Inject(method = "updateBounds", at = @At("TAIL"))
     private void jef$updateJefBounds(IGuiProperties guiProperties, ImmutableRect2i displayArea, Set<ImmutableRect2i> guiExclusionAreas, CallbackInfo ci) {
-        JefCore.INSTANCE.updateBounds(this.jef$reservedArea.matchWidthAndX(this.contents.getBackgroundArea()).toMutable());
+        JefOverlayManager.INSTANCE.updateBounds(this.jef$reservedArea.matchWidthAndX(this.contents.getBackgroundArea()).toMutable());
     }
 
     @Inject(method = "drawScreen", at = @At(value = "INVOKE", target = "Lmezz/jei/gui/overlay/IngredientGridWithNavigation;draw(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
     private void jef$drawFilterBar(Minecraft minecraft, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-        JefCore.INSTANCE.drawFilterBar(minecraft.screen, guiGraphics, mouseX, mouseY);
+        JefOverlayManager.INSTANCE.drawFilterBar(minecraft.screen, guiGraphics, mouseX, mouseY);
     }
 }

@@ -4,7 +4,7 @@ import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.EmiScreenManager;
 import net.minecraft.client.Minecraft;
-import net.psunset.jef.JefCore;
+import net.psunset.jef.gui.JefOverlayManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,7 +51,7 @@ public class EmiScreenManagerMixin {
     @Inject(method = "recalculate", at = @At("TAIL"))
     private static void jef$updateJefBounds(CallbackInfo ci) {
         if (jef$reservedArea!=null) {
-            JefCore.INSTANCE.updateBounds(
+            JefOverlayManager.INSTANCE.updateBounds(
                     jef$reservedArea.x(),
                     jef$reservedArea.y(),
                     jef$reservedArea.width(),
@@ -62,6 +62,6 @@ public class EmiScreenManagerMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private static void jef$drawFilterBar(EmiDrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        JefCore.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, context.raw(), mouseX, mouseY);
+        JefOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, context.raw(), mouseX, mouseY);
     }
 }

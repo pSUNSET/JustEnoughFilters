@@ -4,7 +4,7 @@ import net.neoforged.api.distmarker.Dist
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.client.event.ScreenEvent
 import net.neoforged.neoforge.common.NeoForge
-import net.psunset.jef.JefCore
+import net.psunset.jef.gui.JefOverlayManager
 import net.psunset.jef.JustEnoughFilters
 
 @Mod(JustEnoughFilters.ID, dist = [Dist.CLIENT])
@@ -17,7 +17,7 @@ object JefImpl {
     }
 
     fun onMouseClick(event: ScreenEvent.MouseButtonPressed.Pre) {
-        if (JefCore.mouseClicked(event.mouseX, event.mouseY, event.button)) {
+        if (JefOverlayManager.mouseClicked(event.mouseX, event.mouseY, event.button)) {
             event.isCanceled = true
         }
     }

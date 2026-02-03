@@ -1,4 +1,4 @@
-package net.psunset.jef.gui
+package net.psunset.jef.gui.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics

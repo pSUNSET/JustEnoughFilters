@@ -2,8 +2,10 @@ package net.psunset.jef
 
 import net.psunset.jef.compat.emi.EmiFilterProxyImpl
 import net.psunset.jef.compat.rei.ReiFilterProxyImpl
-import net.psunset.jef.core.BuiltinToggledFilters
+import net.psunset.jef.core.ToggledFilters
 import net.psunset.jef.core.FilterManager
+import net.psunset.jef.core.ItemTypeFilters
+import net.psunset.jef.core.JefRegistries
 import net.psunset.jef.tool.CompatUtl
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -29,14 +31,15 @@ object JustEnoughFilters {
 
             LOGGER.info("$NAME initializing...")
 
-            BuiltinToggledFilters.init()
+            ToggledFilters.init()
+            ItemTypeFilters.init()
 
             if (CompatUtl.EMI.isLoaded()) {
-                FilterManager.registerProxy(EmiFilterProxyImpl)
+                JefRegistries.registerProxy(EmiFilterProxyImpl)
             }
 
             if (CompatUtl.REI.isLoaded()) {
-                FilterManager.registerProxy(ReiFilterProxyImpl)
+                JefRegistries.registerProxy(ReiFilterProxyImpl)
             }
 
             true

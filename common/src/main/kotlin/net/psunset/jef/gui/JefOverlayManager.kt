@@ -1,12 +1,11 @@
-package net.psunset.jef
+package net.psunset.jef.gui
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.Rect2i
 import net.psunset.jef.core.FilterManager
-import net.psunset.jef.gui.FilterBarOverlay
 
-object JefCore {
+object JefOverlayManager {
     private val overlay = FilterBarOverlay()
     private var lastScreenWidth = -1
     private var lastScreenHeight = -1

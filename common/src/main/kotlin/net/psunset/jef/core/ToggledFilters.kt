@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.tool.RLUtl
 import net.psunset.jef.util.CTags
 
-object BuiltinToggledFilters {
+object ToggledFilters {
 
     @JvmField
     val ENTITY_BLOCK_FILTER = object : ToggledFilter(
@@ -98,11 +98,11 @@ object BuiltinToggledFilters {
 
     @JvmStatic
     fun init() {
-        FilterManager.registerToggledFilter(ENTITY_BLOCK_FILTER)
-        FilterManager.registerToggledFilter(FOOD_FILTER)
-        FilterManager.registerToggledFilter(FUEL_FILTER)
-        FilterManager.registerToggledFilter(TOOL_FILTER)
-        FilterManager.registerToggledFilter(ARMOR_FILTER)
-        FilterManager.registerToggledFilter(ENCHANTED_BOOK_FILTER)
+        JefRegistries.registerToggledFilter(ENTITY_BLOCK_FILTER)
+        JefRegistries.registerToggledFilter(FOOD_FILTER)
+        JefRegistries.registerToggledFilter(FUEL_FILTER)
+        JefRegistries.registerToggledFilter(TOOL_FILTER)
+        JefRegistries.registerToggledFilter(ARMOR_FILTER)
+        JefRegistries.registerToggledFilter(ENCHANTED_BOOK_FILTER)
     }
 }

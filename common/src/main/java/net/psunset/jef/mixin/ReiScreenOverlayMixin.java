@@ -3,7 +3,7 @@ package net.psunset.jef.mixin;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.impl.client.gui.ScreenOverlayImpl;
 import net.minecraft.client.Minecraft;
-import net.psunset.jef.JefCore;
+import net.psunset.jef.gui.JefOverlayManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -48,7 +48,7 @@ public class ReiScreenOverlayMixin {
     @Inject(method = "init", at = @At("TAIL"))
     private void jef$updateJefBounds(CallbackInfo ci) {
         if (jef$reservedArea != null) {
-            JefCore.INSTANCE.updateBounds(
+            JefOverlayManager.INSTANCE.updateBounds(
                     jef$reservedArea.x,
                     jef$reservedArea.y,
                     jef$reservedArea.width,
@@ -59,6 +59,6 @@ public class ReiScreenOverlayMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lme/shedaniel/rei/impl/client/gui/ScreenOverlayImpl;renderWidgets(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
     private void jef$drawFilterBar(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        JefCore.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, guiGraphics, mouseX, mouseY);
+        JefOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, guiGraphics, mouseX, mouseY);
     }
 }
