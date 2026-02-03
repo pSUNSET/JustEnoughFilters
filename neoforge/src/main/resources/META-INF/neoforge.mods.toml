@@ -45,4 +45,4 @@ config = "justenoughfilters.neoforge.mixins.json"
 config = "justenoughfilters.mixins.json"
 
 [[accessTransformers]]
-file="accesstransformer.cfg"
+file="META-INF/accesstransformer.cfg"
