@@ -1,1 +1,1 @@
-An edition of `v1.0.1` for `MC1.20.1`
+An edition of `v1.1.0` for `MC1.20.1`
