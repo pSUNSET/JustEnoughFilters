@@ -37,6 +37,3 @@ mandatory = true
 versionRange = "${minecraft_version_forge_range}"
 ordering = "NONE"
 side = "CLIENT"
-
-[[accessTransformers]]
-file="accesstransformer.cfg"

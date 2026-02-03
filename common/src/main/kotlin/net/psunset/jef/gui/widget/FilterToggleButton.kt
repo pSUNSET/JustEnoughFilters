@@ -1,4 +1,4 @@
-package net.psunset.jef.gui
+package net.psunset.jef.gui.widget
 
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft

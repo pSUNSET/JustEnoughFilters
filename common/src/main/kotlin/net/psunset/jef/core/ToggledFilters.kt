@@ -8,8 +8,9 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.tool.RLUtl
 import net.psunset.jef.util.CTags
 
-object BuiltinToggledFilters {
+object ToggledFilters {
 
+    @JvmField
     val ENTITY_BLOCK_FILTER = object : ToggledFilter(
         RLUtl.of("entity_blocks"),
         Items.FURNACE,
@@ -24,6 +25,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val ENCHANTED_BOOK_FILTER = object : ToggledFilter(
         RLUtl.of("enchanted_books"),
         Items.ENCHANTED_BOOK,
@@ -34,6 +36,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val FOOD_FILTER = object : ToggledFilter(
         RLUtl.of("food"),
         Items.APPLE,
@@ -44,6 +47,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val FUEL_FILTER = object : ToggledFilter(
         RLUtl.of("fuels"),
         Items.COAL,
@@ -54,6 +58,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val TOOL_FILTER = object : ToggledFilter(
         RLUtl.of("tools"),
         Items.DIAMOND_PICKAXE,
@@ -71,6 +76,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val ARMOR_FILTER = object : ToggledFilter(
         RLUtl.of("armor"),
         Items.DIAMOND_CHESTPLATE,
@@ -84,12 +90,13 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmStatic
     fun init() {
-        FilterManager.registerToggledFilter(ENTITY_BLOCK_FILTER)
-        FilterManager.registerToggledFilter(FOOD_FILTER)
-        FilterManager.registerToggledFilter(FUEL_FILTER)
-        FilterManager.registerToggledFilter(TOOL_FILTER)
-        FilterManager.registerToggledFilter(ARMOR_FILTER)
-        FilterManager.registerToggledFilter(ENCHANTED_BOOK_FILTER)
+        JefRegistries.registerToggledFilter(ENTITY_BLOCK_FILTER)
+        JefRegistries.registerToggledFilter(FOOD_FILTER)
+        JefRegistries.registerToggledFilter(FUEL_FILTER)
+        JefRegistries.registerToggledFilter(TOOL_FILTER)
+        JefRegistries.registerToggledFilter(ARMOR_FILTER)
+        JefRegistries.registerToggledFilter(ENCHANTED_BOOK_FILTER)
     }
 }

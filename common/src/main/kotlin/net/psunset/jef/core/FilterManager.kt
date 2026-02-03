@@ -1,12 +1,10 @@
 package net.psunset.jef.core
 
 import net.minecraft.world.item.ItemStack
-import net.psunset.jef.api.IFilterProxy
 
 object FilterManager {
-    private val toggledFilterRegistry = mutableMapOf<String, ToggledFilter>()
-    val allToggledFilters: Collection<ToggledFilter>
-        get() = toggledFilterRegistry.values
+    val allToggledFilters: Set<ToggledFilter>
+        get() = JefRegistries.TOGGLED_FILTERS.values.toSet()
 
     private val _activeToggledFilters = mutableSetOf<ToggledFilter>()
     val activeToggledFilters: Set<ToggledFilter>
@@ -18,44 +16,31 @@ object FilterManager {
 
     private var itemTypeFilterIdx = 0
     val itemTypeFilter: ItemTypeFilter
-        get() = ItemTypeFilter.entries[itemTypeFilterIdx]
-
-    private val proxies = mutableListOf<IFilterProxy>()
-
-    fun registerProxy(proxy: IFilterProxy) {
-        proxies.add(proxy)
-    }
-
-    fun registerToggledFilter(filter: ToggledFilter) {
-        if (toggledFilterRegistry.containsKey(filter.id.toString())) {
-            throw IllegalArgumentException("Filter with id ${filter.id} already registered")
-        }
-        toggledFilterRegistry[filter.id.toString()] = filter
-    }
+        get() = JefRegistries.ITEM_TYPE_FILTERS[itemTypeFilterIdx].second
 
     fun isFilterActive(filter: ToggledFilter): Boolean {
         return _activeToggledFilters.contains(filter)
     }
 
     fun areAllFiltersDisabled(): Boolean {
-        return _activeToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilter.OFF
+        return _activeToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilters.OFF
     }
 
-    fun toggleFilter(filter: ToggledFilter) {
+    internal fun toggleFilter(filter: ToggledFilter) {
         if (!_activeToggledFilters.remove(filter)) {
             _activeToggledFilters.add(filter)
         }
         refreshProxies()
     }
 
-    fun clearFilters() {
+    internal fun clearFilters() {
         _activeToggledFilters.clear()
         itemTypeFilterIdx = 0
         refreshProxies()
     }
 
-    private fun refreshProxies() {
-        proxies.forEach { it.`jef$refresh`() }
+    fun refreshProxies() {
+        JefRegistries.PROXIES.forEach { it.`jef$refresh`() }
     }
 
     internal fun stepLogicMode() {
@@ -68,7 +53,7 @@ object FilterManager {
 
     internal fun stepItemTypeFilter() {
         itemTypeFilterIdx++
-        if (itemTypeFilterIdx >= ItemTypeFilter.entries.size) {
+        if (itemTypeFilterIdx >= JefRegistries.ITEM_TYPE_FILTERS.size) {
             itemTypeFilterIdx = 0
         }
         refreshProxies()
