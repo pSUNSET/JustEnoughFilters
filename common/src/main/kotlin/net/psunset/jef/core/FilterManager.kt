@@ -5,8 +5,8 @@ import net.psunset.jef.api.IFilterProxy
 
 object FilterManager {
     private val toggledFilterRegistry = mutableMapOf<String, ToggledFilter>()
-    val allToggledFilters: Collection<ToggledFilter>
-        get() = toggledFilterRegistry.values
+    val allToggledFilters: Set<ToggledFilter>
+        get() = toggledFilterRegistry.values.toSet()
 
     private val _activeToggledFilters = mutableSetOf<ToggledFilter>()
     val activeToggledFilters: Set<ToggledFilter>
@@ -41,20 +41,20 @@ object FilterManager {
         return _activeToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilter.OFF
     }
 
-    fun toggleFilter(filter: ToggledFilter) {
+    internal fun toggleFilter(filter: ToggledFilter) {
         if (!_activeToggledFilters.remove(filter)) {
             _activeToggledFilters.add(filter)
         }
         refreshProxies()
     }
 
-    fun clearFilters() {
+    internal fun clearFilters() {
         _activeToggledFilters.clear()
         itemTypeFilterIdx = 0
         refreshProxies()
     }
 
-    private fun refreshProxies() {
+    fun refreshProxies() {
         proxies.forEach { it.`jef$refresh`() }
     }
 

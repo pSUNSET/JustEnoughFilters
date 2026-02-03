@@ -3,7 +3,11 @@ package net.psunset.jef.core
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EquipmentSlot
-import net.minecraft.world.item.*
+import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.EnchantedBookItem
+import net.minecraft.world.item.Equipable
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.tool.RLUtl
@@ -11,6 +15,7 @@ import net.psunset.jef.util.CTags
 
 object BuiltinToggledFilters {
 
+    @JvmField
     val ENTITY_BLOCK_FILTER = object : ToggledFilter(
         RLUtl.of("entity_blocks"),
         Items.FURNACE,
@@ -25,6 +30,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val ENCHANTED_BOOK_FILTER = object : ToggledFilter(
         RLUtl.of("enchanted_books"),
         Items.ENCHANTED_BOOK,
@@ -35,6 +41,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val FOOD_FILTER = object : ToggledFilter(
         RLUtl.of("food"),
         Items.APPLE,
@@ -46,6 +53,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val FUEL_FILTER = object : ToggledFilter(
         RLUtl.of("fuels"),
         Items.COAL,
@@ -56,6 +64,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val TOOL_FILTER = object : ToggledFilter(
         RLUtl.of("tools"),
         Items.DIAMOND_PICKAXE,
@@ -73,6 +82,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmField
     val ARMOR_FILTER = object : ToggledFilter(
         RLUtl.of("armor"),
         Items.DIAMOND_CHESTPLATE,
@@ -86,6 +96,7 @@ object BuiltinToggledFilters {
         }
     }
 
+    @JvmStatic
     fun init() {
         FilterManager.registerToggledFilter(ENTITY_BLOCK_FILTER)
         FilterManager.registerToggledFilter(FOOD_FILTER)
