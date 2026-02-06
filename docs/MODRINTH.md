@@ -45,8 +45,3 @@ Adds a filter bar below the item list overlay with the following features(left t
 1. Open your inventory or any container.
 2. Look for the filter bar at the bottom of the item list (right side of the screen).
 3. Enjoy filtering your items with just a click!
-
-## 🤝 Acknowledgements
-
-Inspired by the excellent filtering system in
-the [Not Enough Updates](https://github.com/NotEnoughUpdates/NotEnoughUpdates) mod.

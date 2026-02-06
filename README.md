@@ -5,6 +5,12 @@ Filtering exact items is just a click away!
 
 ![Gameplay Image](/docs/gallery/jei_gameplay.png)
 
+## Downloads
+
+You can download this mod on:
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-filters)
+- [Modrinth](https://modrinth.com/mod/just-enough-filters)
+
 ## For Developers
 
 ### Depend on JEF
