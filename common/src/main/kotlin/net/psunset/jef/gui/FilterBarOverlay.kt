@@ -2,6 +2,7 @@ package net.psunset.jef.gui
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.input.MouseButtonEvent
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.gui.widget.ClearButton
 import net.psunset.jef.gui.widget.FilterToggleButton
@@ -77,11 +78,11 @@ class FilterBarOverlay {
         }
     }
 
-    fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
+    fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
          if (!initialized) return false
          
          for (btn in buttons) {
-             if (btn.mouseClicked(mouseX, mouseY, button)) {
+             if (btn.mouseClicked(event, isDoubleClick)) {
                  return true
              }
          }

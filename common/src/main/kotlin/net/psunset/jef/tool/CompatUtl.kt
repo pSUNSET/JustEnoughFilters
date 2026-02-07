@@ -11,8 +11,4 @@ object CompatUtl {
     object REI {
         fun isLoaded(): Boolean = Platform.isLoaded("roughlyenoughitems")
     }
-
-    object EMI {
-        fun isLoaded(): Boolean = Platform.isLoaded("emi")
-    }
 }

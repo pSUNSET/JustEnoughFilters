@@ -29,7 +29,7 @@ class ItemTypeCycleButton(
         guiGraphics.renderItem(icon, iconX, iconY)
 
         if (isHovered) {
-            guiGraphics.renderComponentTooltip(
+            guiGraphics.setComponentTooltipForNextFrame(
                 Minecraft.getInstance().font,
                 ItemTypeFilter.genTooltip(filter),
                 mouseX,

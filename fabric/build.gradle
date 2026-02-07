@@ -31,13 +31,15 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_api_version+$minecraft_version"
     modImplementation "net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version"
 
-    modImplementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
+    // Loom version is too high
+//    modImplementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
-    modImplementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
+    // NOT support beyond 1.21.2
+//    modImplementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
 
-    modRuntimeOnly("com.terraformersmc:modmenu:$modmenu_version")
+    modRuntimeOnly "com.terraformersmc:modmenu:$modmenu_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

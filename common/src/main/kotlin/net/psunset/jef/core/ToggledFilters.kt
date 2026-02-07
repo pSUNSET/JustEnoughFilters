@@ -1,15 +1,13 @@
 package net.psunset.jef.core
 
+import net.minecraft.client.Minecraft
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.BlockItem
-import net.minecraft.world.item.EnchantedBookItem
-import net.minecraft.world.item.Equipable
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.EntityBlock
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.tool.RLUtl
 import net.psunset.jef.util.CTags
 
@@ -37,7 +35,7 @@ object ToggledFilters {
         Component.translatable("jef.toggled_filter.justenoughfilters.enchanted_books")
     ) {
         override fun matches(stack: ItemStack): Boolean {
-            return stack.item is EnchantedBookItem
+            return stack.`is`(Items.ENCHANTED_BOOK)
         }
     }
 
@@ -60,7 +58,11 @@ object ToggledFilters {
         Component.translatable("jef.toggled_filter.justenoughfilters.fuels")
     ) {
         override fun matches(stack: ItemStack): Boolean {
-            return AbstractFurnaceBlockEntity.isFuel(stack)
+            return if (Minecraft.getInstance().level == null) {
+                false
+            } else {
+                Minecraft.getInstance().level!!.fuelValues().isFuel(stack)
+            }
         }
     }
 
@@ -71,13 +73,13 @@ object ToggledFilters {
         Component.translatable("jef.toggled_filter.justenoughfilters.tools")
     ) {
         override fun matches(stack: ItemStack): Boolean {
-            val item = stack.item
+            val equipableData = stack.get(DataComponents.EQUIPPABLE)
             val b0 = stack.has(DataComponents.TOOL)
             val b1 = stack.`is`(CTags.Items.TOOLS)
             val b2 = stack.has(DataComponents.MAX_DAMAGE) &&
                     stack.maxStackSize == 1 &&
                     stack.isEnchantable &&
-                    (item !is Equipable || !item.equipmentSlot.isArmor)
+                    (equipableData == null || !equipableData.slot.isArmor)
             return b0 || b1 || b2
         }
     }
@@ -89,8 +91,10 @@ object ToggledFilters {
         Component.translatable("jef.toggled_filter.justenoughfilters.armor")
     ) {
         override fun matches(stack: ItemStack): Boolean {
-            val item = stack.item
-            val b0 = item is Equipable && item.equipmentSlot.type == EquipmentSlot.Type.HUMANOID_ARMOR
+            val equipableData = stack.get(DataComponents.EQUIPPABLE)
+            val b0 = stack.has(DataComponents.MAX_DAMAGE) &&
+                    equipableData != null &&
+                    equipableData.slot.type == EquipmentSlot.Type.HUMANOID_ARMOR
             val b1 = stack.`is`(CTags.Items.ARMORS)
             return b0 || b1
         }

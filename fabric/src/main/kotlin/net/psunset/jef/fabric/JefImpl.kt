@@ -11,8 +11,8 @@ object JefImpl : ClientModInitializer {
     override fun onInitializeClient() {
         if (!JustEnoughFilters.init()) return
         ScreenEvents.AFTER_INIT.register { client, screen, scaledWidth, scaledHeight ->
-            ScreenMouseEvents.allowMouseClick(screen).register { _, mouseX, mouseY, button ->
-                !JefOverlayManager.mouseClicked(mouseX, mouseY, button)
+            ScreenMouseEvents.allowMouseClick(screen).register { _, context ->
+                !JefOverlayManager.mouseClicked(context, false)
             }
         }
     }

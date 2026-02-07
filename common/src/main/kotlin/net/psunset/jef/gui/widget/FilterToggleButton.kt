@@ -36,7 +36,7 @@ class FilterToggleButton(
             } else {
                 filterTooltip.withStyle(ChatFormatting.GRAY)
             }
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, filterTooltip, mouseX, mouseY)
+            guiGraphics.setTooltipForNextFrame(filterTooltip, mouseX, mouseY)
         }
     }
 }

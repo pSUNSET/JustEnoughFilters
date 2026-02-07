@@ -38,7 +38,7 @@ class LogicModeCycleButton(
         )
 
         if (isHovered) {
-            guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, LogicMode.genTooltip(mode), mouseX, mouseY)
+            guiGraphics.setComponentTooltipForNextFrame(Minecraft.getInstance().font, LogicMode.genTooltip(mode), mouseX, mouseY)
         }
     }
 }

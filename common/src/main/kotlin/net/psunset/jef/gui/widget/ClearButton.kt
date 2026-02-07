@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 
@@ -30,8 +31,7 @@ class ClearButton(
         )
 
         if (isHovered) {
-            guiGraphics.renderTooltip(
-                Minecraft.getInstance().font,
+            guiGraphics.setTooltipForNextFrame(
                 Component.literal("Clear Filters").withStyle(ChatFormatting.RED),
                 mouseX,
                 mouseY

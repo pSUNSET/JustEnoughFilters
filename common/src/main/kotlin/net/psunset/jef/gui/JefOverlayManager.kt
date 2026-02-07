@@ -2,6 +2,7 @@ package net.psunset.jef.gui
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.client.renderer.Rect2i
 import net.psunset.jef.core.FilterManager
 
@@ -45,7 +46,7 @@ object JefOverlayManager {
         overlay.render(guiGraphics, mouseX, mouseY, 0f)
     }
 
-    fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        return overlay.mouseClicked(mouseX, mouseY, button)
+    fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
+        return overlay.mouseClicked(event, isDoubleClick)
     }
 }

@@ -17,7 +17,7 @@ object JefImpl {
     }
 
     fun onMouseClick(event: ScreenEvent.MouseButtonPressed.Pre) {
-        if (JefOverlayManager.mouseClicked(event.mouseX, event.mouseY, event.button)) {
+        if (JefOverlayManager.mouseClicked(event.mouseButtonEvent, event.isDoubleClick)) {
             event.isCanceled = true
         }
     }

@@ -16,15 +16,11 @@ class JefMixinPlugin : IMixinConfigPlugin {
     override fun shouldApplyMixin(targetClassName: String, mixinClassName: String): Boolean {
         JustEnoughFilters.LOGGER.info("MIXIN for JEF: $mixinClassName -> $targetClassName")
 
-        if (mixinClassName.startsWith("Emi") && !CompatUtl.EMI.isLoaded()) {
-            return false
-        }
-
         if (mixinClassName.startsWith("Rei") && !CompatUtl.REI.isLoaded()) {
             return false
         }
 
-        if (mixinClassName.startsWith("Jei") && (!CompatUtl.JEI.isLoaded() || CompatUtl.EMI.isLoaded())) {
+        if (mixinClassName.startsWith("Jei") && !CompatUtl.JEI.isLoaded()) {
             return false
         }
 

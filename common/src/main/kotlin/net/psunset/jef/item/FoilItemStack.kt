@@ -4,5 +4,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 
 class FoilItemStack(itemLike: ItemLike) : ItemStack(itemLike) {
-    override fun hasFoil(): Boolean = true
+    override fun hasFoil(): Boolean {
+        return true
+    }
 }
