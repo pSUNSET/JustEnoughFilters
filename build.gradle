@@ -102,8 +102,8 @@ publishMods {
         accessToken = secrets.getProperty("CURSEFORGE_TOKEN")
         projectId = "1419713"
         minecraftVersionRange {
-            start = "1.21"
-            end = "1.21.1"
+            start = "1.21.9"
+            end = "1.21.10"
         }
         javaVersions.add JavaVersion.VERSION_21
 
@@ -117,8 +117,8 @@ publishMods {
         accessToken = secrets.getProperty("MODRINTH_TOKEN")
         projectId = "Ka9cnIsF"
         minecraftVersionRange {
-            start = "1.21"
-            end = "1.21.1"
+            start = "1.21.9"
+            end = "1.21.10"
         }
     }
 
