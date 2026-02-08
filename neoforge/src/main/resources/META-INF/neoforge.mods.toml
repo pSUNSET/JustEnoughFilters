@@ -39,9 +39,6 @@ ordering = "NONE"
 side = "CLIENT"
 
 [[mixins]]
-config = "justenoughfilters.neoforge.mixins.json"
-
-[[mixins]]
 config = "justenoughfilters.mixins.json"
 
 [[accessTransformers]]

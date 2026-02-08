@@ -3,7 +3,7 @@
   "package": "net.psunset.jef.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "plugin": "net.psunset.jef.JefMixinPlugin",
+  "plugin": "net.psunset.jef.neoforge.JefMixinPluginImpl",
   "client": [
     "EmiScreenManagerMixin",
     "EmiCompiledQueryMixin",

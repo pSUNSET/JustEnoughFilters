@@ -17,9 +17,37 @@ object JustEnoughFilters {
     @JvmField
     val LOGGER: Logger = LogManager.getLogger(NAME)
 
+    /**
+     * @return should this mod be loaded
+     */
     @JvmStatic
-    fun shouldLoad(): Boolean {
-        return CompatUtl.JEI.isLoaded() || CompatUtl.REI.isLoaded() || CompatUtl.EMI.isLoaded()
+    internal fun preInit(): Boolean {
+        val j = CompatUtl.JEI.isLoaded()
+        val r = CompatUtl.REI.isLoaded()
+        val e = CompatUtl.EMI.isLoaded()
+
+        fun status(loaded: Boolean): String = if (loaded) "DETECTED" else "MISSING "
+
+        val result = if (j || r || e) {
+            "$NAME Status -> INITIALIZING"
+        } else {
+            "$NAME Status -> DISABLED"
+        }
+
+        val output =
+            """
+                PreInit Result:
+                ------------------------------
+                | JEI: ${status(j)}              |
+                | REI: ${status(r)}              |
+                | EMI: ${status(e)}              |
+                ------------------------------
+                $result
+            """.trimIndent()
+
+        for (line in output.lines()) LOGGER.info(line)
+
+        return j || r || e
     }
 
     /**
@@ -27,9 +55,7 @@ object JustEnoughFilters {
      */
     @JvmStatic
     fun init(): Boolean {
-        return if (shouldLoad()) {
-
-            LOGGER.info("$NAME initializing...")
+        return if (preInit()) {
 
             ToggledFilters.init()
             ItemTypeFilters.init()

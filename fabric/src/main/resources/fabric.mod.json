@@ -24,7 +24,6 @@
     ]
   },
   "mixins": [
-    "justenoughfilters.fabric.mixins.json",
     "justenoughfilters.mixins.json"
   ],
   "accessWidener": "justenoughfilters.accesswidener",

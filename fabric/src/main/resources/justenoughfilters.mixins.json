@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "net.psunset.jef.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "plugin": "net.psunset.jef.fabric.JefMixinPluginImpl",
+  "client": [
+    "EmiScreenManagerMixin",
+    "EmiCompiledQueryMixin",
+    "JeiIngredientFilterMixin",
+    "JeiIngredientListOverlayMixin",
+    "ReiAsyncSearchManagerMixin",
+    "ReiScreenOverlayMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
