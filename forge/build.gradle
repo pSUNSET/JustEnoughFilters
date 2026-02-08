@@ -4,7 +4,7 @@ plugins {
 
 loom {
     forge {
-        mixinConfig "justenoughfilters.forge.mixins.json", "justenoughfilters.mixins.json"
+        mixinConfig "justenoughfilters.mixins.json"
     }
 }
 

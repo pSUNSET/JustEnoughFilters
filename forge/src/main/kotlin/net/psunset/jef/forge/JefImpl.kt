@@ -5,12 +5,14 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.loading.FMLLoader
 import net.psunset.jef.JustEnoughFilters
 import net.psunset.jef.gui.JefOverlayManager
+import net.psunset.jef.platform.forge.PlatformImpl
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 
 @Mod(JustEnoughFilters.ID)
 object JefImpl {
 
     init {
+        PlatformImpl  // init it
         if (FMLLoader.getDist().isClient) {
             if (JustEnoughFilters.init()) {
                 FORGE_BUS.addListener<ScreenEvent.MouseButtonPressed.Pre>(::onMouseClick)

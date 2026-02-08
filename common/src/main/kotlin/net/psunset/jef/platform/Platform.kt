@@ -1,12 +1,19 @@
 package net.psunset.jef.platform
 
+import org.jetbrains.annotations.ApiStatus
+
 object Platform {
+
+    @ApiStatus.Internal
     @JvmStatic
-    fun isForge(): Boolean = throw AssertionError()
+    lateinit var innerImpl: IPlatform
 
     @JvmStatic
-    fun isFabric(): Boolean = throw AssertionError()
+    fun isForge(): Boolean = innerImpl.isForge()
 
     @JvmStatic
-    fun isLoaded(modId: String): Boolean = throw AssertionError()
+    fun isFabric(): Boolean = innerImpl.isFabric()
+
+    @JvmStatic
+    fun isLoaded(modId: String): Boolean = innerImpl.isLoaded(modId)
 }
