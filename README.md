@@ -23,12 +23,12 @@ Also, Most API in JEF is still not mature yet, but following parts are already u
 
 ### Registering New Toggled Filters
 
-You can register your own filters by extending `ToggledFilter` and calling `JefRegistries.registerToggledFilter()`.
+You can register your own filters by implementing `IToggledFilter` and calling `JefRegistries.registerToggledFilter()`.
 
 ### Registering New Type Filters
 
 Similar to preceding one.
-Create a object extending `ItemTypeFilter` and call `JefRegistries.registerItemTypeFilter()`.
+Create a object implementing `IItemTypeFilter` and call `JefRegistries.registerItemTypeFilter()`.
 
 ### Refresh Proxies
 

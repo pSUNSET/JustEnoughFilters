@@ -5,11 +5,12 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
+import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.core.ToggledFilter
 
 class FilterToggleButton(
-    val filter: ToggledFilter,
+    val filter: IToggledFilter,
     x: Int,
     y: Int,
     width: Int,
