@@ -1,5 +1,4 @@
-- Fix wrong path to AccessTransformer which caused crash in NeoForge.
+## Update API
 
----
-
-- Update registries for custom filters. (for developers)
+Registry allow the object just implementing `IToggleFilter` or `IItemTypeFilter`.  
+Extending `ToggleFilter` and `ItemTypeFilter` is no longer required.
