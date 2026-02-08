@@ -21,7 +21,7 @@ abstract class ItemTypeFilter(
         val TITLE: Component = Component.translatable("jef.item_type_filter.title")
 
         @JvmStatic
-        fun genTooltip(currentFilter: ItemTypeFilter): List<Component> {
+        fun genTooltip(currentFilter: IItemTypeFilter): List<Component> {
             val list = mutableListOf<Component>(TITLE)
             for ((_, filter) in JefRegistries.ITEM_TYPE_FILTERS) {
                 if (filter == ItemTypeFilters.OFF) continue

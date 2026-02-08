@@ -1,13 +1,15 @@
 package net.psunset.jef.core
 
 import net.minecraft.world.item.ItemStack
+import net.psunset.jef.api.IItemTypeFilter
+import net.psunset.jef.api.IToggledFilter
 
 object FilterManager {
-    val allToggledFilters: Set<ToggledFilter>
+    val allToggledFilters: Set<IToggledFilter>
         get() = JefRegistries.TOGGLED_FILTERS.values.toSet()
 
-    private val _activeToggledFilters = mutableSetOf<ToggledFilter>()
-    val activeToggledFilters: Set<ToggledFilter>
+    private val _activeToggledFilters = mutableSetOf<IToggledFilter>()
+    val activeToggledFilters: Set<IToggledFilter>
         get() = _activeToggledFilters
 
     private var logicModeIdx = 0
@@ -15,10 +17,10 @@ object FilterManager {
         get() = LogicMode.entries[logicModeIdx]
 
     private var itemTypeFilterIdx = 0
-    val itemTypeFilter: ItemTypeFilter
+    val itemTypeFilter: IItemTypeFilter
         get() = JefRegistries.ITEM_TYPE_FILTERS[itemTypeFilterIdx].second
 
-    fun isFilterActive(filter: ToggledFilter): Boolean {
+    fun isFilterActive(filter: IToggledFilter): Boolean {
         return _activeToggledFilters.contains(filter)
     }
 
@@ -26,7 +28,7 @@ object FilterManager {
         return _activeToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilters.OFF
     }
 
-    internal fun toggleFilter(filter: ToggledFilter) {
+    internal fun toggleFilter(filter: IToggledFilter) {
         if (!_activeToggledFilters.remove(filter)) {
             _activeToggledFilters.add(filter)
         }
