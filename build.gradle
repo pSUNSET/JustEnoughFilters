@@ -127,7 +127,7 @@ publishMods {
         file project(":fabric")
 
         requires("fabric-language-kotlin")
-        optional("jei", "roughly-enough-items", "emi")
+        optional("jei", "roughly-enough-items")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
         version.set "fabric-$mod_version+$minecraft_version_file_range"
@@ -139,7 +139,7 @@ publishMods {
         file project(":neoforge")
 
         requires("kotlin-for-forge")
-        optional("jei", "roughly-enough-items", "emi")
+        optional("jei", "roughly-enough-items")
 
         displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
         version.set "neoforge-$mod_version+$minecraft_version_file_range"
@@ -151,7 +151,7 @@ publishMods {
         file project(":fabric")
 
         requires("fabric-language-kotlin")
-        optional("jei", "rei", "emi")
+        optional("jei", "rei")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
         version.set "fabric-$mod_version+$minecraft_version_file_range"
@@ -163,7 +163,7 @@ publishMods {
         file project(":neoforge")
 
         requires("kotlin-for-forge")
-        optional("jei", "rei", "emi")
+        optional("jei", "rei")
 
         displayName = "[NeoForge $minecraft_version_file_range] v$mod_version"
         version.set "neoforge-$mod_version+$minecraft_version_file_range"
