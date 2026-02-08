@@ -1,1 +1,4 @@
-An edition of `v1.1.0` for `MC1.20.1`
+## Update API
+
+Registry allow the object just implementing `IToggleFilter` or `IItemTypeFilter`.  
+Extending `ToggleFilter` and `ItemTypeFilter` is no longer required.
