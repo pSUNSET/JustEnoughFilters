@@ -5,7 +5,7 @@ import org.objectweb.asm.tree.ClassNode
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo
 
-class JefMixinPlugin : IMixinConfigPlugin {
+abstract class JefMixinPlugin : IMixinConfigPlugin {
     override fun onLoad(mixinPackage: String) {
     }
 
@@ -14,13 +14,13 @@ class JefMixinPlugin : IMixinConfigPlugin {
     }
 
     override fun shouldApplyMixin(targetClassName: String, mixinClassName: String): Boolean {
-        JustEnoughFilters.LOGGER.info("MIXIN for JEF: $mixinClassName -> $targetClassName")
+        val simpleMixinClassName = mixinClassName.substringAfterLast('.')
 
-        if (mixinClassName.startsWith("Rei") && !CompatUtl.REI.isLoaded()) {
+        if (simpleMixinClassName.startsWith("Rei") && !CompatUtl.REI.isLoaded()) {
             return false
         }
 
-        if (mixinClassName.startsWith("Jei") && !CompatUtl.JEI.isLoaded()) {
+        if (simpleMixinClassName.startsWith("Jei") && !CompatUtl.JEI.isLoaded()) {
             return false
         }
 
