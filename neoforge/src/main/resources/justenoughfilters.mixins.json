@@ -1,20 +1,21 @@
 {
-  "required": true,
-  "package": "net.psunset.jef.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "minVersion": "0.8",
-  "plugin": "net.psunset.jef.neoforge.JefMixinPluginImpl",
-  "client": [
-    "EmiScreenManagerMixin",
-    "EmiCompiledQueryMixin",
-    "JeiIngredientFilterMixin",
-    "JeiIngredientListOverlayMixin",
-    "ReiAsyncSearchManagerMixin",
-    "ReiScreenOverlayMixin"
-  ],
-  "mixins": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "package": "net.psunset.jef.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "minVersion": "0.8",
+    "plugin": "net.psunset.jef.neoforge.JefMixinPluginImpl",
+    "client": [
+        "EmiCompiledQueryMixin",
+        "EmiExclusionAreasMixin",
+        "EmiScreenManagerMixin",
+        "JeiIngredientFilterMixin",
+        "JeiIngredientListOverlayMixin",
+        "ReiAsyncSearchManagerMixin",
+        "ReiScreenOverlayMixin"
+    ],
+    "mixins": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }
