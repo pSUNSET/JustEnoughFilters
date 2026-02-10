@@ -4,12 +4,19 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.Rect2i
 import net.psunset.jef.core.FilterManager
+import net.psunset.jef.tool.valEq
 
 object JefOverlayManager {
-    private val overlay = FilterBarOverlay()
+    private val overlay = FilterBarOverlay
     private var lastScreenWidth = -1
     private var lastScreenHeight = -1
-    private var overlayBounds: Rect2i? = null
+
+    /**
+     * Includes margin padding space!
+     */
+    var overlayBounds: Rect2i? = null
+        private set
+    private var lastOverlayBounds: Rect2i? = null
 
     /**
      * Type + Logic + ...Toggled + Clear
@@ -34,7 +41,7 @@ object JefOverlayManager {
     ) {
         if (overlayBounds == null) return  // No bounds known yet
 
-        if (screen.width != lastScreenWidth || screen.height != lastScreenHeight) {
+        if (screen.width != lastScreenWidth || screen.height != lastScreenHeight || !(overlayBounds!! valEq lastOverlayBounds)) {
             lastScreenWidth = screen.width
             lastScreenHeight = screen.height
 
@@ -42,6 +49,7 @@ object JefOverlayManager {
             // Just use it directly
             overlay.init(overlayBounds!!.x, overlayBounds!!.y, overlayBounds!!.width)
         }
+        lastOverlayBounds = overlayBounds
         overlay.render(guiGraphics, mouseX, mouseY, 0f)
     }
 

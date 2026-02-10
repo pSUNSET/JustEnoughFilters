@@ -6,6 +6,7 @@ import mezz.jei.gui.overlay.IngredientGridWithNavigation;
 import mezz.jei.gui.overlay.IngredientListOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.psunset.jef.gui.FilterBarOverlay;
 import net.psunset.jef.gui.JefOverlayManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,15 +21,6 @@ import java.util.Set;
 
 @Mixin(value = IngredientListOverlay.class, remap = false)
 public class JeiIngredientListOverlayMixin {
-
-    @Final
-    @Shadow
-    private static int BUTTON_SIZE;
-
-    @Final
-    @Shadow
-    private static int INNER_PADDING;
-
     @Shadow
     @Final
     private IngredientGridWithNavigation contents;
@@ -41,10 +33,10 @@ public class JeiIngredientListOverlayMixin {
         ImmutableRect2i availableContentsArea = cir.getReturnValue();
 
         // Crop bottom to reserve space for filter bar
-        ImmutableRect2i cropped = availableContentsArea.cropBottom(BUTTON_SIZE + INNER_PADDING);
+        ImmutableRect2i cropped = availableContentsArea.cropBottom(FilterBarOverlay.REVERSED_HEIGHT);
 
         // Store the reserved area (the space we just cropped)
-        this.jef$reservedArea = availableContentsArea.keepBottom(BUTTON_SIZE + INNER_PADDING);
+        this.jef$reservedArea = availableContentsArea.keepBottom(FilterBarOverlay.REVERSED_HEIGHT);
 
         cir.setReturnValue(cropped);
     }
