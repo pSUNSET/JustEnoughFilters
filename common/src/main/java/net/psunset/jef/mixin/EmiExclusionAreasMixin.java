@@ -1,6 +1,5 @@
 package net.psunset.jef.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.registry.EmiExclusionAreas;
 import dev.emi.emi.screen.EmiScreenBase;
@@ -17,7 +16,8 @@ import java.util.List;
 public class EmiExclusionAreasMixin {
 
     @Inject(method = "getExclusion", at = @At("RETURN"))
-    private static void jef$reserveSpace(EmiScreenBase base, CallbackInfoReturnable<List<Bounds>> cir, @Local(name = "list") List<Bounds> list) {
+    private static void jef$reserveSpace(EmiScreenBase base, CallbackInfoReturnable<List<Bounds>> cir) {
+        List<Bounds> list = cir.getReturnValue();
         Rect2i overlayBounds = JefOverlayManager.INSTANCE.getOverlayBounds();
         if (overlayBounds != null) {
             list.add(new Bounds(overlayBounds.getX(), overlayBounds.getY(), overlayBounds.getWidth(), overlayBounds.getHeight()));
