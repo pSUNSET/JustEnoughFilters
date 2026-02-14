@@ -1,4 +1,3 @@
-## Fix many overlay problems
+## A patch only effects on `FORGE-1.20.1`
 
-- Overlapping between filter buttons and search bar
-- Incorrect center align position
+- Fix bug causing crash when using EMI
