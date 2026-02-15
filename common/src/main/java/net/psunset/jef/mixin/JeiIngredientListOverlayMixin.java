@@ -19,16 +19,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Set;
 
-@Mixin(value = IngredientListOverlay.class, remap = false)
+@Mixin(IngredientListOverlay.class)
 public class JeiIngredientListOverlayMixin {
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private IngredientGridWithNavigation contents;
 
     @Unique
     private ImmutableRect2i jef$reservedArea;
 
-    @Inject(method = "getAvailableContentsArea", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getAvailableContentsArea", at = @At("RETURN"), cancellable = true, remap = false)
     private void jef$reserveSpace(ImmutableRect2i displayArea, boolean searchBarCentered, CallbackInfoReturnable<ImmutableRect2i> cir) {
         ImmutableRect2i availableContentsArea = cir.getReturnValue();
 
@@ -41,7 +41,7 @@ public class JeiIngredientListOverlayMixin {
         cir.setReturnValue(cropped);
     }
 
-    @Inject(method = "updateBounds", at = @At("TAIL"))
+    @Inject(method = "updateBounds", at = @At("TAIL"), remap = false)
     private void jef$updateJefBounds(IGuiProperties guiProperties, ImmutableRect2i displayArea, Set<ImmutableRect2i> guiExclusionAreas, CallbackInfo ci) {
         JefOverlayManager.INSTANCE.updateBounds(this.jef$reservedArea.matchWidthAndX(this.contents.getBackgroundArea()).toMutable());
     }

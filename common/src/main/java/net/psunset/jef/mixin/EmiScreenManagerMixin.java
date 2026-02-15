@@ -26,7 +26,7 @@ public class EmiScreenManagerMixin {
     @Shadow
     public static EmiSearchWidget search;
 
-    @Inject(method = "addWidgets", at = @At(value = "INVOKE", target = "Ldev/emi/emi/screen/widget/EmiSearchWidget;setVisible(Z)V", shift = At.Shift.AFTER))
+    @Inject(method = "addWidgets", at = @At(value = "INVOKE", target = "Ldev/emi/emi/screen/widget/EmiSearchWidget;setVisible(Z)V", shift = At.Shift.AFTER), remap = true)
     private static void jef$updateJefBounds(Screen screen, CallbackInfo ci) {
         Bounds bounds;
         if (!EmiConfig.centerSearchBar &&

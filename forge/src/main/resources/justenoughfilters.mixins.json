@@ -5,17 +5,18 @@
     "minVersion": "0.8",
     "plugin": "net.psunset.jef.forge.JefMixinPluginImpl",
     "client": [
-      "EmiCompiledQueryMixin",
-      "EmiExclusionAreasMixin",
-      "EmiScreenManagerMixin",
-      "JeiIngredientFilterMixin",
-      "JeiIngredientListOverlayMixin",
-      "ReiAsyncSearchManagerMixin",
-      "ReiScreenOverlayMixin"
+        "EmiCompiledQueryMixin",
+        "EmiExclusionAreasMixin",
+        "EmiScreenManagerMixin",
+        "JeiIngredientFilterMixin",
+        "JeiIngredientListOverlayMixin",
+        "ReiAsyncSearchManagerMixin",
+        "ReiScreenOverlayMixin"
     ],
     "mixins": [
     ],
     "injectors": {
         "defaultRequire": 1
-    }
+    },
+    "refmap": "justenoughfilters-common-common-refmap.json"
 }
