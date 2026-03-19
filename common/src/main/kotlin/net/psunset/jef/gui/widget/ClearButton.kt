@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
+import net.psunset.jef.tool.RLUtl
 
 class ClearButton(
     x: Int,
@@ -17,25 +18,36 @@ class ClearButton(
 }, DEFAULT_NARRATION) {
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        // Draw background (Reddish to indicate clear)
+        // Draw background
         guiGraphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
-        // Draw X or icon
-        guiGraphics.drawCenteredString(
-            Minecraft.getInstance().font,
-            "X",
-            x + width / 2,
-            y + (height - 8) / 2,
-            0xFFFFFFFF.toInt()
+        // Draw Icon
+        guiGraphics.blit(
+            ICON,
+            x,
+            y,
+            width,
+            height,
+            0.0f,
+            0.0f,
+            16,
+            16,
+            16,
+            16
         )
 
         if (isHovered) {
             guiGraphics.renderTooltip(
                 Minecraft.getInstance().font,
-                Component.literal("Clear Filters").withStyle(ChatFormatting.RED),
+                Component.translatable("gui.button.justenoughfilters.clear_button").withStyle(ChatFormatting.RED),
                 mouseX,
                 mouseY
             )
         }
+    }
+
+    companion object {
+        @JvmField
+        val ICON = RLUtl.of("textures/gui/trash_can.png")
     }
 }

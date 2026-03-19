@@ -1,4 +1,6 @@
 {
+    "gui.button.justenoughfilters.clear_button": "Clear Filters",
+
     "jef.item_type_filter.title": "Type Filter",
     "jef.item_type_filter.justenoughfilters.item": "Item",
     "jef.item_type_filter.justenoughfilters.block": "Block",
