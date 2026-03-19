@@ -3,20 +3,22 @@ package net.psunset.jef.core
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.psunset.jef.tool.RLUtl
 
 enum class LogicMode(
     val translationKey: String,
-    val icon: Component,
+    val icon: ResourceLocation,
     val combineFactory: (List<Boolean>) -> Boolean
 ) {
     OR(
         "jef.logic_mode.justenoughfilters.or",
-        Component.literal("|"),
+        RLUtl.of("textures/gui/logic_mode/or.png"),
         { results -> results.any { it } }
     ),
     AND(
         "jef.logic_mode.justenoughfilters.and",
-        Component.literal("&"),
+        RLUtl.of("textures/gui/logic_mode/and.png"),
         { results -> results.all { it } }
     );
 

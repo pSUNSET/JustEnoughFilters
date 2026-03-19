@@ -1,4 +1,6 @@
 accessWidener v2 named
 
 extendable class net/minecraft/world/item/ItemStack
+accessible field net/minecraft/client/gui/GuiGraphics minecraft Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/client/gui/GuiGraphics pose Lcom/mojang/blaze3d/vertex/PoseStack;
 
