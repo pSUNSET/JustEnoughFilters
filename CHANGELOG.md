@@ -1,3 +1,4 @@
-## A patch only effects on `MC1.20.1`
+## Improve display
 
-- Fix incorrect disabled mixin remap
+- Shrink icon size by button size
+- Beautify the icons of clear button and logic mode
