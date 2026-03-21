@@ -6,6 +6,8 @@ import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.core.ItemTypeFilter
+import net.psunset.jef.tool.renderScaledItem
+import kotlin.math.min
 
 class ItemTypeCycleButton(
     x: Int,
@@ -15,18 +17,16 @@ class ItemTypeCycleButton(
 ) : Button(x, y, width, height, Component.empty(), { FilterManager.stepItemTypeFilter() }, DEFAULT_NARRATION) {
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        val filter = FilterManager.itemTypeFilter
+
         // Draw background
         guiGraphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
 
-        // Draw text or icon representing current mode
-        val filter = FilterManager.itemTypeFilter
-
         // Render Icon
-        val icon = filter.icon
-        // Center the icon
-        val iconX = x + (width - 16) / 2
-        val iconY = y + (height - 16) / 2
-        guiGraphics.renderItem(icon, iconX, iconY)
+        val size = min(16, min(width, height) - 2)
+        val iconX = x + (width - size) / 2
+        val iconY = y + (height - size) / 2
+        guiGraphics.renderScaledItem(filter.icon, iconX, iconY, size.toFloat())
 
         if (isHovered) {
             guiGraphics.setComponentTooltipForNextFrame(
