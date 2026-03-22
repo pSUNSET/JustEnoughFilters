@@ -1,4 +1,4 @@
-## Fix many overlay problems
+## Improve display
 
-- Overlapping between filter buttons and search bar
-- Incorrect center align position
+- Shrink icon size by button size
+- Beautify the icons of clear button and logic mode
