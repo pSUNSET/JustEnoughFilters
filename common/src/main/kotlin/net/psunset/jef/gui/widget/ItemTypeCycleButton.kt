@@ -2,7 +2,11 @@ package net.psunset.jef.gui.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.InputWithModifiers
+import net.minecraft.client.input.MouseButtonInfo
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.core.ItemTypeFilter
@@ -14,7 +18,19 @@ class ItemTypeCycleButton(
     y: Int,
     width: Int,
     height: Int
-) : Button(x, y, width, height, Component.empty(), { FilterManager.stepItemTypeFilter() }, DEFAULT_NARRATION) {
+) : AbstractButton(x, y, width, height, Component.empty()) {
+
+    override fun isValidClickButton(buttonInfo: MouseButtonInfo): Boolean {
+        return buttonInfo.button == 0 || buttonInfo.button == 1  // Allow left/right click
+    }
+
+    override fun onPress(input: InputWithModifiers) {
+        if (input.input() == 0) {  // left
+            FilterManager.stepItemTypeFilter()
+        } else if (input.input() == 1) {  // right
+            FilterManager.reverseItemTypeFilter()
+        }
+    }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val filter = FilterManager.itemTypeFilter
@@ -36,5 +52,12 @@ class ItemTypeCycleButton(
                 mouseY
             )
         }
+    }
+
+    /**
+     * Vanilla copy: [Button.defaultButtonNarrationText]
+     */
+    override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
+        this.defaultButtonNarrationText(narrationElementOutput)
     }
 }
