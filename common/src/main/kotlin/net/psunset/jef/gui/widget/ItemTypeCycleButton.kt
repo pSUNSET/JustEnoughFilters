@@ -3,6 +3,7 @@ package net.psunset.jef.gui.widget
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.core.ItemTypeFilter
@@ -14,7 +15,15 @@ class ItemTypeCycleButton(
     y: Int,
     width: Int,
     height: Int
-) : Button(x, y, width, height, Component.empty(), { FilterManager.stepItemTypeFilter() }, DEFAULT_NARRATION) {
+) : AbstractLeftRightClickButton(x, y, width, height, Component.empty()) {
+
+    override fun onPress() {
+        FilterManager.stepItemTypeFilter()
+    }
+
+    override fun onRightPress() {
+        FilterManager.reverseItemTypeFilter()
+    }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val filter = FilterManager.itemTypeFilter
@@ -36,5 +45,12 @@ class ItemTypeCycleButton(
                 mouseY
             )
         }
+    }
+
+    /**
+     * Vanilla copy: [Button.defaultButtonNarrationText]
+     */
+    override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
+        this.defaultButtonNarrationText(narrationElementOutput)
     }
 }

@@ -53,10 +53,26 @@ object FilterManager {
         refreshProxies()
     }
 
+    internal fun reverseLogicMode() {
+        logicModeIdx--
+        if (logicModeIdx < 0) {
+            logicModeIdx = LogicMode.entries.lastIndex
+        }
+        refreshProxies()
+    }
+
     internal fun stepItemTypeFilter() {
         itemTypeFilterIdx++
         if (itemTypeFilterIdx >= JefRegistries.ITEM_TYPE_FILTERS.size) {
             itemTypeFilterIdx = 0
+        }
+        refreshProxies()
+    }
+
+    internal fun reverseItemTypeFilter() {
+        itemTypeFilterIdx--
+        if (itemTypeFilterIdx < 0) {
+            itemTypeFilterIdx = JefRegistries.ITEM_TYPE_FILTERS.lastIndex
         }
         refreshProxies()
     }

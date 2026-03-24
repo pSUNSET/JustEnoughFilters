@@ -1,7 +1,7 @@
 package net.psunset.jef.gui
 
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.components.AbstractButton
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.gui.widget.ClearButton
 import net.psunset.jef.gui.widget.FilterToggleButton
@@ -14,7 +14,7 @@ object FilterBarOverlay {
     const val PADDING = 2
     const val REVERSED_HEIGHT = EXPECTED_BTN_SIZE + PADDING * 2
 
-    private val buttons = mutableListOf<Button>()
+    private val buttons = mutableListOf<AbstractButton>()
     private var initialized = false
 
     fun init(x: Int, y: Int, availableWidth: Int? = null) {

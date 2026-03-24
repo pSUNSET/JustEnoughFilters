@@ -3,6 +3,7 @@ package net.psunset.jef.gui.widget
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.core.LogicMode
@@ -12,15 +13,15 @@ class LogicModeCycleButton(
     y: Int,
     width: Int,
     height: Int
-) : Button(
-    x,
-    y,
-    width,
-    height,
-    Component.empty(),
-    { FilterManager.stepLogicMode() },
-    DEFAULT_NARRATION
-) {
+) : AbstractLeftRightClickButton(x, y, width, height, Component.empty()) {
+
+    override fun onPress() {
+        FilterManager.stepLogicMode()
+    }
+
+    override fun onRightPress() {
+        FilterManager.reverseLogicMode()
+    }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val mode = FilterManager.logicMode
@@ -46,5 +47,12 @@ class LogicModeCycleButton(
         if (isHovered) {
             guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, LogicMode.genTooltip(mode), mouseX, mouseY)
         }
+    }
+
+    /**
+     * Vanilla copy: [Button.defaultButtonNarrationText]
+     */
+    override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
+        this.defaultButtonNarrationText(narrationElementOutput)
     }
 }
