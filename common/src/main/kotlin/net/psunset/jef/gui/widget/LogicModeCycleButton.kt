@@ -24,10 +24,11 @@ class LogicModeCycleButton(
     }
 
     override fun onPress(input: InputWithModifiers) {
-        if (input.input() == 0) {  // left
-            FilterManager.stepLogicMode()
-        } else if (input.input() == 1) {  // right
+        if (input.input() == 1) {  // right
             FilterManager.reverseLogicMode()
+
+        } else {  // left or keybinds
+            FilterManager.stepLogicMode()
         }
     }
 

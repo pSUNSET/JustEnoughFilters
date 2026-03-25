@@ -25,10 +25,11 @@ class ItemTypeCycleButton(
     }
 
     override fun onPress(input: InputWithModifiers) {
-        if (input.input() == 0) {  // left
-            FilterManager.stepItemTypeFilter()
-        } else if (input.input() == 1) {  // right
+        if (input.input() == 1) {  // right
             FilterManager.reverseItemTypeFilter()
+
+        } else {  // left or keybinds
+            FilterManager.stepItemTypeFilter()
         }
     }
 
