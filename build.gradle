@@ -126,7 +126,7 @@ publishMods {
         from curseforgeSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin")
+        requires("fabric-language-kotlin", "fabric-api")
         optional("jei", "roughly-enough-items", "emi")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
@@ -150,7 +150,7 @@ publishMods {
         from modrinthSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin")
+        requires("fabric-language-kotlin", "fabric-api")
         optional("jei", "rei", "emi")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
