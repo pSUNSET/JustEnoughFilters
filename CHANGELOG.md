@@ -1,4 +1,3 @@
-## Improve display
+## Convenient Features
 
-- Shrink icon size by button size
-- Beautify the icons of clear button and logic mode
+- Add feature that right click reverses item type button and logic mode button
