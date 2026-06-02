@@ -96,7 +96,7 @@ subprojects {
 
 publishMods {
     changelog = file("CHANGELOG.md").text
-    type = STABLE
+    type = BETA
 
     def curseforgeSettings = curseforgeOptions {
         accessToken = secrets.getProperty("CURSEFORGE_TOKEN")
@@ -126,7 +126,7 @@ publishMods {
         from curseforgeSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin", "fabric-api")
+        requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
         optional("jei", "roughly-enough-items", "emi")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
@@ -138,7 +138,7 @@ publishMods {
         from curseforgeSettings
         file project(":forge")
 
-        requires("kotlin-for-forge")
+        requires("kotlin-for-forge", "cloth-config")
         optional("jei", "roughly-enough-items", "emi")
 
         displayName = "[Forge $minecraft_version_file_range] v$mod_version"
@@ -150,7 +150,7 @@ publishMods {
         from modrinthSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin", "fabric-api")
+        requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
         optional("jei", "rei", "emi")
 
         displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
@@ -162,7 +162,7 @@ publishMods {
         from modrinthSettings
         file project(":forge")
 
-        requires("kotlin-for-forge")
+        requires("kotlin-for-forge", "cloth-config")
         optional("jei", "rei", "emi")
 
         displayName = "[Forge $minecraft_version_file_range] v$mod_version"
