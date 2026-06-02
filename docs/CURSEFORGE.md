@@ -1,3 +1,9 @@
+<h2 style="text-align: center; color: #ff4f3f">
+Customizable Configuration is out!<br/>Enjoy it in latest beta!
+</h2>
+
+---
+
 # Just Enough Filters (JEF)
 
 A lightweight add-on for **JEI**, **REI**, and **EMI**.
