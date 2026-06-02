@@ -3,7 +3,7 @@ package net.psunset.jef.fabric
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents
-import net.psunset.jef.gui.JefOverlayManager
+import net.psunset.jef.gui.inventory.InventoryOverlayManager
 import net.psunset.jef.JustEnoughFilters
 import net.psunset.jef.platform.fabric.PlatformImpl
 
@@ -17,7 +17,7 @@ object JefImpl : ClientModInitializer {
         if (!JustEnoughFilters.init()) return
         ScreenEvents.AFTER_INIT.register { client, screen, scaledWidth, scaledHeight ->
             ScreenMouseEvents.allowMouseClick(screen).register { _, mouseX, mouseY, button ->
-                !JefOverlayManager.mouseClicked(mouseX, mouseY, button)
+                !InventoryOverlayManager.mouseClicked(mouseX, mouseY, button)
             }
         }
     }

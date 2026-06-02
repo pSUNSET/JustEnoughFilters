@@ -5,8 +5,8 @@ import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.gui.config.SearchFieldLocation;
 import me.shedaniel.rei.impl.client.gui.ScreenOverlayImpl;
 import net.minecraft.client.Minecraft;
-import net.psunset.jef.gui.FilterBarOverlay;
-import net.psunset.jef.gui.JefOverlayManager;
+import net.psunset.jef.gui.inventory.FilterBarOverlay;
+import net.psunset.jef.gui.inventory.InventoryOverlayManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,14 +23,14 @@ public class ReiScreenOverlayMixin {
         if (!original.isEmpty()) {
 
             if (REIRuntime.getInstance().getContextualSearchFieldLocation()==SearchFieldLocation.BOTTOM_SIDE) {
-                JefOverlayManager.INSTANCE.updateBounds(
+                InventoryOverlayManager.INSTANCE.updateBounds(
                         original.x,
                         original.y + original.height - FilterBarOverlay.REVERSED_HEIGHT - 24,  // 24 = reservedSearchFieldHeight
                         original.width,
                         FilterBarOverlay.REVERSED_HEIGHT
                 );
             } else {
-                JefOverlayManager.INSTANCE.updateBounds(
+                InventoryOverlayManager.INSTANCE.updateBounds(
                         original.x,
                         original.y + original.height - FilterBarOverlay.REVERSED_HEIGHT,
                         original.width,
@@ -51,6 +51,6 @@ public class ReiScreenOverlayMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lme/shedaniel/rei/impl/client/gui/ScreenOverlayImpl;renderWidgets(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
     private void jef$drawFilterBar(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        JefOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, guiGraphics, mouseX, mouseY);
+        InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, guiGraphics, mouseX, mouseY);
     }
 }

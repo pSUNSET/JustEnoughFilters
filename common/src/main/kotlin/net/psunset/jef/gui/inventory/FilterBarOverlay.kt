@@ -1,26 +1,20 @@
-package net.psunset.jef.gui
+package net.psunset.jef.gui.inventory
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractButton
 import net.psunset.jef.core.FilterManager
-import net.psunset.jef.gui.widget.ClearButton
-import net.psunset.jef.gui.widget.FilterToggleButton
-import net.psunset.jef.gui.widget.ItemTypeCycleButton
-import net.psunset.jef.gui.widget.LogicModeCycleButton
+import net.psunset.jef.gui.inventory.widget.ClearButton
+import net.psunset.jef.gui.inventory.widget.FilterToggleButton
+import net.psunset.jef.gui.inventory.widget.ItemTypeCycleButton
+import net.psunset.jef.gui.inventory.widget.LogicModeCycleButton
 
-object FilterBarOverlay {
+class FilterBarOverlay internal constructor() {
 
-    const val EXPECTED_BTN_SIZE = 18
-    const val PADDING = 2
-    const val REVERSED_HEIGHT = EXPECTED_BTN_SIZE + PADDING * 2
-
-    private val buttons = mutableListOf<AbstractButton>()
-    private var initialized = false
+    private var buttons: MutableList<AbstractButton> = ArrayList(0)
 
     fun init(x: Int, y: Int, availableWidth: Int? = null) {
-        buttons.clear()
-
-        val buttonCount = JefOverlayManager.allButtonsCount()
+        val buttonCount = InventoryOverlayManager.allButtonsCount()
+        buttons = ArrayList(buttonCount)
 
         var btnSize = EXPECTED_BTN_SIZE
         var totalWidth = (btnSize + PADDING) * buttonCount - PADDING // removing last padding
@@ -62,7 +56,7 @@ object FilterBarOverlay {
         currentX += btnSize + PADDING
 
         // Filter Buttons
-        for (filter in FilterManager.allToggledFilters) {
+        for (filter in FilterManager.activeToggledFilters) {
             val btn = FilterToggleButton(filter, currentX, currentY, btnSize, btnSize)
             buttons.add(btn)
             currentX += btnSize + PADDING // 2px spacing
@@ -71,26 +65,26 @@ object FilterBarOverlay {
         // Clear Button
         val clearBtn = ClearButton(currentX, currentY, btnSize, btnSize)
         buttons.add(clearBtn)
-
-        initialized = true
     }
 
     fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        if (!initialized) return
-
         for (btn in buttons) {
             btn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
     }
 
     fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        if (!initialized) return false
-
         for (btn in buttons) {
             if (btn.mouseClicked(mouseX, mouseY, button)) {
                 return true
             }
         }
         return false
+    }
+
+    companion object {
+        const val EXPECTED_BTN_SIZE = 18
+        const val PADDING = 2
+        const val REVERSED_HEIGHT = EXPECTED_BTN_SIZE + PADDING * 2
     }
 }

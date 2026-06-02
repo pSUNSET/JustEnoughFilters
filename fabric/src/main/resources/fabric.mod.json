@@ -5,7 +5,7 @@
   "name": "Just Enough Filters (JEF)",
   "description": "A lightweight add-on for JEI/REI/EMI. Filtering exact items is just a click away!",
   "authors": [
-    "LShiftLess"
+    "Project-SUNSET"
   ],
   "contact": {
     "homepage": "https://modrinth.com/project/just-enough-filters",
@@ -21,6 +21,9 @@
         "adapter": "kotlin",
         "value": "net.psunset.jef.fabric.JefImpl"
       }
+    ],
+    "modmenu": [
+        "net.psunset.jef.compat.fabric.modmenu.JefCompatModMenu"
     ]
   },
   "mixins": [
@@ -31,6 +34,8 @@
     "minecraft": "${minecraft_version_fabric_range}",
     "fabricloader": "${fabric_loader_version_range}",
     "fabric-api": "${fabric_api_version_range}",
-    "fabric-language-kotlin": "${fabric_kotlin_version_range}"
+    "fabric-language-kotlin": "${fabric_kotlin_version_range}",
+    "modmenu": "${modmenu_version_range}",
+    "cloth-config": "${cloth_config_version_fabric_range}"
   }
 }

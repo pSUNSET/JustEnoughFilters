@@ -82,11 +82,11 @@ fun GuiGraphics.renderScaledItem(
             if (bl) {
                 Lighting.setupFor3DItems()
             }
-        } catch (var12: Throwable) {
-            val crashReport = CrashReport.forThrowable(var12, "Rendering item")
+        } catch (throwable: Throwable) {
+            val crashReport = CrashReport.forThrowable(throwable, "Rendering item")
             val crashReportCategory = crashReport.addCategory("Item being rendered")
             crashReportCategory.setDetail("Item Type") { stack.item.toString() }
-            crashReportCategory.setDetail("Item Components") { stack.getComponents().toString() }
+            crashReportCategory.setDetail("Item Components") { stack.components.toString() }
             crashReportCategory.setDetail("Item Foil") { stack.hasFoil().toString() }
             throw ReportedException(crashReport)
         }
