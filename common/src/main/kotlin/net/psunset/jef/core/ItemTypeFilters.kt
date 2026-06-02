@@ -10,7 +10,7 @@ object ItemTypeFilters {
 
     @JvmField
     val OFF = object : ItemTypeFilter(
-        RLUtl.of("off"),
+        RLUtl.ofJef("off"),
         "",  // No Usage
         Items.BARRIER,
     ) {
@@ -21,7 +21,7 @@ object ItemTypeFilters {
 
     @JvmField
     val ITEM = object : ItemTypeFilter(
-        RLUtl.of("item"),
+        RLUtl.ofJef("item"),
         "jef.item_type_filter.justenoughfilters.item",
         Items.IRON_INGOT
     ) {
@@ -34,7 +34,7 @@ object ItemTypeFilters {
 
     @JvmField
     val BLOCK = object : ItemTypeFilter(
-        RLUtl.of("block"),
+        RLUtl.ofJef("block"),
         "jef.item_type_filter.justenoughfilters.block",
         Blocks.GRASS_BLOCK
     ) {
@@ -47,7 +47,7 @@ object ItemTypeFilters {
 
     @JvmField
     val NON_ITEM = object : ItemTypeFilter(
-        RLUtl.of("non_item"),
+        RLUtl.ofJef("non_item"),
         "jef.item_type_filter.justenoughfilters.non_item",
         Items.WATER_BUCKET
     ) {

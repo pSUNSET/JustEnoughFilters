@@ -1,10 +1,11 @@
-package net.psunset.jef.gui.widget
+package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.ChatFormatting
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.renderer.RenderPipelines
+import net.minecraft.client.gui.components.Tooltip
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.tool.RLUtl
@@ -14,15 +15,26 @@ class ClearButton(
     y: Int,
     width: Int,
     height: Int
-) : Button(x, y, width, height, Component.empty(), {
-    FilterManager.clearFilters()
-}, DEFAULT_NARRATION) {
+) : Button(
+    x,
+    y,
+    width,
+    height,
+    CommonComponents.EMPTY,
+    { FilterManager.disableAllFilters() },
+    DEFAULT_NARRATION
+) {
+
+    init {
+        tooltip = Tooltip.create(
+            Component.translatable("gui.button.justenoughfilters.clear.tooltip")
+                .withStyle(ChatFormatting.RED)
+        )
+    }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        // Draw background
         guiGraphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
-        // Draw Icon
         guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
             ICON,
@@ -37,19 +49,10 @@ class ClearButton(
             16,
             16
         )
-
-        if (isHovered) {
-            guiGraphics.setTooltipForNextFrame(
-                Minecraft.getInstance().font,
-                Component.translatable("gui.button.justenoughfilters.clear_button").withStyle(ChatFormatting.RED),
-                mouseX,
-                mouseY
-            )
-        }
     }
 
     companion object {
         @JvmField
-        val ICON = RLUtl.of("textures/gui/trash_can.png")
+        val ICON = RLUtl.ofJef("textures/gui/trash_can.png")
     }
 }

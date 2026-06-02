@@ -15,7 +15,7 @@ object ToggledFilters {
 
     @JvmField
     val ENTITY_BLOCK_FILTER = object : ToggledFilter(
-        RLUtl.of("entity_blocks"),
+        RLUtl.ofJef("entity_blocks"),
         Items.FURNACE,
         Component.translatable("jef.toggled_filter.justenoughfilters.entity_blocks")
     ) {
@@ -30,7 +30,7 @@ object ToggledFilters {
 
     @JvmField
     val ENCHANTED_BOOK_FILTER = object : ToggledFilter(
-        RLUtl.of("enchanted_books"),
+        RLUtl.ofJef("enchanted_books"),
         Items.ENCHANTED_BOOK,
         Component.translatable("jef.toggled_filter.justenoughfilters.enchanted_books")
     ) {
@@ -41,7 +41,7 @@ object ToggledFilters {
 
     @JvmField
     val FOOD_FILTER = object : ToggledFilter(
-        RLUtl.of("food"),
+        RLUtl.ofJef("food"),
         Items.APPLE,
         Component.translatable("jef.toggled_filter.justenoughfilters.food")
     ) {
@@ -53,7 +53,7 @@ object ToggledFilters {
 
     @JvmField
     val FUEL_FILTER = object : ToggledFilter(
-        RLUtl.of("fuels"),
+        RLUtl.ofJef("fuels"),
         Items.COAL,
         Component.translatable("jef.toggled_filter.justenoughfilters.fuels")
     ) {
@@ -68,7 +68,7 @@ object ToggledFilters {
 
     @JvmField
     val TOOL_FILTER = object : ToggledFilter(
-        RLUtl.of("tools"),
+        RLUtl.ofJef("tools"),
         Items.DIAMOND_PICKAXE,
         Component.translatable("jef.toggled_filter.justenoughfilters.tools")
     ) {
@@ -86,7 +86,7 @@ object ToggledFilters {
 
     @JvmField
     val ARMOR_FILTER = object : ToggledFilter(
-        RLUtl.of("armor"),
+        RLUtl.ofJef("armor"),
         Items.DIAMOND_CHESTPLATE,
         Component.translatable("jef.toggled_filter.justenoughfilters.armor")
     ) {

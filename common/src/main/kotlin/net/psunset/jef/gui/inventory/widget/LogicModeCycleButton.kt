@@ -1,9 +1,9 @@
-package net.psunset.jef.gui.widget
+package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractButton
-import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.InputWithModifiers
 import net.minecraft.client.input.MouseButtonInfo
@@ -19,6 +19,10 @@ class LogicModeCycleButton(
     height: Int
 ) : AbstractButton(x, y, width, height, Component.empty()) {
 
+    init {
+        tooltip = Tooltip.create(LogicMode.genTooltip())
+    }
+
     override fun isValidClickButton(buttonInfo: MouseButtonInfo): Boolean {
         return buttonInfo.button == 0 || buttonInfo.button == 1  // Allow left/right click
     }
@@ -26,22 +30,20 @@ class LogicModeCycleButton(
     override fun onPress(input: InputWithModifiers) {
         if (input.input() == 1) {  // right
             FilterManager.reverseLogicMode()
+            tooltip = Tooltip.create(LogicMode.genTooltip())
 
         } else {  // left or keybinds
             FilterManager.stepLogicMode()
+            tooltip = Tooltip.create(LogicMode.genTooltip())
         }
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        val mode = FilterManager.logicMode
-
-        // Draw background
+    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         guiGraphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
 
-        // Render icon
         guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
-            mode.icon,
+            FilterManager.logicMode.icon,
             x,
             y,
             0.0f,

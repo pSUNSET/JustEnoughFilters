@@ -1,16 +1,36 @@
 package net.psunset.jef.core
 
 import net.minecraft.world.item.ItemStack
+import net.psunset.jef.JustEnoughFilters
 import net.psunset.jef.api.IItemTypeFilter
 import net.psunset.jef.api.IToggledFilter
+import net.psunset.jef.config.ConfigManager
+import net.psunset.jef.gui.inventory.InventoryOverlayManager
 
 object FilterManager {
-    val allToggledFilters: Set<IToggledFilter>
-        get() = JefRegistries.TOGGLED_FILTERS.values.toSet()
 
-    private val _activeToggledFilters = mutableSetOf<IToggledFilter>()
-    val activeToggledFilters: Set<IToggledFilter>
+    /**
+     * All toggled filters including registered ones and custom config ones
+     */
+    val allToggledFilters: List<IToggledFilter>
+        get() = ConfigManager.customFilters + JefRegistries.TOGGLED_FILTERS.values
+
+    val allToggledFilterEntries: Map<String, IToggledFilter>
+        get() = ConfigManager.customFilterEntries + JefRegistries.TOGGLED_FILTERS
+
+    /**
+     * The filters that are active and available in filter bar
+     */
+    private val _activeToggledFilters = mutableListOf<IToggledFilter>()
+    val activeToggledFilters: List<IToggledFilter>
         get() = _activeToggledFilters
+
+    /**
+     * The filters that are on.
+     */
+    private val _enabledToggledFilters = hashSetOf<IToggledFilter>()
+    val enabledToggledFilters: Set<IToggledFilter>
+        get() = _enabledToggledFilters
 
     private var logicModeIdx = 0
     val logicMode: LogicMode
@@ -20,23 +40,49 @@ object FilterManager {
     val itemTypeFilter: IItemTypeFilter
         get() = JefRegistries.ITEM_TYPE_FILTERS[itemTypeFilterIdx].second
 
-    fun isFilterActive(filter: IToggledFilter): Boolean {
-        return _activeToggledFilters.contains(filter)
+    fun isFilterEnabled(filter: IToggledFilter): Boolean {
+        return _enabledToggledFilters.contains(filter)
     }
 
     fun areAllFiltersDisabled(): Boolean {
-        return _activeToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilters.OFF
+        return _enabledToggledFilters.isEmpty() && itemTypeFilter == ItemTypeFilters.OFF
+    }
+
+    fun activateToggledFilters(ids: Iterable<String>) {
+        _activeToggledFilters.clear()
+        _enabledToggledFilters.clear()
+        for (id in ids) {
+            if (allToggledFilterEntries[id] != null) {
+                _activeToggledFilters.add(allToggledFilterEntries[id]!!)
+                continue
+            }
+            JustEnoughFilters.LOGGER.warn("Filter $id is not registered, skipping activation.")
+        }
+        InventoryOverlayManager.refresh()
+    }
+
+    fun activateToggledFilters(ids: Array<out String>) {
+        _activeToggledFilters.clear()
+        _enabledToggledFilters.clear()
+        for (id in ids) {
+            if (allToggledFilterEntries[id] != null) {
+                _activeToggledFilters.add(allToggledFilterEntries[id]!!)
+                continue
+            }
+            JustEnoughFilters.LOGGER.warn("Filter $id is not registered, skipping activation.")
+        }
+        InventoryOverlayManager.refresh()
     }
 
     internal fun toggleFilter(filter: IToggledFilter) {
-        if (!_activeToggledFilters.remove(filter)) {
-            _activeToggledFilters.add(filter)
+        if (!_enabledToggledFilters.remove(filter)) {
+            _enabledToggledFilters.add(filter)
         }
         refreshProxies()
     }
 
-    internal fun clearFilters() {
-        _activeToggledFilters.clear()
+    internal fun disableAllFilters() {
+        _enabledToggledFilters.clear()
         itemTypeFilterIdx = 0
         refreshProxies()
     }
@@ -80,9 +126,9 @@ object FilterManager {
     fun test(stack: ItemStack): Boolean {
         if (areAllFiltersDisabled()) return true
         if (!itemTypeFilter.matches(stack)) return false
-        if (_activeToggledFilters.isEmpty()) return true
+        if (_enabledToggledFilters.isEmpty()) return true
 
-        val results = _activeToggledFilters.map { it.matches(stack) }
+        val results = _enabledToggledFilters.map { it.matches(stack) }
         return logicMode.combineFactory.invoke(results)
     }
 
@@ -92,9 +138,9 @@ object FilterManager {
     fun testNonItem(obj: Any): Boolean {
         if (areAllFiltersDisabled()) return true
         if (!itemTypeFilter.matchesNonItem(obj)) return false
-        if (_activeToggledFilters.isEmpty()) return true
+        if (_enabledToggledFilters.isEmpty()) return true
 
-        val results = _activeToggledFilters.map { it.matchesNonItem(obj) }
+        val results = _enabledToggledFilters.map { it.matchesNonItem(obj) }
         return logicMode.combineFactory.invoke(results)
     }
 }
