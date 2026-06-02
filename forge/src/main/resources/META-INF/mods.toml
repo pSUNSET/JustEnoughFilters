@@ -4,7 +4,7 @@ clientSideOnly = true
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/just-enough-filters"
 issueTrackerURL = "https://github.com/pSUNSET/JustEnoughFilters/issues"
 logoFile = "icon.png"
-authors = "LShiftLess"
+authors = "Project-SUNSET"
 credits = "Everyone who contributed to this mod"
 license = "MIT"
 
@@ -35,5 +35,12 @@ side = "CLIENT"
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version_forge_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.justenoughfilters]]
+modId = "cloth_config"
+type = "required"
+versionRange = "${cloth_config_version_forge_range}"
 ordering = "NONE"
 side = "CLIENT"

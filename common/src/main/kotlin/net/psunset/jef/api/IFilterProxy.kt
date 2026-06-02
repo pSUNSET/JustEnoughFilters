@@ -1,12 +1,12 @@
 package net.psunset.jef.api
 
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.core.JefRegistries
 
 /**
- * An AI-gen interface for filter proxies to implement refresh functionality.
+ * An interface for filter proxies to implement refresh functionality.
  * I don't think this is a good name, but I have no better idea at the moment.
  *
- * Use [FilterManager.registerProxy] to register self.
+ * Use [JefRegistries.registerProxy] to register self.
  */
 interface IFilterProxy {
 

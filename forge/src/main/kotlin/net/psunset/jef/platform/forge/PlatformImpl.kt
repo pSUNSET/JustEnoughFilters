@@ -4,6 +4,7 @@ import net.minecraftforge.fml.ModList
 import net.minecraftforge.fml.loading.LoadingModList
 import net.psunset.jef.platform.IPlatform
 import net.psunset.jef.platform.Platform
+import java.nio.file.Path
 
 object PlatformImpl : IPlatform {
     init {
@@ -20,5 +21,9 @@ object PlatformImpl : IPlatform {
 
     override fun isLoaded(modId: String): Boolean {
         return ModList.get()?.isLoaded(modId) ?: LoadingModList.get().mods.any { it.modId == modId }
+    }
+
+    override fun configDir(): Path {
+        return FMLPaths.CONFIGDIR.get()
     }
 }

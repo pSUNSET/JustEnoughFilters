@@ -3,8 +3,13 @@ package net.psunset.jef.core
 import net.psunset.jef.api.IFilterProxy
 import net.psunset.jef.api.IItemTypeFilter
 import net.psunset.jef.api.IToggledFilter
+import net.psunset.jef.config.ConfigManager
 
 object JefRegistries {
+    /**
+     * Only save the ones written in the code.
+     * Custom ones by configuration should be saved into [ConfigManager.customFilters].
+     */
     @JvmField
     internal val TOGGLED_FILTERS = mutableMapOf<String, IToggledFilter>()
 

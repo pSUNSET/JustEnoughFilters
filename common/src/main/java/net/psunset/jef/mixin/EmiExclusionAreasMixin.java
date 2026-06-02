@@ -4,7 +4,7 @@ import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.registry.EmiExclusionAreas;
 import dev.emi.emi.screen.EmiScreenBase;
 import net.minecraft.client.renderer.Rect2i;
-import net.psunset.jef.gui.JefOverlayManager;
+import net.psunset.jef.gui.inventory.InventoryOverlayManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

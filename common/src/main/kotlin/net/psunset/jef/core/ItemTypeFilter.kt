@@ -18,20 +18,25 @@ abstract class ItemTypeFilter(
     companion object {
 
         @JvmField
-        val TITLE: Component = Component.translatable("jef.item_type_filter.title")
+        val TITLE: Component = Component.translatable("gui.justenoughfilters.item_type_filter.title")
 
         @JvmStatic
-        fun genTooltip(currentFilter: IItemTypeFilter): List<Component> {
-            val list = mutableListOf<Component>(TITLE)
+        fun genTooltip(currentFilter: IItemTypeFilter): Component {
+            val list = TITLE.copy()
             for ((_, filter) in JefRegistries.ITEM_TYPE_FILTERS) {
                 if (filter == ItemTypeFilters.OFF) continue
                 if (currentFilter == filter) {
-                    list.add(Component.literal("> ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.AQUA))
+                    list.append(Component.literal("\n> ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.AQUA))
                 } else {
-                    list.add(Component.literal("  ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.GRAY))
+                    list.append(Component.literal("\n  ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.GRAY))
                 }
             }
             return list
+        }
+
+        @JvmStatic
+        fun genTooltip(): Component {
+            return genTooltip(FilterManager.itemTypeFilter)
         }
     }
 }

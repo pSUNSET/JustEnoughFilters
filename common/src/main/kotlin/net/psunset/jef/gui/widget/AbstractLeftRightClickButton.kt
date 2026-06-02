@@ -2,6 +2,7 @@ package net.psunset.jef.gui.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.AbstractButton
+import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 
 /**
@@ -87,5 +88,12 @@ abstract class AbstractLeftRightClickButton(
 
     override fun isValidClickButton(button: Int): Boolean {
         return button == 0 || button == 1
+    }
+
+    /**
+     * Vanilla copy: [net.minecraft.client.gui.components.Button.updateWidgetNarration]
+     */
+    override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
+        this.defaultButtonNarrationText(narrationElementOutput)
     }
 }

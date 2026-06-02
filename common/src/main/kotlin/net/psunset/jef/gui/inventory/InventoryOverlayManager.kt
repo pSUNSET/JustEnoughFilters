@@ -1,4 +1,4 @@
-package net.psunset.jef.gui
+package net.psunset.jef.gui.inventory
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.Rect2i
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.tool.valEq
 
-object JefOverlayManager {
-    private val overlay = FilterBarOverlay
+object InventoryOverlayManager {
+    private val overlay = FilterBarOverlay()
     private var lastScreenWidth = -1
     private var lastScreenHeight = -1
 
@@ -22,7 +22,7 @@ object JefOverlayManager {
      * Type + Logic + ...Toggled + Clear
      */
     fun allButtonsCount(): Int {
-        return FilterManager.allToggledFilters.size + 3
+        return FilterManager.activeToggledFilters.size + 3
     }
 
     fun updateBounds(rect2i: Rect2i) {
@@ -45,12 +45,14 @@ object JefOverlayManager {
             lastScreenWidth = screen.width
             lastScreenHeight = screen.height
 
-            // bounds is the reserved area from the mixin
-            // Just use it directly
             overlay.init(overlayBounds!!.x, overlayBounds!!.y, overlayBounds!!.width)
         }
         lastOverlayBounds = overlayBounds
         overlay.render(guiGraphics, mouseX, mouseY, 0f)
+    }
+
+    fun refresh() {
+        lastScreenWidth = 0  // Force reinit on next frame
     }
 
     fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {

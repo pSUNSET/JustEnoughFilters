@@ -1,6 +1,7 @@
 package net.psunset.jef.platform
 
 import org.jetbrains.annotations.ApiStatus
+import java.nio.file.Path
 
 object Platform {
 
@@ -16,4 +17,7 @@ object Platform {
 
     @JvmStatic
     fun isLoaded(modId: String): Boolean = innerImpl.isLoaded(modId)
+
+    @JvmStatic
+    fun configDir(): Path = innerImpl.configDir()
 }

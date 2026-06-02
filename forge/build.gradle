@@ -44,11 +44,13 @@ dependencies {
     forge "net.minecraftforge:forge:$minecraft_version-$forge_version"
     implementation "thedarkcolour:kotlinforforge:$kff_version"
 
-    modCompileOnly "mezz.jei:jei-$minecraft_version-forge:$jei_version"
+    modRuntimeOnly "me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
+    modImplementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
-    modCompileOnly "dev.emi:emi-forge:$emi_version+$minecraft_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
+
+    modImplementation "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
@@ -62,7 +64,8 @@ processResources {
                 version: "$mod_version",
                 forge_version_range: "$forge_version_range",
                 minecraft_version_forge_range: "$minecraft_version_forge_range",
-                kff_version_range: "$kff_version_range"
+                kff_version_range: "$kff_version_range",
+                cloth_config_version_forge_range: "$cloth_config_version_forge_range",
         ])
     }
 }
