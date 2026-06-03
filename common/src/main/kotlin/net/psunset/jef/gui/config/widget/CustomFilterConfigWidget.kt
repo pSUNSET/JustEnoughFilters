@@ -2,17 +2,13 @@ package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.components.AbstractWidget
-import net.minecraft.client.gui.components.Button
-import net.minecraft.client.gui.components.ContainerObjectSelectionList
-import net.minecraft.client.gui.components.EditBox
+import net.minecraft.client.gui.components.*
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
-import net.psunset.jef.util.JefConstants
 
 internal class CustomFilterConfigWidget(
     minecraft: Minecraft,
@@ -94,32 +90,36 @@ internal class CustomFilterConfigWidget(
     ) : Entry() {
 
         private val font = minecraft.font
-        private val nameHint = Component.translatable("gui.justenoughfilters.config.custom_filter.name.prefix")
-        private val iconHint = Component.translatable("gui.justenoughfilters.config.custom_filter.icon.prefix")
+        private val nameHint = Component.translatable("gui.justenoughfilters.config.custom_filter.name.desc")
+        private val iconHint = Component.translatable("gui.justenoughfilters.config.custom_filter.icon.desc")
 
-        private val nameField: EditBox = EditBox(
+        private val nameField = EditBox(
             font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
         ).apply {
             setMaxLength(64)
             value = widget.tempName
-            setHint(Component.literal("..."))
-            setResponder { if (it.isNotBlank()) widget.tempName = it }
-        }
-
-        private val iconField: EditBox = EditBox(
-            font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
-        ).apply {
-            setMaxLength(256)
-            value = widget.tempIcon
-            setHint(Component.literal("..."))
+            setHint(Component.literal("Name..."))
             setResponder {
-                if (JefConstants.ITEM_IDS.contains(iconField.value)) {
-                    setTextColor(14737632)
-                    widget.tempIcon = it
-                } else {
-                    setTextColor(16733525)
+                if (it.isNotBlank()) {
+                    widget.tempName = it
+                    tooltip = Tooltip.create(
+                        Component.translatable(
+                            "gui.justenoughfilters.config.custom_filter.name.tooltip",
+                            CustomFilter.genRL(it).toString()
+                        )
+                    )
                 }
             }
+        }
+
+        private val iconField = ItemIdField(
+            font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT
+        ) {
+            widget.tempIcon = it
+        }.apply {
+            setMaxLength(256)
+            value = widget.tempIcon
+            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.icon.tooltip"))
         }
 
         private val children: List<AbstractWidget> = listOf(nameField, iconField)
@@ -183,13 +183,18 @@ internal class CustomFilterConfigWidget(
         private val unaryLogicBtn = LogicOpConfigButton.Unary(op.unary) { op = op.copy(unary = it) }
 
         // wield arrangement but args field must init before filter field
-        private val filterArgsField = EditBox(
-            minecraft.font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
-        ).apply {
+        private val filterArgsField = FilterOpArgsConfigField(
+            minecraft.font,
+            Button.DEFAULT_WIDTH,
+            Button.DEFAULT_HEIGHT,
+            { op.filter.provider }
+        ) {
+            op = op.copy(filter = op.filter.copy(input = it))
+        }.apply {
             if (op.filter.provider.factory is FilterOpFactory0) visible = false
             setMaxLength(256)
+            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.args.tooltip"))
             value = op.filter.input
-            setResponder { op = op.copy(filter = op.filter.copy(input = it)) }
         }
 
         private val filterField = FilterOpConfigField(
@@ -207,6 +212,7 @@ internal class CustomFilterConfigWidget(
             filterArgsField.visible = isInputNeeded
         }.apply {
             setMaxLength(64)
+            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.op.tooltip"))
             value = op.filter.provider.name
             widget.suggestionsList.add(suggestions)
         }
