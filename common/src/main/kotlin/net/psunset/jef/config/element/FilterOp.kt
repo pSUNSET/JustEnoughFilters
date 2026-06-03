@@ -10,6 +10,7 @@ import net.psunset.jef.api.IFilter
 import net.psunset.jef.config.element.FilterOp.ItemOnly
 import net.psunset.jef.config.element.FilterOp.WithName
 import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.util.JefConstants
 
 abstract class FilterOp(
     val tooltip: Component,
@@ -70,7 +71,7 @@ fun interface FilterOpFactory1 : Function1<String, FilterOp>, FilterOpFactory {
     }
 }
 
-enum class FilterOpProvider(val factory: FilterOpFactory) : FilterOpFactory {
+enum class FilterOpProvider(val validator: ((String) -> Boolean)?, val factory: FilterOpFactory) : FilterOpFactory {
     name_is(FilterOpFactory1 { input ->
         WithName(Component.translatable("jef.filter_op.name_is"), input) { a, b ->
             a.equals(b, true)
@@ -101,7 +102,7 @@ enum class FilterOpProvider(val factory: FilterOpFactory) : FilterOpFactory {
         }
     }),
 
-    id_is(FilterOpFactory1 { input ->
+    id_is(JefConstants.ITEM_IDS, FilterOpFactory1 { input ->
         object : FilterOp(Component.translatable("jef.filter_op.id_is")) {
             private val item = BuiltInRegistries.ITEM.get(RLUtl.auto(input))
 
@@ -116,10 +117,10 @@ enum class FilterOpProvider(val factory: FilterOpFactory) : FilterOpFactory {
         }
     }),
 
-    has_tag(FilterOpFactory1 { input ->
+    has_tag({ RLUtl.validate(it) }, FilterOpFactory1 { input ->
         object : FilterOp(Component.translatable("jef.filter_op.has_tag")) {
             override fun matches(stack: ItemStack): Boolean {
-                return stack.tags.anyMatch { it.location.toString() == input }
+                return stack.tags.anyMatch { it.location == RLUtl.auto(input) }
             }
 
             override fun matchesNonItem(obj: Any): Boolean {
@@ -129,7 +130,7 @@ enum class FilterOpProvider(val factory: FilterOpFactory) : FilterOpFactory {
         }
     }),
 
-    has_data(FilterOpFactory1 { input ->
+    has_data(JefConstants.DATA_COMPONENT_IDS, FilterOpFactory1 { input ->
         object : FilterOp(Component.translatable("jef.filter_op.has_data")) {
             private val data = BuiltInRegistries.DATA_COMPONENT_TYPE.get(RLUtl.auto(input))
 
@@ -163,34 +164,51 @@ enum class FilterOpProvider(val factory: FilterOpFactory) : FilterOpFactory {
         ItemOnly(Component.translatable("jef.filter_op.is_block")) { it.item is BlockItem }
     }),
 
-    is_instanceof(FilterOpFactory1 {
-        try {
-            object : FilterOp(Component.translatable("jef.filter_op.is_instanceof")) {
-                private val clazz = Class.forName(it)
-
-                override fun matches(stack: ItemStack): Boolean {
-                    return clazz.isInstance(stack.item)
-                }
-
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return clazz.isInstance(obj)
-                }
+    is_instanceof(
+        {
+            try {
+                Class.forName(it)
+                true
+            } catch (_: ClassNotFoundException) {
+                false
             }
-        } catch (_: ClassNotFoundException) {
-            object : FilterOp(Component.translatable("jef.filter_op.is_instanceof")) {
-                override fun matches(stack: ItemStack): Boolean {
-                    return false
-                }
+        },
+        FilterOpFactory1 {
+            try {
+                object : FilterOp(Component.translatable("jef.filter_op.is_instanceof")) {
+                    private val clazz = Class.forName(it)
 
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
+                    override fun matches(stack: ItemStack): Boolean {
+                        return clazz.isInstance(stack.item)
+                    }
+
+                    override fun matchesNonItem(obj: Any): Boolean {
+                        return clazz.isInstance(obj)
+                    }
+                }
+            } catch (_: ClassNotFoundException) {
+                object : FilterOp(Component.translatable("jef.filter_op.is_instanceof")) {
+                    override fun matches(stack: ItemStack): Boolean {
+                        return false
+                    }
+
+                    override fun matchesNonItem(obj: Any): Boolean {
+                        return false
+                    }
                 }
             }
         }
-    });
+    );
+
+    constructor(factory: FilterOpFactory) : this(null, factory)
+    constructor(selections: Collection<String>, factory: FilterOpFactory) : this({ selections.contains(it) }, factory)
 
     override fun create(input: String): FilterOp {
         return factory.create(input)
+    }
+
+    fun validate(input: String): Boolean {
+        return validator?.invoke(input) ?: true
     }
 
     companion object {

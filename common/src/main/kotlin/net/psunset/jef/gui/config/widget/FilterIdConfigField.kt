@@ -29,7 +29,6 @@ class FilterIdConfigField(
         saveConsumer
     )
 
-    override fun selections(): Collection<String> {
-        return FilterManager.allToggledFilters.map { it.id.toString() }
-    }
+    override val selections: Collection<String>
+        get() =  FilterManager.allToggledFilters.map { it.id.toString() }
 }
