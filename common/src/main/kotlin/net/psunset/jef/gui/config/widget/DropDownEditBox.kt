@@ -11,6 +11,13 @@ import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.CommonComponents
 import kotlin.math.min
 
+/**
+ * An EditBox showing all selections in a drop-down list.
+ * The text color will be red if the current value is not in the selections,
+ * and will be normal otherwise.
+ *
+ * [saveConsumer] only fired when current value is valid.
+ */
 abstract class DropDownEditBox(
     minecraft: Minecraft,
     x: Int,
@@ -40,13 +47,13 @@ abstract class DropDownEditBox(
 
     init {
         setResponder { newValue ->
-            if (selections().any { it.equals(newValue, ignoreCase = true) }) {
+            if (selections.any { it.equals(newValue, ignoreCase = true) }) {
                 setTextColor(14737632)
                 saveConsumer(newValue)
             } else {
                 setTextColor(16733525)
             }
-            suggestions.refreshEntries(selections().sorted())
+            suggestions.refreshEntries(selections.sorted())
         }
     }
 
@@ -78,7 +85,7 @@ abstract class DropDownEditBox(
         super.setFocused(focused)
         suggestions.visible = focused
         if (focused) {
-            suggestions.refreshEntries(selections().sorted())
+            suggestions.refreshEntries(selections.sorted())
             suggestions.safeReversed()
         }
     }
@@ -91,7 +98,7 @@ abstract class DropDownEditBox(
         guiGraphics.pose.popPose()
     }
 
-    abstract fun selections(): Collection<String>
+    abstract val selections: Collection<String>
 
     internal class Suggestions(
         private val parent: DropDownEditBox,

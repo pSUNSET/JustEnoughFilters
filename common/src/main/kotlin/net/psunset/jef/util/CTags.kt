@@ -7,13 +7,13 @@ import net.psunset.jef.tool.RLUtl
 
 object CTags {
     object Items {
-        @JvmStatic
+        @JvmField
         val FOODS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("foods"))
 
-        @JvmStatic
+        @JvmField
         val TOOLS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("tools"))
 
-        @JvmStatic
+        @JvmField
         val ARMORS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("armors"))
     }
 }

@@ -4,8 +4,10 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
+import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
+import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.gui.config.ActiveFilterListScreen
 
@@ -91,6 +93,7 @@ internal class ActiveFilterListWidget(
         ) { id = it }.apply {
             setMaxLength(256)
             value = id
+            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.active_filters.id.tooltip"))
             widget.suggestionsList.add(suggestions)
         }
 

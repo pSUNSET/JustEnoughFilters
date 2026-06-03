@@ -28,7 +28,5 @@ class FilterOpConfigField(
         saveConsumer
     )
 
-    override fun selections(): Collection<String> {
-        return FilterOpProvider.NAMES
-    }
+    override val selections: Collection<String> = FilterOpProvider.NAMES
 }
