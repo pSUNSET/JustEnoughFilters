@@ -1,5 +1,5 @@
 <h2 style="text-align: center; color: #ff4f3f">
-Customizable Configuration is out!<br/>Enjoy it in latest beta!
+Customizable Configuration is out!<br/>Enjoy it in latest version!
 </h2>
 
 ---
