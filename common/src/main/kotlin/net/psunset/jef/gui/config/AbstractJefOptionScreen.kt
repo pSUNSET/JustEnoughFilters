@@ -7,6 +7,7 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.gui.screens.options.OptionsSubScreen
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
+import net.psunset.jef.gui.config.widget.UndoButton
 import net.psunset.jef.tool.RLUtl
 
 abstract class AbstractJefOptionScreen(
@@ -24,17 +25,7 @@ abstract class AbstractJefOptionScreen(
         .width(Button.BIG_WIDTH)
         .build()
 
-    protected val undoBtn: SpriteIconButton = SpriteIconButton.builder(
-        CommonComponents.EMPTY,
-        { onUndo() },
-        true
-    )
-        .width(Button.DEFAULT_HEIGHT)
-        .sprite(UNDO_ICON_LOCATION, DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE)
-        .build()
-        .apply {
-            tooltip = Tooltip.create(Component.translatable("gui.button.justenoughfilters.undo.tooltip"))
-        }
+    protected val undoBtn = UndoButton { onUndo() }
 
     abstract override fun addContents()
 
@@ -67,12 +58,5 @@ abstract class AbstractJefOptionScreen(
     }
 
     override fun removed() {
-    }
-
-    companion object {
-        private const val DEFAULT_SPRITE_SIZE = Button.DEFAULT_HEIGHT - 4
-
-        @JvmStatic
-        private val UNDO_ICON_LOCATION = RLUtl.ofJef("gui/undo")
     }
 }

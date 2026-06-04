@@ -11,11 +11,11 @@ enum class LogicMode(
     val combineFactory: (List<Boolean>) -> Boolean
 ) {
     OR(
-        RLUtl.ofJef("textures/gui/logic_mode/or.png"),
+        RLUtl.ofJef("textures/gui/or.png"),
         { results -> results.any { it } }
     ),
     AND(
-        RLUtl.ofJef("textures/gui/logic_mode/and.png"),
+        RLUtl.ofJef("textures/gui/and.png"),
         { results -> results.all { it } }
     );
 
