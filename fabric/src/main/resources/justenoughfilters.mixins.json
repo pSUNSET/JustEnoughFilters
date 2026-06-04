@@ -5,6 +5,7 @@
     "minVersion": "0.8",
     "plugin": "net.psunset.jef.fabric.JefMixinPluginImpl",
     "client": [
+        "AbstractWidgetMixin",
         "JeiIngredientFilterMixin",
         "JeiIngredientListOverlayMixin",
         "OversizedItemRendererMixin",

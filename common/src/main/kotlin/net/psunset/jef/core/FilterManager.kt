@@ -88,7 +88,7 @@ object FilterManager {
     }
 
     fun refreshProxies() {
-        JefRegistries.PROXIES.forEach { it.`jef$refresh`() }
+        JefRegistries.PROXIES.forEach { it.refresh() }
     }
 
     internal fun stepLogicMode() {
