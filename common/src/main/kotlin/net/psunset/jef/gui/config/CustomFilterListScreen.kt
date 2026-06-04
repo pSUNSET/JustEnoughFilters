@@ -27,6 +27,7 @@ class CustomFilterListScreen(
     override fun repositionElements() {
         super.repositionElements()
         list?.updateSize(width, layout)
+        isSubScreenNext = false
     }
 
     override fun addContents() {
