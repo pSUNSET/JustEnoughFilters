@@ -51,6 +51,17 @@ internal class ActiveFilterListWidget(
                 super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
+    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        // If any suggestions shown, hide all FilterOpConfigField's tooltip
+        if (suggestionsList.any { it.visible }) {
+            suggestionsList.forEach { it.parent.tooltipVisible = false }
+        } else {
+            suggestionsList.forEach { it.parent.tooltipVisible = true }
+        }
+
+        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+    }
+
     fun refresh() {
         this.clearEntries()
         suggestionsList = ArrayList(tempFilters.size)

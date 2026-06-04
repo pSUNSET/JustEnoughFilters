@@ -78,7 +78,14 @@ internal class CustomFilterListWidget(
             )
         }
             .width(Button.SMALL_WIDTH)
-            .tooltip(Tooltip.create(Component.literal(filter.id.toString())))
+            .tooltip(
+                Tooltip.create(
+                    Component.translatable(
+                        "gui.button.justenoughfilters.config.custom_filter.tooltip",
+                        filter.id.toString()
+                    )
+                )
+            )
             .build()
 
         private val removeBtn = RemoveButton { widget.remove(filter) }

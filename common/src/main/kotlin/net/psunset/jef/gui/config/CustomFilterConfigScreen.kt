@@ -17,7 +17,7 @@ class CustomFilterConfigScreen internal constructor(
     private val list: CustomFilterListWidget,
 ) : AbstractJefOptionScreen(
     lastScreen,
-    Component.translatable("config.justenoughfilters.custom_filter.title", filter.name)
+    Component.translatable("gui.justenoughfilters.config.custom_filter.title", filter.name)
 ) {
 
     private var widget: CustomFilterConfigWidget? = null
