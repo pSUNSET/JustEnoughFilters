@@ -1,5 +1,6 @@
 package net.psunset.jef.gui.config.widget
 
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -51,16 +52,33 @@ sealed class LogicOpConfigButton(
             private set
 
         init {
-            message = Component.literal(op.pattern)
             tooltip = Tooltip.create(LogicOp.Binary.genTooltip(op))
             active = !isFirst
         }
 
         override fun onPress() {
             op = if (op == LogicOp.Binary.and) LogicOp.Binary.or else LogicOp.Binary.and
-            message = Component.literal(op.pattern)
             tooltip = Tooltip.create(LogicOp.Binary.genTooltip(op))
             responder(op)
+        }
+
+        override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+            super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+            if (op.sprite != null) {
+                guiGraphics.blit(
+                    op.sprite!!,
+                    x + 1,
+                    y + 1,
+                    width - 2,
+                    height - 2,
+                    0.0f,
+                    0.0f,
+                    32,
+                    32,
+                    32,
+                    32
+                )
+            }
         }
 
         override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
@@ -83,15 +101,32 @@ sealed class LogicOpConfigButton(
             private set
 
         init {
-            message = Component.literal(op.pattern)
             tooltip = Tooltip.create(LogicOp.Unary.genTooltip(op))
         }
 
         override fun onPress() {
             op = if (op == LogicOp.Unary.so) LogicOp.Unary.not else LogicOp.Unary.so
-            message = Component.literal(op.pattern)
             tooltip = Tooltip.create(LogicOp.Unary.genTooltip(op))
             responder(op)
+        }
+
+        override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+            super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+            if (op.sprite != null) {
+                guiGraphics.blit(
+                    op.sprite!!,
+                    x + 1,
+                    y + 1,
+                    width - 2,
+                    height - 2,
+                    0.0f,
+                    0.0f,
+                    32,
+                    32,
+                    32,
+                    32
+                )
+            }
         }
 
         override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {

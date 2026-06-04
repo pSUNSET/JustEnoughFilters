@@ -2,16 +2,18 @@ package net.psunset.jef.config.element
 
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.psunset.jef.tool.RLUtl
 
-// It should be an abstract class, but enum cannot inherit from abstract class.
+// It should be a sealed class, but enum cannot inherit from abstract class.
 interface LogicOp {
 
-    val pattern: String
+    val sprite: ResourceLocation?
 
-    enum class Binary(override val pattern: String) : LogicOp {
-        first("_"),
-        and("&&"),
-        or("||");
+    enum class Binary(override val sprite: ResourceLocation?) : LogicOp {
+        first(null),
+        and(RLUtl.ofJef("textures/gui/and.png")),
+        or(RLUtl.ofJef("textures/gui/or.png"));
 
         companion object {
             @JvmStatic
@@ -33,9 +35,9 @@ interface LogicOp {
         }
     }
 
-    enum class Unary(override val pattern: String) : LogicOp {
-        so("_"),
-        not("!");
+    enum class Unary(override val sprite: ResourceLocation?) : LogicOp {
+        so(null),
+        not(RLUtl.ofJef("textures/gui/not.png"));
 
         companion object {
             @JvmStatic
