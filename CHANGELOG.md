@@ -1,2 +1,2 @@
 - Features
-  - Add configuration for active filters and custom filters.
+  - Add easy-to-understand descriptions and textures.
