@@ -48,6 +48,13 @@ internal class CustomFilterConfigWidget(
     }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        // If any suggestions shown, hide all FilterOpConfigField's tooltip
+        if (suggestionsList.any { it.visible }) {
+            suggestionsList.forEach { it.parent.tooltipVisible = false }
+        } else {
+            suggestionsList.forEach { it.parent.tooltipVisible = true }
+        }
+
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
     }
 
@@ -97,7 +104,6 @@ internal class CustomFilterConfigWidget(
             font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
         ).apply {
             setMaxLength(64)
-            value = widget.tempName
             setHint(Component.literal("Name..."))
             setResponder {
                 if (it.isNotBlank()) {
@@ -110,6 +116,7 @@ internal class CustomFilterConfigWidget(
                     )
                 }
             }
+            value = widget.tempName
         }
 
         private val iconField = ItemIdField(
@@ -191,30 +198,33 @@ internal class CustomFilterConfigWidget(
         ) {
             op = op.copy(filter = op.filter.copy(input = it))
         }.apply {
-            if (op.filter.provider.factory is FilterOpFactory0) visible = false
+            if (op.filter.provider.argDesc == null) {
+                visible = false
+            } else {
+                tooltip = Tooltip.create(Component.literal(op.filter.provider.argDesc.toString()))
+            }
             setMaxLength(256)
-            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.args.tooltip"))
             value = op.filter.input
         }
 
-        private val filterField = FilterOpConfigField(
+        private val filterField: FilterOpConfigField = FilterOpConfigField(
             minecraft,
             Button.DEFAULT_WIDTH,
             Button.DEFAULT_HEIGHT,
         ) {
-            val provider = FilterOpProvider.valueOf(it)
-            val isInputNeeded = provider.factory is FilterOpFactory1
+            val isInputNeeded = it.argDesc != null
             op = if (isInputNeeded) {
-                op.copy(filter = op.filter.copy(provider = provider))
+                filterArgsField.tooltip = Tooltip.create(Component.literal(it.argDesc.toString()))
+                op.copy(filter = op.filter.copy(provider = it))
             } else {
-                op.copy(filter = FilterOpGenerator(provider, ""))
+                op.copy(filter = FilterOpGenerator(it, ""))
             }
             filterArgsField.visible = isInputNeeded
         }.apply {
             setMaxLength(64)
-            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.op.tooltip"))
+            tooltip = Tooltip.create(op.filter.provider.tooltip)
             value = op.filter.provider.name
-            widget.suggestionsList.add(suggestions)
+            widget.suggestionsList.add(i, suggestions)
         }
 
         private val removeBtn = RemoveButton { widget.removeOp(i) }.apply { active = i != 0 }
@@ -240,6 +250,7 @@ internal class CustomFilterConfigWidget(
                 child.render(guiGraphics, mouseX, mouseY, partialTick)
                 x += child.width + Button.DEFAULT_SPACING
             }
+
         }
 
         override fun children(): List<GuiEventListener> {

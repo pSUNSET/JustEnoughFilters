@@ -6,9 +6,11 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.EditBox
+import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.CommonComponents
+import net.psunset.jef.api.AbstractWidgetAccessor
 import kotlin.math.min
 
 /**
@@ -24,7 +26,7 @@ abstract class DropDownEditBox(
     y: Int,
     width: Int,
     height: Int,
-    saveConsumer: (String) -> Unit,
+    private val saveConsumer: ((String) -> Unit)?,
 ) : EditBox(
     minecraft.font,
     x,
@@ -33,7 +35,7 @@ abstract class DropDownEditBox(
     height,
     CommonComponents.EMPTY
 ) {
-    constructor(minecraft: Minecraft, width: Int, height: Int, saveConsumer: (String) -> Unit) : this(
+    constructor(minecraft: Minecraft, width: Int, height: Int, saveConsumer: ((String) -> Unit)?) : this(
         minecraft,
         0,
         0,
@@ -45,11 +47,25 @@ abstract class DropDownEditBox(
     @JvmField
     internal val suggestions = Suggestions(this, minecraft).apply { visible = false }
 
+    var tooltipVisible = true
+        set(value) {
+            if (field != value) {
+                field = value
+                if (value) {
+                    _setTooltip(oTooltip)
+                } else {
+                    oTooltip = tooltip
+                    _setTooltip(null)
+                }
+            }
+        }
+    private var oTooltip: Tooltip? = null
+
     init {
         setResponder { newValue ->
             if (selections.any { it.equals(newValue, ignoreCase = true) }) {
                 setTextColor(14737632)
-                saveConsumer(newValue)
+                onSave(newValue)
             } else {
                 setTextColor(16733525)
             }
@@ -81,27 +97,46 @@ abstract class DropDownEditBox(
         setHeight(height)
     }
 
+    override fun setTooltip(tooltip: Tooltip?) {
+        if (tooltipVisible) {
+            super.setTooltip(tooltip)
+        } else {
+            oTooltip = tooltip
+        }
+    }
+
+    private fun _setTooltip(tooltip: Tooltip?) {
+        (this as AbstractWidgetAccessor).tooltipHolder.set(tooltip)
+    }
+
     override fun setFocused(focused: Boolean) {
         super.setFocused(focused)
         suggestions.visible = focused
         if (focused) {
+            tooltipVisible = false
             suggestions.refreshEntries(selections.sorted())
             suggestions.safeReversed()
+        } else {
+            tooltipVisible = true
         }
     }
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
         guiGraphics.pose.pushPose()
-        guiGraphics.pose.translate(0f, 0f, 512f)
+        guiGraphics.pose.translate(0f, 0f, 300f)  // Above everything except for tooltip
         suggestions.render(guiGraphics, mouseX, mouseY, partialTick)
         guiGraphics.pose.popPose()
+    }
+
+    open fun onSave(newValue: String) {
+        saveConsumer?.invoke(newValue)
     }
 
     abstract val selections: Collection<String>
 
     internal class Suggestions(
-        private val parent: DropDownEditBox,
+        val parent: DropDownEditBox,
         minecraft: Minecraft,
     ) : ContainerObjectSelectionList<Suggestion>(
         minecraft,

@@ -15,4 +15,8 @@ interface IFilterProxy {
      * Often, this means the window got resized.
      */
     fun `jef$refresh`()
+
+    fun refresh() {
+        `jef$refresh`()
+    }
 }
