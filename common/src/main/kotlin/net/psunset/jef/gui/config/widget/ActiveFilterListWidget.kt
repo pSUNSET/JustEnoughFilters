@@ -10,6 +10,7 @@ import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.gui.config.ActiveFilterListScreen
+import net.psunset.jef.util.JefConstants
 
 internal class ActiveFilterListWidget(
     minecraft: Minecraft,
@@ -124,10 +125,10 @@ internal class ActiveFilterListWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            val x = (screen.width - idField.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
+            val x = (screen.width - idField.width - JefConstants.BUTTON_SPACING - removeBtn.width) / 2
             idField.setPosition(x, top)
             idField.render(guiGraphics, mouseX, mouseY, partialTick)
-            removeBtn.setPosition(x + idField.width + Button.DEFAULT_SPACING, top)
+            removeBtn.setPosition(x + idField.width + JefConstants.BUTTON_SPACING, top)
             removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -161,8 +162,8 @@ internal class ActiveFilterListWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            val x = (screen.width - 256 - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + 256 + Button.DEFAULT_SPACING, top)
+            val x = (screen.width - 256 - JefConstants.BUTTON_SPACING - addBtn.width) / 2
+            addBtn.setPosition(x + 256 + JefConstants.BUTTON_SPACING, top)
             addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 

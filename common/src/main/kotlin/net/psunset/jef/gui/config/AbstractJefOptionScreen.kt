@@ -1,14 +1,12 @@
 package net.psunset.jef.gui.config
 
 import net.minecraft.client.gui.components.Button
-import net.minecraft.client.gui.components.SpriteIconButton
-import net.minecraft.client.gui.components.Tooltip
+import net.minecraft.client.gui.screens.OptionsSubScreen
 import net.minecraft.client.gui.screens.Screen
-import net.minecraft.client.gui.screens.options.OptionsSubScreen
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.gui.config.widget.UndoButton
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.util.JefConstants
 
 abstract class AbstractJefOptionScreen(
     lastScreen: Screen?,
@@ -22,7 +20,7 @@ abstract class AbstractJefOptionScreen(
     protected val doneBtn: Button = Button.builder(CommonComponents.GUI_DONE) {
         onDone()
     }
-        .width(Button.BIG_WIDTH)
+        .width(JefConstants.BIG_BUTTON_WIDTH)
         .build()
 
     protected val undoBtn = UndoButton { onUndo() }

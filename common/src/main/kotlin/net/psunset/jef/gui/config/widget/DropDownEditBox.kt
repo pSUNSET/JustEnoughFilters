@@ -10,7 +10,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.CommonComponents
-import net.psunset.jef.api.AbstractWidgetAccessor
+import net.psunset.jef.tool.bottom
 import kotlin.math.min
 
 /**
@@ -92,9 +92,9 @@ abstract class DropDownEditBox(
         suggestions.width = width
     }
 
-    override fun setSize(width: Int, height: Int) {
+    fun setSize(width: Int, height: Int) {
         setWidth(width)
-        setHeight(height)
+        this.height = height
     }
 
     override fun setTooltip(tooltip: Tooltip?) {
@@ -172,15 +172,15 @@ abstract class DropDownEditBox(
         }
 
         override fun renderListBackground(guiGraphics: GuiGraphics) {
-            guiGraphics.fill(x, y + 4, right, bottom, -22016)
-            guiGraphics.fill(x + 1, y + 5, right - 1, bottom - 1, -6250336)
+            guiGraphics.fill(x, y + 4, this.right, this.bottom, -22016)
+            guiGraphics.fill(x + 1, y + 5, this.right - 1, this.bottom - 1, -6250336)
         }
 
         override fun renderListSeparators(guiGraphics: GuiGraphics) {
         }
 
         override fun enableScissor(guiGraphics: GuiGraphics) {
-            guiGraphics.enableScissor(x + 1, y + 4, right - 1, bottom - 1)
+            guiGraphics.enableScissor(x + 1, y + 4, this.right - 1, this.bottom - 1)
         }
 
         override fun getScrollbarPosition(): Int {
@@ -188,7 +188,7 @@ abstract class DropDownEditBox(
         }
 
         override fun isMouseOver(mouseX: Double, mouseY: Double): Boolean {
-            return isActive && mouseY >= y + 4 && mouseY <= bottom && mouseX >= x && mouseX <= right + 7
+            return isActive && mouseY >= y + 4 && mouseY <= this.bottom && mouseX >= x && mouseX <= this.right + 7
         }
 
         override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {

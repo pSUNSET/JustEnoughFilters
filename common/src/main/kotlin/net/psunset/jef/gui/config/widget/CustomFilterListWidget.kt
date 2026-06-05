@@ -12,6 +12,7 @@ import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.config.element.CustomFilter
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
 import net.psunset.jef.gui.config.CustomFilterListScreen
+import net.psunset.jef.util.JefConstants
 
 internal class CustomFilterListWidget(
     minecraft: Minecraft,
@@ -104,10 +105,10 @@ internal class CustomFilterListWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            val x = (screen.width - editBtn.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
+            val x = (screen.width - editBtn.width - JefConstants.BUTTON_SPACING - removeBtn.width) / 2
             editBtn.setPosition(x, top)
             editBtn.render(guiGraphics, mouseX, mouseY, partialTick)
-            removeBtn.setPosition(x + editBtn.width + Button.DEFAULT_SPACING, top)
+            removeBtn.setPosition(x + editBtn.width + JefConstants.BUTTON_SPACING, top)
             removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -141,8 +142,8 @@ internal class CustomFilterListWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            val x = (screen.width - Button.SMALL_WIDTH - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + Button.SMALL_WIDTH + Button.DEFAULT_SPACING, top)
+            val x = (screen.width - Button.SMALL_WIDTH - JefConstants.BUTTON_SPACING - addBtn.width) / 2
+            addBtn.setPosition(x + Button.SMALL_WIDTH + JefConstants.BUTTON_SPACING, top)
             addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 

@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
+import net.psunset.jef.util.JefConstants
 
 /**
  * Main configuration screen for JustEnoughFilters mod.
@@ -22,14 +23,14 @@ class JefMainConfigScreen(
         minecraft?.setScreen(CustomFilterListScreen(this))
     }
         .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.custom_filters.tooltip")))
-        .width(Button.BIG_WIDTH)
+        .width(JefConstants.BIG_BUTTON_WIDTH)
         .build()
 
     private val activeFilterConfigBtn = Button.builder(Component.translatable("gui.button.justenoughfilters.config.active_filters")) {
         minecraft?.setScreen(ActiveFilterListScreen(this))
     }
         .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.active_filters.tooltip")))
-        .width(Button.BIG_WIDTH)
+        .width(JefConstants.BIG_BUTTON_WIDTH)
         .build()
 
     override fun addContents() {

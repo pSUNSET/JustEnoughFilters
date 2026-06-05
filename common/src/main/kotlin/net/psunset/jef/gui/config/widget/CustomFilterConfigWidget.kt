@@ -9,6 +9,7 @@ import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
+import net.psunset.jef.util.JefConstants
 
 internal class CustomFilterConfigWidget(
     minecraft: Minecraft,
@@ -101,7 +102,7 @@ internal class CustomFilterConfigWidget(
         private val iconHint = Component.translatable("gui.justenoughfilters.config.custom_filter.icon.desc")
 
         private val nameField = EditBox(
-            font, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
+            font, 0, 0, Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, CommonComponents.EMPTY
         ).apply {
             setMaxLength(64)
             setHint(Component.literal("Name..."))
@@ -146,14 +147,14 @@ internal class CustomFilterConfigWidget(
             val nameHintWidth = font.width(nameHint)
             val iconHintWidth = font.width(iconHint)
             val strY = top + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
-            var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - Button.DEFAULT_SPACING
+            var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - JefConstants.BUTTON_SPACING
 
             guiGraphics.drawString(font, nameHint, x, strY, 14737632)
             x += font.width(nameHint)
 
             nameField.setPosition(x, top)
             nameField.render(guiGraphics, mouseX, mouseY, partialTick)
-            x += Button.DEFAULT_WIDTH + Button.DEFAULT_SPACING * 2
+            x += Button.DEFAULT_WIDTH + JefConstants.BUTTON_SPACING * 2
 
             guiGraphics.drawString(font, iconHint, x, strY, 14737632)
             x += font.width(iconHint)
@@ -244,11 +245,11 @@ internal class CustomFilterConfigWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            var x = (screen.width - children.sumOf { it.width } - Button.DEFAULT_SPACING * children.lastIndex) / 2
+            var x = (screen.width - children.sumOf { it.width } - JefConstants.BUTTON_SPACING * children.lastIndex) / 2
             for (child in children) {
                 child.setPosition(x, top)
                 child.render(guiGraphics, mouseX, mouseY, partialTick)
-                x += child.width + Button.DEFAULT_SPACING
+                x += child.width + JefConstants.BUTTON_SPACING
             }
 
         }

@@ -140,23 +140,24 @@ enum class FilterOpProvider : FilterOpFactory {
             }
         }),
 
-    has_data(
-        ArgDesc("dataId", "Identifier", JefConstants.DATA_COMPONENT_IDS),
-        {
-            object : FilterOp() {
-                private val data = BuiltInRegistries.DATA_COMPONENT_TYPE.get(RLUtl.auto(it))
-
-                override fun matches(stack: ItemStack): Boolean {
-                    if (data == null) return false
-                    return stack.components.keySet().any { data == it }
-                }
-
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
-                }
-            }
-        }),
+    // Data Component doesn't exist in 1.20.1
+//    has_data(
+//        ArgDesc("dataId", "Identifier", JefConstants.DATA_COMPONENT_IDS),
+//        {
+//            object : FilterOp() {
+//                private val data = BuiltInRegistries.DATA_COMPONENT_TYPE.get(RLUtl.auto(it))
+//
+//                override fun matches(stack: ItemStack): Boolean {
+//                    if (data == null) return false
+//                    return stack.components.keySet().any { data == it }
+//                }
+//
+//                override fun matchesNonItem(obj: Any): Boolean {
+//                    return false
+//                    TODO()
+//                }
+//            }
+//        }),
 
     is_fuel({
         ItemOnly { AbstractFurnaceBlockEntity.isFuel(it) }

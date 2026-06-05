@@ -6,12 +6,12 @@ import net.psunset.jef.JustEnoughFilters
 object RLUtl {
     @JvmStatic
     fun of(namespace: String, path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(namespace, path)
+        return ResourceLocation(namespace, path)
     }
 
     @JvmStatic
     fun ofJef(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(JustEnoughFilters.ID, path)
+        return ResourceLocation(JustEnoughFilters.ID, path)
     }
 
     @JvmStatic
@@ -36,15 +36,7 @@ object RLUtl {
 
     @JvmStatic
     fun validate(rl: String): Boolean {
-        val idx = rl.indexOf(':')
-        if (idx > 0) {
-            if (!ResourceLocation.isValidPath(rl.substring(idx + 1))) {
-                return false
-            } else {
-                return ResourceLocation.isValidNamespace(rl.substring(0, idx))
-            }
-        }
-        return false
+        return ResourceLocation.isValidResourceLocation(rl)
     }
 
     @JvmStatic
