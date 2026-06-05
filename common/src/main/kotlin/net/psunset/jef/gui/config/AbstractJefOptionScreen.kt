@@ -25,30 +25,26 @@ abstract class AbstractJefOptionScreen(
 
     protected val undoBtn = UndoButton { onUndo() }
 
-    abstract override fun addContents()
-
-    override fun addOptions() {
-        // completely unreachable
-        throw AssertionError()
+    override fun init() {
+        addContents()
+        doneBtn.setPosition((width - doneBtn.width) / 2, height - 27)
+        addRenderableWidget(doneBtn)
+        undoBtn.setPosition(width - 27, height - 27)
+        addRenderableWidget(undoBtn)
     }
 
-    override fun addFooter() {
-        layout.addToFooter(doneBtn)
-        layout.addToFooter(undoBtn) {
-            it.alignHorizontallyRight()
-            it.paddingRight(5)
-        }
+    override fun repositionElements() {
+        doneBtn.setPosition((width - doneBtn.width) / 2, height - 27)
+        undoBtn.setPosition(width - 27, height - 27)
     }
+
+    abstract fun addContents()
 
     open fun onDone() {
         this.onClose()
     }
 
     open fun onUndo() {
-    }
-
-    override fun repositionElements() {
-        layout.arrangeElements()
     }
 
     override fun onClose() {

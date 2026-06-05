@@ -1,10 +1,12 @@
 package net.psunset.jef.gui.config
 
+import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.components.Tooltip
-import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.client.gui.screens.Screen
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.util.JefConstants
 
@@ -33,23 +35,46 @@ class JefMainConfigScreen(
         .width(JefConstants.BIG_BUTTON_WIDTH)
         .build()
 
-    override fun addContents() {
-        this.layout.addToContents(LinearLayout.vertical().spacing(8).apply {
-            addChild(createString("gui.justenoughfilters.config.general_options"))
-            addChild(activeFilterConfigBtn)
-            addChild(createString(""))
-            addChild(createString("gui.justenoughfilters.config.advanced_options"))
-            addChild(customFilterConfigBtn)
-        })
+    override fun repositionElements() {
+        rebuildWidgets()
     }
 
-    private fun createString(key: String): StringWidget {
+    override fun addContents() {
+        val contents = listOf(
+            createString("gui.justenoughfilters.config.general_options"),
+            activeFilterConfigBtn,
+            createString(CommonComponents.EMPTY),
+            createString("gui.justenoughfilters.config.advanced_options"),
+            customFilterConfigBtn
+        )
+
+        val contentsHeight = contents.sumOf { it.height } + 16
+        var _y = (height - contentsHeight) / 2
+        for (widget in contents) {
+            widget.setPosition((width - widget.width) / 2, _y)
+            addRenderableWidget(widget)
+            _y += widget.height + 4
+        }
+    }
+
+    private fun createString(message: Component): StringWidget {
         return StringWidget(
-            Button.BIG_WIDTH,
+            JefConstants.BIG_BUTTON_WIDTH,
             8,
-            Component.translatable(key), minecraft!!.font
+            message,
+            minecraft!!.font
         ).apply {
             alignCenter()
         }
+    }
+
+    private fun createString(key: String): StringWidget {
+        return createString(Component.translatable(key))
+    }
+
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        this.renderBackground(guiGraphics)
+        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215)
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
     }
 }

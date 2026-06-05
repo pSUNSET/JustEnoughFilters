@@ -40,7 +40,7 @@ side = "CLIENT"
 
 [[dependencies.justenoughfilters]]
 modId = "cloth_config"
-type = "required"
+mandatory = true
 versionRange = "${cloth_config_version_forge_range}"
 ordering = "NONE"
 side = "CLIENT"

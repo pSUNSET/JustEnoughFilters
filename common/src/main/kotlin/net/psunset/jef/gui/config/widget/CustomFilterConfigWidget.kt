@@ -9,6 +9,7 @@ import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
+import net.psunset.jef.tool.idToString
 import net.psunset.jef.util.JefConstants
 
 internal class CustomFilterConfigWidget(
@@ -17,11 +18,16 @@ internal class CustomFilterConfigWidget(
     private val screen: CustomFilterConfigScreen,
     filter: CustomFilter,
 ) : ContainerObjectSelectionList<CustomFilterConfigWidget.Entry>(
-    minecraft, width, screen.layout.contentHeight, screen.layout.headerHeight, 25
+    minecraft,
+    width,
+    screen.height,
+    32,
+    screen.height - 32,
+    25
 ) {
 
     internal var tempName = filter.name
-    internal var tempIcon = filter.icon.toString()
+    internal var tempIcon = filter.icon.idToString()
     internal var tempOps = filter.ops.toMutableList()
 
     private var suggestionsList: MutableList<DropDownEditBox.Suggestions> = ArrayList(tempOps.size)
@@ -43,12 +49,12 @@ internal class CustomFilterConfigWidget(
                 super.mouseClicked(mouseX, mouseY, button)
     }
 
-    override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, scrollX, scrollY) } ||
-                super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
+        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, delta) } ||
+                super.mouseScrolled(mouseX, mouseY, delta)
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         // If any suggestions shown, hide all FilterOpConfigField's tooltip
         if (suggestionsList.any { it.visible }) {
             suggestionsList.forEach { it.parent.tooltipVisible = false }
@@ -56,7 +62,11 @@ internal class CustomFilterConfigWidget(
             suggestionsList.forEach { it.parent.tooltipVisible = true }
         }
 
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
+    }
+
+    override fun getScrollbarPosition(): Int {
+        return rowRight + 3
     }
 
     fun refresh() {

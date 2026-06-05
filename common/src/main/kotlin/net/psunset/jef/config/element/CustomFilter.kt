@@ -13,6 +13,7 @@ import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
 import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.idToString
 
 data class CustomFilter(
     val name: String,
@@ -129,7 +130,7 @@ data class CustomFilter(
         override fun write(writer: JsonWriter, obj: CustomFilter) {
             writer.beginObject()
                 .name("name").value(obj.name)
-                .name("icon").value(obj.icon.toString())
+                .name("icon").value(obj.icon.idToString())
                 .name("ops")
                 .beginArray()
             for (op in obj.ops) {

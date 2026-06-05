@@ -18,7 +18,7 @@ public class EmiExclusionAreasMixin {
     @Inject(method = "getExclusion", at = @At("RETURN"))
     private static void jef$reserveSpace(EmiScreenBase base, CallbackInfoReturnable<List<Bounds>> cir) {
         List<Bounds> list = cir.getReturnValue();
-        Rect2i overlayBounds = JefOverlayManager.INSTANCE.getOverlayBounds();
+        Rect2i overlayBounds = InventoryOverlayManager.INSTANCE.getOverlayBounds();
         if (overlayBounds != null) {
             list.add(new Bounds(overlayBounds.getX(), overlayBounds.getY(), overlayBounds.getWidth(), overlayBounds.getHeight()));
         }

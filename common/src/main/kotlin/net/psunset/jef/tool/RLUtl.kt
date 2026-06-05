@@ -1,6 +1,8 @@
 package net.psunset.jef.tool
 
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.Item
 import net.psunset.jef.JustEnoughFilters
 
 object RLUtl {
@@ -43,4 +45,8 @@ object RLUtl {
     fun toValidPath(path: String): String {
         return path.lowercase().replace(Regex("[^a-z0-9._-]"), "_")
     }
+}
+
+fun Item.idToString(): String {
+    return BuiltInRegistries.ITEM.getKey(this).toString()
 }

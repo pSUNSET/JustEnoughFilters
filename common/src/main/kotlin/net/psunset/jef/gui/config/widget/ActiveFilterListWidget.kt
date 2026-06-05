@@ -19,14 +19,15 @@ internal class ActiveFilterListWidget(
 ) : ContainerObjectSelectionList<ActiveFilterListWidget.Entry>(
     minecraft,
     width,
-    screen.layout.contentHeight,
-    screen.layout.headerHeight,
+    screen.height,
+    32,
+    screen.height - 32,
     25
 ) {
 
     var tempFilters: MutableList<String> =
         FilterManager.activeToggledFilters.map { it.id.toString() }.toMutableList()
-    internal set
+        internal set
 
     private var suggestionsList: MutableList<DropDownEditBox.Suggestions> = ArrayList(tempFilters.size)
 
@@ -47,12 +48,12 @@ internal class ActiveFilterListWidget(
                 super.mouseClicked(mouseX, mouseY, button)
     }
 
-    override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, scrollX, scrollY) } ||
-                super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
+        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, delta) } ||
+                super.mouseScrolled(mouseX, mouseY, delta)
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         // If any suggestions shown, hide all FilterOpConfigField's tooltip
         if (suggestionsList.any { it.visible }) {
             suggestionsList.forEach { it.parent.tooltipVisible = false }
@@ -60,7 +61,11 @@ internal class ActiveFilterListWidget(
             suggestionsList.forEach { it.parent.tooltipVisible = true }
         }
 
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
+    }
+
+    override fun getScrollbarPosition(): Int {
+        return rowRight + 3
     }
 
     fun refresh() {

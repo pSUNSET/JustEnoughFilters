@@ -43,6 +43,10 @@ class UndoButton(
         )
     }
 
+    fun setHeight(height: Int) {
+        this.height = height
+    }
+
     companion object {
         @JvmStatic
         private val UNDO_SPRITE_LOCATION = RLUtl.ofJef("textures/gui/undo.png")

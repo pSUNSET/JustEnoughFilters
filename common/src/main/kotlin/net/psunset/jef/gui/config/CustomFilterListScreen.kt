@@ -1,5 +1,6 @@
 package net.psunset.jef.gui.config
 
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.ConfigManager
@@ -26,12 +27,19 @@ class CustomFilterListScreen(
 
     override fun repositionElements() {
         super.repositionElements()
-        list?.updateSize(width, layout)
+        list?.updateSize(width, height, 32, height - 32)
         isSubScreenNext = false
     }
 
     override fun addContents() {
-        list = layout.addToContents(CustomFilterListWidget(minecraft!!, width, this))
+        list = addWidget(CustomFilterListWidget(minecraft!!, width, this))
+    }
+
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        this.renderBackground(guiGraphics)
+        if (list != null) list!!.render(guiGraphics, mouseX, mouseY, partialTick)
+        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215)
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
     }
 
     override fun removed() {

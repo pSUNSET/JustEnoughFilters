@@ -75,21 +75,23 @@ abstract class DropDownEditBox(
 
     override fun setX(x: Int) {
         super.setX(x)
-        suggestions.x = x
+        suggestions.setLeftPos(x)
     }
 
     override fun setY(y: Int) {
         super.setY(y)
-        suggestions.y = if (suggestions.isReversed) {
-            y - suggestions.height - 3
-        } else {
-            y + height - 3
-        }
+        suggestions.setTopPos(
+            if (suggestions.isReversed) {
+                y - suggestions.getHeight() - 3
+            } else {
+                y + height - 3
+            }
+        )
     }
 
     override fun setWidth(width: Int) {
         super.setWidth(width)
-        suggestions.width = width
+        suggestions.setWidth(width)
     }
 
     fun setSize(width: Int, height: Int) {
@@ -106,7 +108,7 @@ abstract class DropDownEditBox(
     }
 
     private fun _setTooltip(tooltip: Tooltip?) {
-        (this as AbstractWidgetAccessor).tooltipHolder.set(tooltip)
+        super.setTooltip(tooltip)
     }
 
     override fun setFocused(focused: Boolean) {
@@ -143,22 +145,29 @@ abstract class DropDownEditBox(
         parent.width,
         minecraft.font.lineHeight * 10 + 34,
         parent.bottom - 3,
+        0,
         minecraft.font.lineHeight + 3
     ) {
         var isReversed = false
             internal set
 
+        var visible = true
+
         init {
-            x = parent.x
+            x0 = parent.x
+            y1 = y0 + height
+            setRenderBackground(false)
+            setRenderTopAndBottom(false)
         }
 
         internal fun reversed() {
             isReversed = !isReversed
-            y = if (isReversed) {
+            y0 = if (isReversed) {
                 parent.y - height - 3
             } else {
                 parent.bottom - 3
             }
+            y1 = y0 + height
         }
 
         fun safeReversed() {
@@ -171,29 +180,78 @@ abstract class DropDownEditBox(
             }
         }
 
-        override fun renderListBackground(guiGraphics: GuiGraphics) {
-            guiGraphics.fill(x, y + 4, this.right, this.bottom, -22016)
-            guiGraphics.fill(x + 1, y + 5, this.right - 1, this.bottom - 1, -6250336)
+        fun getX0(): Int {
+            return x0
         }
 
-        override fun renderListSeparators(guiGraphics: GuiGraphics) {
+        fun getX1(): Int {
+            return x1
+        }
+
+        fun getY0(): Int {
+            return y0
+        }
+
+        fun getY1(): Int {
+            return y1
+        }
+
+        fun setTopPos(y: Int) {
+            y0 = y
+            y1 = y + height
+        }
+
+        fun getWidth(): Int {
+            return width
+        }
+
+        fun setWidth(width: Int) {
+            this.width = width
+            x1 = x0 + width
+        }
+
+        fun getHeight(): Int {
+            return height
+        }
+
+        fun setHeight(height: Int) {
+            this.height = height
+            y1 = y0 + height
+        }
+
+        override fun isActive(): Boolean {
+            return visible
+        }
+
+        override fun renderBackground(guiGraphics: GuiGraphics) {
+            guiGraphics.fill(x0, y0 + 4, x1, y1, -22016)
+            guiGraphics.fill(x0 + 1, y0 + 5, x1 - 1, y1 - 1, -6250336)
+        }
+
+//        override fun renderListSeparators(guiGraphics: GuiGraphics) {
+//        }
+
+        override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+            if (visible) {
+                super.render(guiGraphics, mouseX, mouseY, partialTick)
+            }
         }
 
         override fun enableScissor(guiGraphics: GuiGraphics) {
-            guiGraphics.enableScissor(x + 1, y + 4, this.right - 1, this.bottom - 1)
+            guiGraphics.enableScissor(x0 + 1, y0 + 4, x1 - 1, y1 - 1)
         }
 
         override fun getScrollbarPosition(): Int {
-            return right + 1
+            return x1 + 1
         }
 
         override fun isMouseOver(mouseX: Double, mouseY: Double): Boolean {
-            return isActive && mouseY >= y + 4 && mouseY <= this.bottom && mouseX >= x && mouseX <= this.right + 7
+            return isActive && mouseY >= y0 + 4 && mouseY <= y1 && mouseX >= x0 && mouseX <= x1 + 7
         }
 
-        override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-            if (isActive && scrollbarVisible() && isMouseOver(mouseX, mouseY)) {
-                return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
+        override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
+            if (isActive && maxScroll > 0 && isMouseOver(mouseX, mouseY)) {
+                return super.mouseScrolled(mouseX, mouseY, delta)
             }
             return false
         }
@@ -236,14 +294,14 @@ abstract class DropDownEditBox(
             partialTick: Float
         ) {
             val _height = font.lineHeight + 3
-            val _x = parent.x
-            val subText = font.plainSubstrByWidth(text, parent.width - 4)
+            val _x = parent.getX0()
+            val subText = font.plainSubstrByWidth(text, parent.getWidth() - 4)
 
             if (parent.isReversed) {
-                guiGraphics.fill(_x + 1, top + 1, parent.right - 1, top + _height, -16777216)
+                guiGraphics.fill(_x + 1, top + 1, parent.getX1() - 1, top + _height, -16777216)
                 guiGraphics.drawString(font, subText, _x + 2, top + 2, if (hovering) -22016 else 14737632)
             } else {
-                guiGraphics.fill(_x + 1, top, parent.right - 1, top + _height - 1, -16777216)
+                guiGraphics.fill(_x + 1, top, parent.getX1() - 1, top + _height - 1, -16777216)
                 guiGraphics.drawString(font, subText, _x + 2, top + 1, if (hovering) -22016 else 14737632)
             }
         }

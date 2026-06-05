@@ -21,8 +21,9 @@ internal class CustomFilterListWidget(
 ) : ContainerObjectSelectionList<CustomFilterListWidget.Entry>(
     minecraft,
     width,
-    screen.layout.contentHeight,
-    screen.layout.headerHeight,
+    screen.height,
+    32,
+    screen.height - 32,
     25
 ) {
     var tempFilters: MutableList<CustomFilter> = ConfigManager.customFilters.toMutableList()
@@ -39,6 +40,10 @@ internal class CustomFilterListWidget(
     }
 
     override fun getRowWidth(): Int = 310
+
+    override fun getScrollbarPosition(): Int {
+        return rowRight + 3
+    }
 
     fun refresh() {
         this.clearEntries()

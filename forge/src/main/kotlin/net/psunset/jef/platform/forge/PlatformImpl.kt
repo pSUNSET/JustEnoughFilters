@@ -1,6 +1,7 @@
 package net.psunset.jef.platform.forge
 
 import net.minecraftforge.fml.ModList
+import net.minecraftforge.fml.loading.FMLPaths
 import net.minecraftforge.fml.loading.LoadingModList
 import net.psunset.jef.platform.IPlatform
 import net.psunset.jef.platform.Platform
