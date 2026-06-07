@@ -3,13 +3,15 @@ package net.psunset.jef.config.element
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.api.IFilter
-import net.psunset.jef.config.element.FilterOp.ItemOnly
-import net.psunset.jef.config.element.FilterOp.WithName
+import net.psunset.jef.platform.Platform
 import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.idToString
+import net.psunset.jef.tool.toId
 import net.psunset.jef.util.JefConstants
 
 abstract class FilterOp : IFilter {
@@ -32,6 +34,48 @@ abstract class FilterOp : IFilter {
     ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
             return factory(I18n.get(stack.descriptionId), input)
+        }
+
+        override fun matchesNonItem(obj: Any): Boolean {
+            return false
+            TODO()
+        }
+    }
+
+    class WithId(
+        private val input: String,
+        private val factory: (String, String) -> Boolean
+    ) : FilterOp() {
+        override fun matches(stack: ItemStack): Boolean {
+            return factory(stack.item.idToString(), input)
+        }
+
+        override fun matchesNonItem(obj: Any): Boolean {
+            return false
+            TODO()
+        }
+    }
+
+    class WithNamespace(
+        private val input: String,
+        private val factory: (String, String) -> Boolean
+    ) : FilterOp() {
+        override fun matches(stack: ItemStack): Boolean {
+            return factory(stack.item.toId().namespace, input)
+        }
+
+        override fun matchesNonItem(obj: Any): Boolean {
+            return false
+            TODO()
+        }
+    }
+
+    class WithPath(
+        private val input: String,
+        private val factory: (String, String) -> Boolean
+    ) : FilterOp() {
+        override fun matches(stack: ItemStack): Boolean {
+            return factory(stack.item.toId().path, input)
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
@@ -69,47 +113,32 @@ fun interface FilterOpFactory1 : Function1<String, FilterOp>, FilterOpFactory {
 
 enum class FilterOpProvider : FilterOpFactory {
     name_is(
-        ArgDesc("name", "String"),
-        {
-            WithName(it) { a, b ->
-                a.equals(b, true)
-            }
-        }),
+        ArgDesc("name", ArgType.Str),
+        { FilterOp.WithName(it) { a, b -> a.equals(b, true) } }
+    ),
 
     name_startswith(
-        ArgDesc("prefix", "String"),
-        {
-            WithName(it) { a, b ->
-                a.startsWith(b, true)
-            }
-        }),
+        ArgDesc("prefix", ArgType.Str),
+        { FilterOp.WithName(it) { a, b -> a.startsWith(b, true) } }
+    ),
 
     name_endswith(
-        ArgDesc("suffix", "String"),
-        {
-            WithName(it) { a, b ->
-                a.endsWith(b, true)
-            }
-        }),
+        ArgDesc("suffix", ArgType.Str),
+        { FilterOp.WithName(it) { a, b -> a.endsWith(b, true) } }
+    ),
 
     name_contains(
-        ArgDesc("text", "String"),
-        {
-            WithName(it) { a, b ->
-                a.contains(b, true)
-            }
-        }),
+        ArgDesc("partial", ArgType.Str),
+        { FilterOp.WithName(it) { a, b -> a.contains(b, true) } }
+    ),
 
     name_matches(
-        ArgDesc("regex", "Regex"),
-        {
-            WithName(it) { a, b ->
-                a.matches(Regex(b))
-            }
-        }),
+        ArgDesc("regex", ArgType.Reg),
+        { FilterOp.WithName(it) { a, b -> a.matches(Regex(b)) } }
+    ),
 
     id_is(
-        ArgDesc("itemId", "Identifier", JefConstants.ITEM_IDS),
+        ArgDesc("id", ArgType.ItemId),
         {
             object : FilterOp() {
                 private val item = BuiltInRegistries.ITEM.get(RLUtl.auto(it))
@@ -123,14 +152,84 @@ enum class FilterOpProvider : FilterOpFactory {
                     TODO()
                 }
             }
-        }),
+        }
+    ),
+
+    id_startswith(
+        ArgDesc("prefix", ArgType.PartialId),
+        { FilterOp.WithId(it) { a, b -> a.startsWith(b) } }
+    ),
+
+    id_endswith(
+        ArgDesc("suffix", ArgType.PartialId),
+        { FilterOp.WithId(it) { a, b -> a.endsWith(b) } }
+    ),
+
+    id_contains(
+        ArgDesc("partial", ArgType.PartialId),
+        { FilterOp.WithId(it) { a, b -> a.contains(b) } }
+    ),
+
+    id_matches(
+        ArgDesc("regex", ArgType.Reg),
+        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+    ),
+
+    modid_is(
+        ArgDesc("modId", ArgType.ModId),
+        { FilterOp.WithNamespace(it) { a, b -> a == b } }
+    ),
+
+    modname_is(
+        ArgDesc("name", ArgType.ModName),
+        {
+            FilterOp.WithNamespace(it) { a, b ->
+                Platform.getModName(a).equals(b, true)
+            }
+        }
+    ),
+
+    modname_contains(
+        ArgDesc("partial", ArgType.Str),
+        {
+            FilterOp.WithNamespace(it) { a, b ->
+                Platform.getModName(a).contains(b, true)
+            }
+        }
+    ),
+
+    idname_is(
+        ArgDesc("name", ArgType.Path),
+        { FilterOp.WithPath(it) { a, b -> a == b } }
+    ),
+
+    idname_startswith(
+        ArgDesc("prefix", ArgType.Path),
+        { FilterOp.WithId(it) { a, b -> a.startsWith(b) } }
+    ),
+
+    idname_endswith(
+        ArgDesc("suffix", ArgType.Path),
+        { FilterOp.WithId(it) { a, b -> a.endsWith(b) } }
+    ),
+
+    idname_contains(
+        ArgDesc("partial", ArgType.Path),
+        { FilterOp.WithId(it) { a, b -> a.contains(b) } }
+    ),
+
+    idname_matches(
+        ArgDesc("regex", ArgType.Reg),
+        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+    ),
 
     has_tag(
-        ArgDesc("tagId", "Identifier") { RLUtl.validate(it) },
+        ArgDesc("tagId", ArgType.Id),
         {
             object : FilterOp() {
+                private val tagRl = RLUtl.auto(it)
                 override fun matches(stack: ItemStack): Boolean {
-                    return stack.tags.anyMatch { rl -> rl.location == RLUtl.auto(it) }
+                    return stack.tags.anyMatch { rl -> rl.location == tagRl }
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {
@@ -138,11 +237,12 @@ enum class FilterOpProvider : FilterOpFactory {
                     TODO()
                 }
             }
-        }),
+        }
+    ),
 
     // Data Component doesn't exist in 1.20.1
 //    has_data(
-//        ArgDesc("dataId", "Identifier", JefConstants.DATA_COMPONENT_IDS),
+//        ArgDesc("dataId", ArgType.DataId),
 //        {
 //            object : FilterOp() {
 //                private val data = BuiltInRegistries.DATA_COMPONENT_TYPE.get(RLUtl.auto(it))
@@ -157,55 +257,29 @@ enum class FilterOpProvider : FilterOpFactory {
 //                    TODO()
 //                }
 //            }
-//        }),
+//        }
+//    ),
 
-    is_fuel({
-        ItemOnly { AbstractFurnaceBlockEntity.isFuel(it) }
-    }),
+    is_fuel({ FilterOp.ItemOnly { AbstractFurnaceBlockEntity.isFuel(it) } }),
 
-    is_itemlike({
-        ItemOnly { true }
-    }),
+    is_itemlike({ FilterOp.ItemOnly { true } }),
 
-    is_item({
-        ItemOnly { it.item !is BlockItem }
-    }),
+    is_item({ FilterOp.ItemOnly { it.item !is BlockItem } }),
 
-    is_block({
-        ItemOnly { it.item is BlockItem }
-    }),
+    is_block({ FilterOp.ItemOnly { it.item is BlockItem } }),
 
     is_instanceof(
-        ArgDesc("cls", "Class") {
-            try {
-                Class.forName(it)
-                true
-            } catch (_: ClassNotFoundException) {
-                false
-            }
-        },
+        ArgDesc("cls", ArgType.Clazz),
         {
-            try {
-                object : FilterOp() {
-                    private val clazz = Class.forName(it)
+            object : FilterOp() {
+                private val clazz = Class.forName(it)
 
-                    override fun matches(stack: ItemStack): Boolean {
-                        return clazz.isInstance(stack.item)
-                    }
-
-                    override fun matchesNonItem(obj: Any): Boolean {
-                        return clazz.isInstance(obj)
-                    }
+                override fun matches(stack: ItemStack): Boolean {
+                    return clazz.isInstance(stack.item)
                 }
-            } catch (_: ClassNotFoundException) {
-                object : FilterOp() {
-                    override fun matches(stack: ItemStack): Boolean {
-                        return false
-                    }
 
-                    override fun matchesNonItem(obj: Any): Boolean {
-                        return false
-                    }
+                override fun matchesNonItem(obj: Any): Boolean {
+                    return clazz.isInstance(obj)
                 }
             }
         }
@@ -216,20 +290,17 @@ enum class FilterOpProvider : FilterOpFactory {
 
     private val tooltipKey = "jef.filter_op.$name"
     val tooltip: Component
-        get() = if (argDesc != null) {
-            Component.translatable(tooltipKey, argDesc.name)
-        } else {
-            Component.translatable(tooltipKey)
-        }
 
     constructor(argDesc: ArgDesc, factory1: FilterOpFactory1) {
         this.argDesc = argDesc
         this.factory = factory1
+        this.tooltip = Component.translatable(tooltipKey, this.argDesc.name)
     }
 
     constructor(factory0: FilterOpFactory0) {
         this.argDesc = null
         this.factory = factory0
+        this.tooltip = Component.translatable(tooltipKey)
     }
 
     override fun create(input: String): FilterOp {
@@ -260,16 +331,40 @@ data class FilterOpGenerator(val provider: FilterOpProvider, val input: String) 
     }
 }
 
-class ArgDesc(val name: String, val type: String, val validator: ((String) -> Boolean)?) {
-    constructor(name: String, type: String) : this(name, type, null)
-    constructor(name: String, type: String, selections: Collection<String>) :
-            this(name, type, { selections.contains(it) })
+class ArgDesc(val name: String, val type: ArgType) {
 
     fun validate(input: String): Boolean {
-        return validator?.invoke(input) ?: true
+        return type.validator.invoke(input)
     }
 
     override fun toString(): String {
-        return "$name: $type"
+        return "$name: ${type.displayName}"
     }
+}
+
+enum class ArgType(val displayName: String, val validator: ((String) -> Boolean)) {
+    Str("String", { true }),
+    Id("Id", { RLUtl.validate(it) }),
+    PartialId("Id.Partial", { RLUtl.validatePartial(it) }),
+    ItemId("Id", JefConstants.ITEM_IDS),
+//    DataId("Id", JefConstants.DATA_COMPONENT_IDS),
+    Namespace("Id.Namesapce", { RLUtl.isValidNamespace(it) }),
+    ModId("Id.Namespace", JefConstants.MOD_ID_LIST),
+    Path("Id.Path", { RLUtl.isValidPath(it) }),
+    ModName("String", JefConstants.MOD_NAME_LIST, true),
+    Reg("Regex", { runCatching { Regex(it) }.isSuccess }),
+    Clazz("Class", { runCatching { Class.forName(it) }.isSuccess });
+
+    constructor(
+        displayName: String,
+        selections: Collection<String>,
+        ignoreCase: Boolean = false
+    ) : this(
+        displayName,
+        validator = if (ignoreCase) {
+            { selections.any { _it -> _it.equals(it, ignoreCase = true) } }
+        } else {
+            { selections.contains(it) }
+        }
+    )
 }

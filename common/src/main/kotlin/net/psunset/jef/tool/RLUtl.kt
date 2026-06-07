@@ -6,6 +6,9 @@ import net.minecraft.world.item.Item
 import net.psunset.jef.JustEnoughFilters
 
 object RLUtl {
+    @JvmField
+    val UNKNOWN = of("unknown", "unknown")
+
     @JvmStatic
     fun of(namespace: String, path: String): ResourceLocation {
         return ResourceLocation(namespace, path)
@@ -36,17 +39,60 @@ object RLUtl {
         return ResourceLocation.tryParse(rl)
     }
 
+    /**
+     * Returns true if `rl` is a valid [ResourceLocation] and can be parsed successfully
+     */
     @JvmStatic
     fun validate(rl: String): Boolean {
-        return ResourceLocation.isValidResourceLocation(rl)
+        val idx = rl.indexOf(':')
+        if (idx > 0) {
+            if (!isValidPath(rl.substring(idx + 1))) {
+                return false
+            } else {
+                return isValidNamespace(rl.substring(0, idx))
+            }
+        }
+        return false
+    }
+
+    /**
+     * Returns true if every single char in `partial` is allowed in [ResourceLocation]
+     */
+    @JvmStatic
+    fun validatePartial(partial: String): Boolean {
+        return partial.all { ResourceLocation.isAllowedInResourceLocation(it) }
     }
 
     @JvmStatic
     fun toValidPath(path: String): String {
-        return path.lowercase().replace(Regex("[^a-z0-9._-]"), "_")
+        return path.lowercase().replace(Regex("[^a-z0-9/._-]"), "_")
+    }
+
+    @JvmStatic
+    fun isValidNamespace(namespace: String): Boolean {
+        return namespace.all { validNamespaceChar(it) }
+    }
+
+    @JvmStatic
+    fun validNamespaceChar(ch: Char): Boolean {
+        return ch == '_' || ch == '-' || ch in 'a'..'z' || ch in '0'..'9' || ch == '.'
+    }
+
+    @JvmStatic
+    fun isValidPath(path: String): Boolean {
+        return path.all { validPathChar(it) }
+    }
+
+    @JvmStatic
+    fun validPathChar(ch: Char): Boolean {
+        return ch == '_' || ch == '-' || ch in 'a'..'z' || ch in '0'..'9' || ch == '/' || ch == '.'
     }
 }
 
 fun Item.idToString(): String {
-    return BuiltInRegistries.ITEM.getKey(this).toString()
+    return toId().toString()
+}
+
+fun Item.toId(): ResourceLocation {
+    return BuiltInRegistries.ITEM.getKey(this)
 }

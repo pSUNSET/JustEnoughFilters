@@ -6,5 +6,8 @@ interface IPlatform {
     fun isForge(): Boolean
     fun isFabric(): Boolean
     fun isLoaded(modId: String): Boolean
+    fun getModIds(): List<String>
     fun configDir(): Path
+    fun getModName(modId: String): String?
+    fun getModNames(): List<String>
 }
