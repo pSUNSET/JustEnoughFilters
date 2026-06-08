@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.api.IFilter
 import net.psunset.jef.platform.Platform
+import net.psunset.jef.tool.DataComponentUtl
+import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
 import net.psunset.jef.tool.idToString
 import net.psunset.jef.tool.toId
@@ -83,6 +85,11 @@ abstract class FilterOp : IFilter {
             TODO()
         }
     }
+
+    object None : FilterOp() {
+        override fun matches(stack: ItemStack): Boolean = false
+        override fun matchesNonItem(obj: Any): Boolean = false
+    }
 }
 
 /**
@@ -140,18 +147,20 @@ enum class FilterOpProvider : FilterOpFactory {
     id_is(
         ArgDesc("id", ArgType.ItemId),
         {
-            object : FilterOp() {
-                private val item = BuiltInRegistries.ITEM.get(RLUtl.auto(it))
+            if (ItemUtl.validate(it)) {
+                object : FilterOp() {
+                    private val item = ItemUtl.of(it)
 
-                override fun matches(stack: ItemStack): Boolean {
-                    return stack.`is`(item)
-                }
+                    override fun matches(stack: ItemStack): Boolean {
+                        return stack.`is`(item)
+                    }
 
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
+                    override fun matchesNonItem(obj: Any): Boolean {
+                        return false
+                        TODO()
+                    }
                 }
-            }
+            } else FilterOp.None
         }
     ),
 
@@ -226,15 +235,17 @@ enum class FilterOpProvider : FilterOpFactory {
     has_tag(
         ArgDesc("tagId", ArgType.Id),
         {
-            object : FilterOp() {
-                private val tagRl = RLUtl.auto(it)
-                override fun matches(stack: ItemStack): Boolean {
-                    return stack.tags.anyMatch { rl -> rl.location == tagRl }
-                }
+            if (RLUtl.auto(it) == null) FilterOp.None else {
+                object : FilterOp() {
+                    private val rl = RLUtl.auto(it)!!
+                    override fun matches(stack: ItemStack): Boolean {
+                        return stack.tags.anyMatch { key -> key.location == rl }
+                    }
 
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
+                    override fun matchesNonItem(obj: Any): Boolean {
+                        return false
+                        TODO()
+                    }
                 }
             }
         }
@@ -244,17 +255,19 @@ enum class FilterOpProvider : FilterOpFactory {
 //    has_data(
 //        ArgDesc("dataId", ArgType.DataId),
 //        {
-//            object : FilterOp() {
-//                private val data = BuiltInRegistries.DATA_COMPONENT_TYPE.get(RLUtl.auto(it))
+//            if (DataComponentUtl.validate(it)) FilterOp.None
+//            else {
+//                object : FilterOp() {
+//                    private val data = DataComponentUtl.of(it)
 //
-//                override fun matches(stack: ItemStack): Boolean {
-//                    if (data == null) return false
-//                    return stack.components.keySet().any { data == it }
-//                }
+//                    override fun matches(stack: ItemStack): Boolean {
+//                        return stack.components.has(data)
+//                    }
 //
-//                override fun matchesNonItem(obj: Any): Boolean {
-//                    return false
-//                    TODO()
+//                    override fun matchesNonItem(obj: Any): Boolean {
+//                        return false
+//                        TODO()
+//                    }
 //                }
 //            }
 //        }
@@ -271,17 +284,19 @@ enum class FilterOpProvider : FilterOpFactory {
     is_instanceof(
         ArgDesc("cls", ArgType.Clazz),
         {
-            object : FilterOp() {
-                private val clazz = Class.forName(it)
+            if (runCatching { Class.forName(it) }.isSuccess) {
+                object : FilterOp() {
+                    private val clazz = Class.forName(it)
 
-                override fun matches(stack: ItemStack): Boolean {
-                    return clazz.isInstance(stack.item)
-                }
+                    override fun matches(stack: ItemStack): Boolean {
+                        return clazz.isInstance(stack.item)
+                    }
 
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return clazz.isInstance(obj)
+                    override fun matchesNonItem(obj: Any): Boolean {
+                        return clazz.isInstance(obj)
+                    }
                 }
-            }
+            } else FilterOp.None
         }
     );
 
@@ -318,16 +333,18 @@ enum class FilterOpProvider : FilterOpFactory {
 }
 
 data class FilterOpGenerator(val provider: FilterOpProvider, val input: String) : IFilter {
-    fun generate(): FilterOp {
+    private val instance by lazy { generate() }
+
+    private fun generate(): FilterOp {
         return provider.factory.create(input)
     }
 
     override fun matches(stack: ItemStack): Boolean {
-        return generate().matches(stack)
+        return instance.matches(stack)
     }
 
     override fun matchesNonItem(obj: Any): Boolean {
-        return generate().matchesNonItem(obj)
+        return instance.matchesNonItem(obj)
     }
 }
 
