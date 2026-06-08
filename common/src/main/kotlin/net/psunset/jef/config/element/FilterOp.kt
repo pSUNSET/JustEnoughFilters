@@ -1,7 +1,6 @@
 package net.psunset.jef.config.element
 
 import net.minecraft.client.resources.language.I18n
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
@@ -141,7 +140,11 @@ enum class FilterOpProvider : FilterOpFactory {
 
     name_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithName(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithName(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     id_is(
@@ -181,7 +184,11 @@ enum class FilterOpProvider : FilterOpFactory {
 
     id_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     modid_is(
@@ -229,7 +236,11 @@ enum class FilterOpProvider : FilterOpFactory {
 
     idname_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     has_tag(
@@ -284,7 +295,7 @@ enum class FilterOpProvider : FilterOpFactory {
     is_instanceof(
         ArgDesc("cls", ArgType.Clazz),
         {
-            if (runCatching { Class.forName(it) }.isSuccess) {
+            if (CatchingUtl.isValidClass(it)) {
                 object : FilterOp() {
                     private val clazz = Class.forName(it)
 
@@ -363,14 +374,14 @@ enum class ArgType(val displayName: String, val validator: ((String) -> Boolean)
     Str("String", { true }),
     Id("Id", { RLUtl.validate(it) }),
     PartialId("Id.Partial", { RLUtl.validatePartial(it) }),
-    ItemId("Id", JefConstants.ITEM_IDS),
-//    DataId("Id", JefConstants.DATA_COMPONENT_IDS),
-    Namespace("Id.Namesapce", { RLUtl.isValidNamespace(it) }),
-    ModId("Id.Namespace", JefConstants.MOD_ID_LIST),
-    Path("Id.Path", { RLUtl.isValidPath(it) }),
-    ModName("String", JefConstants.MOD_NAME_LIST, true),
-    Reg("Regex", { runCatching { Regex(it) }.isSuccess }),
-    Clazz("Class", { runCatching { Class.forName(it) }.isSuccess });
+    ItemId("Id", { ItemUtl.validate(it) }),
+    DataId("Id", { DataComponentUtl.validate(it) }),
+    Namespace("Id.Namesapce", { ResourceLocation.isValidNamespace(it) }),
+    ModId("Id.Namespace", Platform.modIdList()),
+    Path("Id.Path", { ResourceLocation.isValidPath(it) }),
+    ModName("String", Platform.modNameList(), true),
+    Reg("Regex", { CatchingUtl.isValidRegex(it) }),
+    Clazz("Class", { CatchingUtl.isValidClass(it) });
 
     constructor(
         displayName: String,
