@@ -8,14 +8,14 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.EntityBlock
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.util.CTags
 
 object ToggledFilters {
 
     @JvmField
     val ENTITY_BLOCK_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("entity_blocks"),
+        IdUtl.ofJef("entity_blocks"),
         Items.FURNACE,
         Component.translatable("jef.toggled_filter.justenoughfilters.entity_blocks")
     ) {
@@ -30,7 +30,7 @@ object ToggledFilters {
 
     @JvmField
     val ENCHANTED_BOOK_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("enchanted_books"),
+        IdUtl.ofJef("enchanted_books"),
         Items.ENCHANTED_BOOK,
         Component.translatable("jef.toggled_filter.justenoughfilters.enchanted_books")
     ) {
@@ -41,7 +41,7 @@ object ToggledFilters {
 
     @JvmField
     val FOOD_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("food"),
+        IdUtl.ofJef("food"),
         Items.APPLE,
         Component.translatable("jef.toggled_filter.justenoughfilters.food")
     ) {
@@ -53,7 +53,7 @@ object ToggledFilters {
 
     @JvmField
     val FUEL_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("fuels"),
+        IdUtl.ofJef("fuels"),
         Items.COAL,
         Component.translatable("jef.toggled_filter.justenoughfilters.fuels")
     ) {
@@ -68,7 +68,7 @@ object ToggledFilters {
 
     @JvmField
     val TOOL_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("tools"),
+        IdUtl.ofJef("tools"),
         Items.DIAMOND_PICKAXE,
         Component.translatable("jef.toggled_filter.justenoughfilters.tools")
     ) {
@@ -86,7 +86,7 @@ object ToggledFilters {
 
     @JvmField
     val ARMOR_FILTER = object : ToggledFilter(
-        RLUtl.ofJef("armor"),
+        IdUtl.ofJef("armor"),
         Items.DIAMOND_CHESTPLATE,
         Component.translatable("jef.toggled_filter.justenoughfilters.armor")
     ) {

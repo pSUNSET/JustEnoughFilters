@@ -20,7 +20,7 @@ class LogicModeCycleButton(
 ) : AbstractButton(x, y, width, height, Component.empty()) {
 
     init {
-        tooltip = Tooltip.create(LogicMode.genTooltip())
+        setTooltip(Tooltip.create(LogicMode.genTooltip()))
     }
 
     override fun isValidClickButton(buttonInfo: MouseButtonInfo): Boolean {
@@ -30,12 +30,10 @@ class LogicModeCycleButton(
     override fun onPress(input: InputWithModifiers) {
         if (input.input() == 1) {  // right
             FilterManager.reverseLogicMode()
-            tooltip = Tooltip.create(LogicMode.genTooltip())
-
         } else {  // left or keybinds
             FilterManager.stepLogicMode()
-            tooltip = Tooltip.create(LogicMode.genTooltip())
         }
+        setTooltip(Tooltip.create(LogicMode.genTooltip()))
     }
 
     override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -55,10 +53,6 @@ class LogicModeCycleButton(
             32,
             32
         )
-
-        if (isHovered) {
-            guiGraphics.setComponentTooltipForNextFrame(Minecraft.getInstance().font, LogicMode.genTooltip(mode), mouseX, mouseY)
-        }
     }
 
     /**

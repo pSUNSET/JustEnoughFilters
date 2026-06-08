@@ -92,22 +92,17 @@ internal class CustomFilterListWidget(
 
         private val children = listOf(editBtn, removeBtn)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val x = (screen.width - editBtn.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
-            editBtn.setPosition(x, top)
+            editBtn.setPosition(x, contentY)
             editBtn.render(guiGraphics, mouseX, mouseY, partialTick)
-            removeBtn.setPosition(x + editBtn.width + Button.DEFAULT_SPACING, top)
+            removeBtn.setPosition(x + editBtn.width + Button.DEFAULT_SPACING, contentY)
             removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -129,20 +124,15 @@ internal class CustomFilterListWidget(
 
         private val children = listOf(addBtn)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val x = (screen.width - Button.SMALL_WIDTH - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + Button.SMALL_WIDTH + Button.DEFAULT_SPACING, top)
+            addBtn.setPosition(x + Button.SMALL_WIDTH + Button.DEFAULT_SPACING,contentY)
             addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 

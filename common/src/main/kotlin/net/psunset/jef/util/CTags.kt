@@ -3,17 +3,17 @@ package net.psunset.jef.util
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 object CTags {
     object Items {
         @JvmField
-        val FOODS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("foods"))
+        val FOODS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("foods"))
 
         @JvmField
-        val TOOLS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("tools"))
+        val TOOLS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("tools"))
 
         @JvmField
-        val ARMORS: TagKey<Item> = TagKey.create(Registries.ITEM, RLUtl.ofC("armors"))
+        val ARMORS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("armors"))
     }
 }

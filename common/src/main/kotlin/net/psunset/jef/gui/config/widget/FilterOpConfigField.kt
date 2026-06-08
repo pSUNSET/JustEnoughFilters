@@ -33,7 +33,7 @@ class FilterOpConfigField(
 
     override fun onSave(newValue: String) {
         val provider = FilterOpProvider.valueOf(newValue)
-        tooltip = Tooltip.create(provider.tooltip)
+        setTooltip(Tooltip.create(provider.tooltip))
         saveConsumer(provider)
     }
 }

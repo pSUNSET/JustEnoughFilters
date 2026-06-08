@@ -3,13 +3,13 @@ package net.psunset.jef.core
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 import net.psunset.jef.api.IItemTypeFilter
 
 abstract class ItemTypeFilter(
-    override val id: ResourceLocation,
+    override val id: Identifier,
     override val translationKey: String,
     iconItem: ItemLike,
 ) : IItemTypeFilter {

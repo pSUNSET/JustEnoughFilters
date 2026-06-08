@@ -7,6 +7,7 @@ import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
 import net.psunset.jef.gui.config.ActiveFilterListScreen
@@ -41,9 +42,9 @@ internal class ActiveFilterListWidget(
 
     override fun getRowWidth(): Int = 310
 
-    override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        return suggestionsList.any { it.mouseClicked(mouseX, mouseY, button) } ||
-                super.mouseClicked(mouseX, mouseY, button)
+    override fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
+        return suggestionsList.any { it.mouseClicked(event, isDoubleClick) } ||
+                super.mouseClicked(event, isDoubleClick)
     }
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
@@ -104,7 +105,7 @@ internal class ActiveFilterListWidget(
         ) { id = it }.apply {
             setMaxLength(256)
             value = id
-            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.active_filters.id.tooltip"))
+            setTooltip(Tooltip.create(Component.translatable("gui.justenoughfilters.config.active_filters.id.tooltip")))
             widget.suggestionsList.add(suggestions)
         }
 
@@ -112,22 +113,17 @@ internal class ActiveFilterListWidget(
 
         private val children = listOf(idField, removeBtn)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val x = (screen.width - idField.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
-            idField.setPosition(x, top)
+            idField.setPosition(x, contentY)
             idField.render(guiGraphics, mouseX, mouseY, partialTick)
-            removeBtn.setPosition(x + idField.width + Button.DEFAULT_SPACING, top)
+            removeBtn.setPosition(x + idField.width + Button.DEFAULT_SPACING, contentY)
             removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -149,20 +145,15 @@ internal class ActiveFilterListWidget(
 
         private val children = listOf(addBtn)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val x = (screen.width - 256 - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + 256 + Button.DEFAULT_SPACING, top)
+            addBtn.setPosition(x + 256 + Button.DEFAULT_SPACING, contentY)
             addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 

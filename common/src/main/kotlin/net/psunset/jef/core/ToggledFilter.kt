@@ -1,16 +1,15 @@
 package net.psunset.jef.core
 
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
-import net.psunset.jef.api.IFilter
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
 
 abstract class ToggledFilter(
-    override val id: ResourceLocation,
+    override val id: Identifier,
     iconItem: ItemLike,
     override val tooltip: Component,
 ) : IToggledFilter {

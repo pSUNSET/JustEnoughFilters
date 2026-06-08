@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.*
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.*
@@ -37,9 +38,9 @@ internal class CustomFilterConfigWidget(
 
     override fun getRowWidth(): Int = 512
 
-    override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        return suggestionsList.any { it.mouseClicked(mouseX, mouseY, button) } ||
-                super.mouseClicked(mouseX, mouseY, button)
+    override fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
+        return suggestionsList.any { it.mouseClicked(event, isDoubleClick) } ||
+                super.mouseClicked(event, isDoubleClick)
     }
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
@@ -108,12 +109,12 @@ internal class CustomFilterConfigWidget(
             setResponder {
                 if (it.isNotBlank()) {
                     widget.tempName = it
-                    tooltip = Tooltip.create(
+                    setTooltip(Tooltip.create(
                         Component.translatable(
                             "gui.justenoughfilters.config.custom_filter.name.tooltip",
-                            CustomFilter.genRL(it).toString()
+                            CustomFilter.genId(it).toString()
                         )
-                    )
+                    ))
                 }
             }
             value = widget.tempName
@@ -126,39 +127,34 @@ internal class CustomFilterConfigWidget(
         }.apply {
             setMaxLength(256)
             value = widget.tempIcon
-            tooltip = Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.icon.tooltip"))
+            setTooltip(Tooltip.create(Component.translatable("gui.justenoughfilters.config.custom_filter.icon.tooltip")))
         }
 
         private val children: List<AbstractWidget> = listOf(nameField, iconField)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val nameHintWidth = font.width(nameHint)
             val iconHintWidth = font.width(iconHint)
-            val strY = top + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
+            val strY = contentY + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
             var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - Button.DEFAULT_SPACING
 
             guiGraphics.drawString(font, nameHint, x, strY, 14737632)
             x += font.width(nameHint)
 
-            nameField.setPosition(x, top)
+            nameField.setPosition(x, contentY)
             nameField.render(guiGraphics, mouseX, mouseY, partialTick)
             x += Button.DEFAULT_WIDTH + Button.DEFAULT_SPACING * 2
 
             guiGraphics.drawString(font, iconHint, x, strY, 14737632)
             x += font.width(iconHint)
 
-            iconField.setPosition(x, top)
+            iconField.setPosition(x, contentY)
             iconField.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -201,7 +197,7 @@ internal class CustomFilterConfigWidget(
             if (op.filter.provider.argDesc == null) {
                 visible = false
             } else {
-                tooltip = Tooltip.create(Component.literal(op.filter.provider.argDesc.toString()))
+                setTooltip(Tooltip.create(Component.literal(op.filter.provider.argDesc.toString())))
             }
             setMaxLength(256)
             value = op.filter.input
@@ -214,7 +210,7 @@ internal class CustomFilterConfigWidget(
         ) {
             val isInputNeeded = it.argDesc != null
             op = if (isInputNeeded) {
-                filterArgsField.tooltip = Tooltip.create(Component.literal(it.argDesc.toString()))
+                filterArgsField.setTooltip(Tooltip.create(Component.literal(it.argDesc.toString())))
                 op.copy(filter = op.filter.copy(provider = it))
             } else {
                 op.copy(filter = FilterOpGenerator(it, ""))
@@ -222,7 +218,7 @@ internal class CustomFilterConfigWidget(
             filterArgsField.visible = isInputNeeded
         }.apply {
             setMaxLength(64)
-            tooltip = Tooltip.create(op.filter.provider.tooltip)
+            setTooltip(Tooltip.create(op.filter.provider.tooltip))
             value = op.filter.provider.name
             widget.suggestionsList.add(i, suggestions)
         }
@@ -232,25 +228,19 @@ internal class CustomFilterConfigWidget(
 
         private val children = listOf(binLogicBtn, unaryLogicBtn, filterField, filterArgsField, removeBtn, addBtn)
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             var x = (screen.width - children.sumOf { it.width } - Button.DEFAULT_SPACING * children.lastIndex) / 2
             for (child in children) {
-                child.setPosition(x, top)
+                child.setPosition(x, contentY)
                 child.render(guiGraphics, mouseX, mouseY, partialTick)
                 x += child.width + Button.DEFAULT_SPACING
             }
-
         }
 
         override fun children(): List<GuiEventListener> {

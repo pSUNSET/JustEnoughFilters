@@ -6,7 +6,7 @@ import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.gui.config.widget.CustomFilterListWidget
 
 class CustomFilterListScreen(
-    lastScreen: Screen?,
+    lastScreen: Screen,
 ) : AbstractJefOptionScreen(lastScreen, Component.translatable("gui.justenoughfilters.config.custom_filters.title")) {
 
     @Suppress("PROPERTY_HIDES_JAVA_FIELD")

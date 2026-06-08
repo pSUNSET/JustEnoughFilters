@@ -1,21 +1,19 @@
 package net.psunset.jef.gui.config
 
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.Button
-import net.minecraft.client.gui.components.SpriteIconButton
-import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.gui.screens.options.OptionsSubScreen
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.gui.config.widget.UndoButton
-import net.psunset.jef.tool.RLUtl
 
 abstract class AbstractJefOptionScreen(
-    lastScreen: Screen?,
+    lastScreen: Screen,
     title: Component
 ) : OptionsSubScreen(
     lastScreen,
-    null,
+    Minecraft.getInstance().options,
     title
 ) {
 
@@ -54,7 +52,7 @@ abstract class AbstractJefOptionScreen(
     }
 
     override fun onClose() {
-        minecraft?.setScreen(lastScreen)
+        minecraft.setScreen(lastScreen)
     }
 
     override fun removed() {

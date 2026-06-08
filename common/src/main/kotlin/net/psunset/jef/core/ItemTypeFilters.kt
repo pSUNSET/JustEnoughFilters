@@ -4,13 +4,13 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 object ItemTypeFilters {
 
     @JvmField
     val OFF = object : ItemTypeFilter(
-        RLUtl.ofJef("off"),
+        IdUtl.ofJef("off"),
         "",  // No Usage
         Items.BARRIER,
     ) {
@@ -21,7 +21,7 @@ object ItemTypeFilters {
 
     @JvmField
     val ITEM = object : ItemTypeFilter(
-        RLUtl.ofJef("item"),
+        IdUtl.ofJef("item"),
         "jef.item_type_filter.justenoughfilters.item",
         Items.IRON_INGOT
     ) {
@@ -34,7 +34,7 @@ object ItemTypeFilters {
 
     @JvmField
     val BLOCK = object : ItemTypeFilter(
-        RLUtl.ofJef("block"),
+        IdUtl.ofJef("block"),
         "jef.item_type_filter.justenoughfilters.block",
         Blocks.GRASS_BLOCK
     ) {
@@ -47,7 +47,7 @@ object ItemTypeFilters {
 
     @JvmField
     val NON_ITEM = object : ItemTypeFilter(
-        RLUtl.ofJef("non_item"),
+        IdUtl.ofJef("non_item"),
         "jef.item_type_filter.justenoughfilters.non_item",
         Items.WATER_BUCKET
     ) {

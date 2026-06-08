@@ -5,14 +5,15 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.ItemUtl
 
 data class CustomFilter(
     val name: String,
@@ -20,7 +21,7 @@ data class CustomFilter(
     val ops: List<OpCombination>
 ) : IToggledFilter {
 
-    override val id: ResourceLocation = genRL(name)
+    override val id: Identifier = genId(name)
 
     override val activeIcon: ItemStack = FoilItemStack(icon)
     override val inactiveIcon: ItemStack = NotFoilItemStack(icon)
@@ -120,8 +121,8 @@ data class CustomFilter(
         const val CUSTOM_FILTER_NAMESPACE = "jef_custom"
 
         @JvmStatic
-        fun genRL(name: String): ResourceLocation {
-            return RLUtl.of(CUSTOM_FILTER_NAMESPACE, RLUtl.toValidPath(name))
+        fun genId(name: String): Identifier {
+            return IdUtl.of(CUSTOM_FILTER_NAMESPACE, IdUtl.toValidPath(name))
         }
     }
 
@@ -194,7 +195,7 @@ data class CustomFilter(
                 }
             }
             reader.endObject()
-            return CustomFilter(name!!, BuiltInRegistries.ITEM.get(RLUtl.auto(icon!!)), ops)
+            return CustomFilter(name!!, ItemUtl.of(icon!!) ?: Items.AIR, ops)
         }
     }
 }

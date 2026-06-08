@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component
  * Main configuration screen for JustEnoughFilters mod.
  */
 class JefMainConfigScreen(
-    lastScreen: Screen?,
+    lastScreen: Screen,
 ) : AbstractJefOptionScreen(lastScreen, Component.translatable("gui.justenoughfilters.config.title")) {
 
     init {
@@ -19,14 +19,14 @@ class JefMainConfigScreen(
     }
 
     private val customFilterConfigBtn = Button.builder(Component.translatable("gui.button.justenoughfilters.config.custom_filters")) {
-        minecraft?.setScreen(CustomFilterListScreen(this))
+        minecraft.setScreen(CustomFilterListScreen(this))
     }
         .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.custom_filters.tooltip")))
         .width(Button.BIG_WIDTH)
         .build()
 
     private val activeFilterConfigBtn = Button.builder(Component.translatable("gui.button.justenoughfilters.config.active_filters")) {
-        minecraft?.setScreen(ActiveFilterListScreen(this))
+        minecraft.setScreen(ActiveFilterListScreen(this))
     }
         .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.active_filters.tooltip")))
         .width(Button.BIG_WIDTH)
@@ -42,13 +42,19 @@ class JefMainConfigScreen(
         })
     }
 
-    private fun createString(key: String): StringWidget {
+    private fun createString(message: Component): StringWidget {
         return StringWidget(
             Button.BIG_WIDTH,
             8,
-            Component.translatable(key), minecraft!!.font
-        ).apply {
-            alignCenter()
-        }
+            message,
+            minecraft.font
+        )
+//            .apply {
+//                alignCenter()
+//            }
+    }
+
+    private fun createString(key: String): StringWidget {
+        return createString(Component.translatable(key))
     }
 }

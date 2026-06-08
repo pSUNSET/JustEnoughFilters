@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.core.FilterManager
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 class ClearButton(
     x: Int,
@@ -26,13 +26,13 @@ class ClearButton(
 ) {
 
     init {
-        tooltip = Tooltip.create(
+        setTooltip(Tooltip.create(
             Component.translatable("gui.button.justenoughfilters.clear.tooltip")
-                .withStyle(ChatFormatting.RED)
+                .withStyle(ChatFormatting.RED))
         )
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         guiGraphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
         guiGraphics.blit(
@@ -53,6 +53,6 @@ class ClearButton(
 
     companion object {
         @JvmField
-        val ICON = RLUtl.ofJef("textures/gui/trash_can.png")
+        val ICON = IdUtl.ofJef("textures/gui/trash_can.png")
     }
 }

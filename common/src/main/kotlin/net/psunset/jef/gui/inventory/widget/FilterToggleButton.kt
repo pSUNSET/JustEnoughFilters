@@ -16,7 +16,7 @@ class FilterToggleButton(
     y: Int,
     width: Int,
     height: Int
-) : Button(
+) : Button.Plain(
     x,
     y,
     width,
@@ -33,7 +33,7 @@ class FilterToggleButton(
         refreshTooltip()
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val active = FilterManager.isFilterEnabled(filter)
 
         val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
@@ -48,12 +48,14 @@ class FilterToggleButton(
     }
 
     private fun refreshTooltip() {
-        tooltip = Tooltip.create(
-            filter.tooltip.copy().withStyle(
-                if (FilterManager.isFilterEnabled(filter))
-                    ChatFormatting.AQUA
-                else
-                    ChatFormatting.GRAY
+        setTooltip(
+            Tooltip.create(
+                filter.tooltip.copy().withStyle(
+                    if (FilterManager.isFilterEnabled(filter))
+                        ChatFormatting.AQUA
+                    else
+                        ChatFormatting.GRAY
+                )
             )
         )
     }

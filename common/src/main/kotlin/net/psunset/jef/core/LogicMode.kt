@@ -3,19 +3,19 @@ package net.psunset.jef.core
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
-import net.psunset.jef.tool.RLUtl
+import net.minecraft.resources.Identifier
+import net.psunset.jef.tool.IdUtl
 
 enum class LogicMode(
-    val icon: ResourceLocation,
+    val icon: Identifier,
     val combineFactory: (List<Boolean>) -> Boolean
 ) {
     OR(
-        RLUtl.ofJef("textures/gui/or.png"),
+        IdUtl.ofJef("textures/gui/or.png"),
         { results -> results.any { it } }
     ),
     AND(
-        RLUtl.ofJef("textures/gui/and.png"),
+        IdUtl.ofJef("textures/gui/and.png"),
         { results -> results.all { it } }
     );
 

@@ -7,12 +7,12 @@ import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.config.element.CustomFilter
 import net.psunset.jef.gui.config.widget.CustomFilterConfigWidget
 import net.psunset.jef.gui.config.widget.CustomFilterListWidget
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 class CustomFilterConfigScreen internal constructor(
     private val i: Int,
     private val filter: CustomFilter,
-    lastScreen: Screen?,
+    lastScreen: Screen,
     @Suppress("PROPERTY_HIDES_JAVA_FIELD")
     private val list: CustomFilterListWidget,
 ) : AbstractJefOptionScreen(
@@ -28,7 +28,7 @@ class CustomFilterConfigScreen internal constructor(
     }
 
     override fun addContents() {
-        widget = layout.addToContents(CustomFilterConfigWidget(minecraft!!, width, this, filter))
+        widget = layout.addToContents(CustomFilterConfigWidget(minecraft, width, this, filter))
     }
 
     fun updateTitle(newName: String) {
@@ -38,18 +38,18 @@ class CustomFilterConfigScreen internal constructor(
     override fun removed() {
         list.tempFilters[i] = CustomFilter(
             widget!!.tempName,
-            BuiltInRegistries.ITEM.get(RLUtl.auto(widget!!.tempIcon)),
+            BuiltInRegistries.ITEM.get(IdUtl.auto(widget!!.tempIcon)!!).get().value(),
             widget!!.tempOps
         )
         list.refresh()
 
-        if (RLUtl.toValidPath(widget!!.tempName) != RLUtl.toValidPath(filter.name)) {
+        if (IdUtl.toValidPath(widget!!.tempName) != IdUtl.toValidPath(filter.name)) {
             val filtersInFile = ConfigManager.readActiveFilters().toMutableList()
             val idx = filtersInFile.indexOf(filter.id.toString())
             if (idx != -1) {
                 ConfigManager.saveActiveFilters(
                     filtersInFile.also {
-                        it[idx]= CustomFilter.genRL(widget!!.tempName).toString()
+                        it[idx]= CustomFilter.genId(widget!!.tempName).toString()
                     }
                 )
             }

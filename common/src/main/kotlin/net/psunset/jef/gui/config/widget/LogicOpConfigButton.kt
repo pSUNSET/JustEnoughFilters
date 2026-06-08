@@ -1,18 +1,20 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.InputWithModifiers
+import net.minecraft.client.input.MouseButtonInfo
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
-import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.LogicOp
-import net.psunset.jef.gui.widget.AbstractLeftRightClickButton
 
 sealed class LogicOpConfigButton(
     x: Int,
     y: Int
-) : AbstractLeftRightClickButton(
+) : AbstractButton(
     x,
     y,
     Button.DEFAULT_HEIGHT,
@@ -20,7 +22,9 @@ sealed class LogicOpConfigButton(
     CommonComponents.EMPTY
 ) {
 
-    abstract override fun onPress()
+    override fun isValidClickButton(buttonInfo: MouseButtonInfo): Boolean {
+        return buttonInfo.button == 0 || buttonInfo.button == 1
+    }
 
     class Binary(
         x: Int,
@@ -52,27 +56,27 @@ sealed class LogicOpConfigButton(
             private set
 
         init {
-            tooltip = Tooltip.create(LogicOp.Binary.genTooltip(op))
+            setTooltip(Tooltip.create(LogicOp.Binary.genTooltip(op)))
             active = !isFirst
         }
 
-        override fun onPress() {
+        override fun onPress(input: InputWithModifiers) {
             op = if (op == LogicOp.Binary.and) LogicOp.Binary.or else LogicOp.Binary.and
-            tooltip = Tooltip.create(LogicOp.Binary.genTooltip(op))
+            setTooltip(Tooltip.create(LogicOp.Binary.genTooltip(op)))
             responder(op)
         }
 
-        override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-            super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
             if (op.sprite != null) {
                 guiGraphics.blit(
+                    RenderPipelines.GUI_TEXTURED,
                     op.sprite!!,
                     x + 1,
                     y + 1,
+                    0.0f,
+                    0.0f,
                     width - 2,
                     height - 2,
-                    0.0f,
-                    0.0f,
                     32,
                     32,
                     32,
@@ -101,26 +105,26 @@ sealed class LogicOpConfigButton(
             private set
 
         init {
-            tooltip = Tooltip.create(LogicOp.Unary.genTooltip(op))
+            setTooltip(Tooltip.create(LogicOp.Unary.genTooltip(op)))
         }
 
-        override fun onPress() {
+        override fun onPress(input: InputWithModifiers) {
             op = if (op == LogicOp.Unary.so) LogicOp.Unary.not else LogicOp.Unary.so
-            tooltip = Tooltip.create(LogicOp.Unary.genTooltip(op))
+            setTooltip(Tooltip.create(LogicOp.Unary.genTooltip(op)))
             responder(op)
         }
 
-        override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-            super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
             if (op.sprite != null) {
                 guiGraphics.blit(
+                    RenderPipelines.GUI_TEXTURED,
                     op.sprite!!,
                     x + 1,
                     y + 1,
+                    0.0f,
+                    0.0f,
                     width - 2,
                     height - 2,
-                    0.0f,
-                    0.0f,
                     32,
                     32,
                     32,

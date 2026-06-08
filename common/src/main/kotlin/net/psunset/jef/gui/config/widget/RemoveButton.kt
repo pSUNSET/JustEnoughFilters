@@ -8,7 +8,7 @@ class RemoveButton(
     x: Int,
     y: Int,
     onPress: OnPress,
-) : Button(
+) : Button.Plain(
     x,
     y,
     DEFAULT_HEIGHT,
@@ -20,6 +20,6 @@ class RemoveButton(
     constructor(onPress: OnPress) : this(0, 0, onPress)
 
     init {
-        tooltip = Tooltip.create(Component.translatable("gui.button.justenoughfilters.remove.tooltip"))
+        setTooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.remove.tooltip")))
     }
 }

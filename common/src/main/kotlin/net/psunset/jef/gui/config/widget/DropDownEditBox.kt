@@ -9,6 +9,7 @@ import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
+import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.AbstractWidgetAccessor
 import kotlin.math.min
@@ -54,7 +55,7 @@ abstract class DropDownEditBox(
                 if (value) {
                     _setTooltip(oTooltip)
                 } else {
-                    oTooltip = tooltip
+                    oTooltip = (this as AbstractWidgetAccessor).tooltipHolder.get()
                     _setTooltip(null)
                 }
             }
@@ -123,10 +124,10 @@ abstract class DropDownEditBox(
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
-        guiGraphics.pose.pushPose()
-        guiGraphics.pose.translate(0f, 0f, 300f)  // Above everything except for tooltip
+        guiGraphics.pose().pushMatrix()
+//        guiGraphics.pose().translate(0f, 0f, 300f)  // Above everything except for tooltip
         suggestions.render(guiGraphics, mouseX, mouseY, partialTick)
-        guiGraphics.pose.popPose()
+        guiGraphics.pose().popMatrix()
     }
 
     open fun onSave(newValue: String) {
@@ -183,7 +184,7 @@ abstract class DropDownEditBox(
             guiGraphics.enableScissor(x + 1, y + 4, right - 1, bottom - 1)
         }
 
-        override fun getScrollbarPosition(): Int {
+        override fun scrollBarX(): Int {
             return right + 1
         }
 
@@ -209,7 +210,7 @@ abstract class DropDownEditBox(
                     .map { Suggestion(parent, this, it, minecraft.font) }
             )
 
-            scrollAmount = 0.0
+            setScrollAmount(0.0)
             height = (minecraft.font.lineHeight + 3) * min(children().size, 10) + 4
         }
     }
@@ -223,16 +224,11 @@ abstract class DropDownEditBox(
 
         private val children = listOf<AbstractWidget>()
 
-        override fun render(
+        override fun renderContent(
             guiGraphics: GuiGraphics,
-            index: Int,
-            top: Int,
-            left: Int,
-            width: Int,
-            height: Int,
             mouseX: Int,
             mouseY: Int,
-            hovering: Boolean,
+            isHovering: Boolean,
             partialTick: Float
         ) {
             val _height = font.lineHeight + 3
@@ -240,16 +236,16 @@ abstract class DropDownEditBox(
             val subText = font.plainSubstrByWidth(text, parent.width - 4)
 
             if (parent.isReversed) {
-                guiGraphics.fill(_x + 1, top + 1, parent.right - 1, top + _height, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, top + 2, if (hovering) -22016 else 14737632)
+                guiGraphics.fill(_x + 1, contentY + 1, parent.right - 1, contentY + _height, -16777216)
+                guiGraphics.drawString(font, subText, _x + 2, contentY + 2, if (isHovering) -22016 else 14737632)
             } else {
-                guiGraphics.fill(_x + 1, top, parent.right - 1, top + _height - 1, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, top + 1, if (hovering) -22016 else 14737632)
+                guiGraphics.fill(_x + 1, contentY, parent.right - 1, contentY + _height - 1, -16777216)
+                guiGraphics.drawString(font, subText, _x + 2, contentY + 1, if (isHovering) -22016 else 14737632)
             }
         }
 
-        override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-            if (isMouseOver(mouseX, mouseY)) {
+        override fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
+            if (isMouseOver(event.x, event.y)) {
                 box.value = text
                 box.setFocused(false)
                 return true
