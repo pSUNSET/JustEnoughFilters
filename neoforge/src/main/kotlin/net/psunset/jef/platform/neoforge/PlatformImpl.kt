@@ -1,8 +1,8 @@
 package net.psunset.jef.platform.neoforge
 
 import net.neoforged.fml.ModList
+import net.neoforged.fml.loading.FMLLoader
 import net.neoforged.fml.loading.FMLPaths
-import net.neoforged.fml.loading.LoadingModList
 import net.psunset.jef.platform.IPlatform
 import net.psunset.jef.platform.Platform
 import java.nio.file.Path
@@ -26,7 +26,7 @@ object PlatformImpl : IPlatform {
     }
 
     override fun getModIds(): List<String> {
-        return (ModList.get()?.mods ?: LoadingModList.get().mods).map { it.modId }
+        return (ModList.get()?.mods ?: FMLLoader.getCurrent().loadingModList.mods).map { it.modId }
     }
 
     override fun configDir(): Path {
@@ -35,13 +35,13 @@ object PlatformImpl : IPlatform {
 
     override fun getModName(modId: String): String? {
         return if (ModList.get() == null) {
-            LoadingModList.get().mods.find { it.modId == modId }?.displayName
+            FMLLoader.getCurrent().loadingModList.mods.find { it.modId == modId }?.displayName
         } else {
             ModList.get().getModContainerById(modId).getOrNull()?.modId
         }
     }
 
     override fun getModNames(): List<String> {
-        return (ModList.get()?.mods ?: LoadingModList.get().mods).map { it.displayName }
+        return (ModList.get()?.mods ?: FMLLoader.getCurrent().loadingModList.mods).map { it.displayName }
     }
 }

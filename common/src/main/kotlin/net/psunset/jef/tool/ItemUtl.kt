@@ -7,29 +7,29 @@ import net.minecraft.world.item.Item
 object ItemUtl {
 
     @JvmStatic
-    fun ofUnsafe(id: String): Item {
-        return ofUnsafe(IdUtl.auto(id)!!)
+    fun of(id: String): Item {
+        return of(IdUtl.auto(id)!!)
     }
 
     @JvmStatic
-    fun ofUnsafe(id: Identifier): Item {
+    fun of(id: Identifier): Item {
         return BuiltInRegistries.ITEM.get(id).get().value()
     }
 
     @JvmStatic
-    fun of(id: String): Item? {
-        return if (validate(id)) ofUnsafe(id) else null
+    fun tryParse(id: String): Item? {
+        return if (validate(id)) of(id) else null
     }
 
     @JvmStatic
-    fun of(id: Identifier): Item? {
-        return if (validate(id)) ofUnsafe(id) else null
+    fun tryParse(id: Identifier): Item? {
+        return if (validate(id)) of(id) else null
     }
 
     @JvmStatic
     fun validate(id: String): Boolean {
         val _id = IdUtl.auto(id)
-        return _id != null && validate(_id)
+        return if (_id == null) false else validate(_id)
     }
 
     @JvmStatic

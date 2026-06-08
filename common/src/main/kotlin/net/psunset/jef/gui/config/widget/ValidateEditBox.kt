@@ -1,5 +1,6 @@
 package net.psunset.jef.gui.config.widget
 
+import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.network.chat.CommonComponents
@@ -36,9 +37,9 @@ abstract class ValidateEditBox(
     init {
         setResponder { newValue ->
             if (validate(newValue)) {
-                setTextColor(14737632)
+                setTextColor(-2039584)
             } else {
-                setTextColor(16733525)
+                setTextColor(-43691)
             }
             saveConsumer(newValue)
         }

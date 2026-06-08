@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.gui.Font
-import net.psunset.jef.util.JefConstants
+import net.psunset.jef.tool.ItemUtl
 
 class ItemIdField(
     font: Font,
@@ -10,7 +10,7 @@ class ItemIdField(
     width: Int,
     height: Int,
     saveConsumer: (String) -> Unit
-) : SelectionsEditBox(
+) : ValidateEditBox(
     font,
     x,
     y,
@@ -27,5 +27,7 @@ class ItemIdField(
         saveConsumer
     )
 
-    override val selections: Collection<String> = JefConstants.ITEM_IDS
+    override fun validate(newValue: String): Boolean {
+        return ItemUtl.validate(newValue)
+    }
 }

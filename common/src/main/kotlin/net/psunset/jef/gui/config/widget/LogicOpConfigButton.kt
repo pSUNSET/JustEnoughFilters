@@ -67,6 +67,7 @@ sealed class LogicOpConfigButton(
         }
 
         override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+            super.renderDefaultSprite(guiGraphics)
             if (op.sprite != null) {
                 guiGraphics.blit(
                     RenderPipelines.GUI_TEXTURED,
@@ -115,6 +116,7 @@ sealed class LogicOpConfigButton(
         }
 
         override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+            super.renderDefaultSprite(guiGraphics)
             if (op.sprite != null) {
                 guiGraphics.blit(
                     RenderPipelines.GUI_TEXTURED,

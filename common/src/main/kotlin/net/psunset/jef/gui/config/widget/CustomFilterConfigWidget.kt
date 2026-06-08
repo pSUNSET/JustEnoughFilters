@@ -144,14 +144,14 @@ internal class CustomFilterConfigWidget(
             val strY = contentY + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
             var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - Button.DEFAULT_SPACING
 
-            guiGraphics.drawString(font, nameHint, x, strY, 14737632)
+            guiGraphics.drawString(font, nameHint, x, strY, -2039584)
             x += font.width(nameHint)
 
             nameField.setPosition(x, contentY)
             nameField.render(guiGraphics, mouseX, mouseY, partialTick)
             x += Button.DEFAULT_WIDTH + Button.DEFAULT_SPACING * 2
 
-            guiGraphics.drawString(font, iconHint, x, strY, 14737632)
+            guiGraphics.drawString(font, iconHint, x, strY, -2039584)
             x += font.width(iconHint)
 
             iconField.setPosition(x, contentY)

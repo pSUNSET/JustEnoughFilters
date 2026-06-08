@@ -6,8 +6,11 @@
     "plugin": "net.psunset.jef.neoforge.JefMixinPluginImpl",
     "client": [
         "AbstractWidgetMixin",
+        "GuiGraphicsMixin",
         "JeiIngredientFilterMixin",
         "JeiIngredientListOverlayMixin",
+        "OversizedItemRendererMixin",
+        "OversizedItemRenderStateMixin",
         "ReiAsyncSearchManagerMixin",
         "ReiScreenOverlayMixin"
     ],

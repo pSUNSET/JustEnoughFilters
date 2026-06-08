@@ -6,6 +6,7 @@
     "plugin": "net.psunset.jef.fabric.JefMixinPluginImpl",
     "client": [
         "AbstractWidgetMixin",
+        "GuiGraphicsMixin",
         "JeiIngredientFilterMixin",
         "JeiIngredientListOverlayMixin",
         "OversizedItemRendererMixin",

@@ -12,6 +12,7 @@ import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.AbstractWidgetAccessor
+import net.psunset.jef.tool.GraphicsUtl
 import kotlin.math.min
 
 /**
@@ -65,10 +66,10 @@ abstract class DropDownEditBox(
     init {
         setResponder { newValue ->
             if (selections.any { it.equals(newValue, ignoreCase = true) }) {
-                setTextColor(14737632)
+                setTextColor(-2039584)
                 onSave(newValue)
             } else {
-                setTextColor(16733525)
+                setTextColor(-43691)
             }
             suggestions.refreshEntries(selections.sorted())
         }
@@ -124,10 +125,9 @@ abstract class DropDownEditBox(
 
     override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
-        guiGraphics.pose().pushMatrix()
-//        guiGraphics.pose().translate(0f, 0f, 300f)  // Above everything except for tooltip
-        suggestions.render(guiGraphics, mouseX, mouseY, partialTick)
-        guiGraphics.pose().popMatrix()
+        GraphicsUtl.registerDeferredRenderer {
+            suggestions.render(guiGraphics, mouseX, mouseY, partialTick)
+        }
     }
 
     open fun onSave(newValue: String) {
@@ -237,10 +237,10 @@ abstract class DropDownEditBox(
 
             if (parent.isReversed) {
                 guiGraphics.fill(_x + 1, contentY + 1, parent.right - 1, contentY + _height, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, contentY + 2, if (isHovering) -22016 else 14737632)
+                guiGraphics.drawString(font, subText, _x + 2, contentY + 2, if (isHovering) -22016 else -2039584)
             } else {
                 guiGraphics.fill(_x + 1, contentY, parent.right - 1, contentY + _height - 1, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, contentY + 1, if (isHovering) -22016 else 14737632)
+                guiGraphics.drawString(font, subText, _x + 2, contentY + 1, if (isHovering) -22016 else -2039584)
             }
         }
 

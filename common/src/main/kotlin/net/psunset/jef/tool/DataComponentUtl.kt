@@ -7,29 +7,29 @@ import net.minecraft.resources.Identifier
 object DataComponentUtl {
 
     @JvmStatic
-    fun ofUnsafe(id: String): DataComponentType<*> {
-        return ofUnsafe(IdUtl.auto(id)!!)
+    fun of(id: String): DataComponentType<*> {
+        return of(IdUtl.auto(id)!!)
     }
 
     @JvmStatic
-    fun ofUnsafe(id: Identifier): DataComponentType<*> {
+    fun of(id: Identifier): DataComponentType<*> {
         return BuiltInRegistries.DATA_COMPONENT_TYPE.get(id).get().value()
     }
 
     @JvmStatic
-    fun of(id: String): DataComponentType<*>? {
-        return if(validate(id)) ofUnsafe(id) else null
+    fun tryParse(id: String): DataComponentType<*>? {
+        return if (validate(id)) of(id) else null
     }
 
     @JvmStatic
-    fun of(id: Identifier): DataComponentType<*>? {
-        return if (validate(id)) ofUnsafe(id) else null
+    fun tryParse(id: Identifier): DataComponentType<*>? {
+        return if (validate(id)) of(id) else null
     }
 
     @JvmStatic
     fun validate(id: String): Boolean {
         val _id = IdUtl.auto(id)
-        return _id != null && validate(_id)
+        return if (_id == null) false else validate(_id)
     }
 
     @JvmStatic

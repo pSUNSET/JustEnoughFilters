@@ -2,18 +2,17 @@ package net.psunset.jef.config.element
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.language.I18n
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IFilter
 import net.psunset.jef.platform.Platform
+import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
 import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.toId
-import net.psunset.jef.util.JefConstants
 
 abstract class FilterOp : IFilter {
 
@@ -86,13 +85,8 @@ abstract class FilterOp : IFilter {
     }
 
     object None : FilterOp() {
-        override fun matches(stack: ItemStack): Boolean {
-            return false
-        }
-
-        override fun matchesNonItem(obj: Any): Boolean {
-            return false
-        }
+        override fun matches(stack: ItemStack): Boolean = false
+        override fun matchesNonItem(obj: Any): Boolean = false
     }
 }
 
@@ -145,16 +139,19 @@ enum class FilterOpProvider : FilterOpFactory {
 
     name_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithName(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithName(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     id_is(
         ArgDesc("id", ArgType.ItemId),
         {
-            if (ItemUtl.validate(it)) FilterOp.None
-            else {
+            if (ItemUtl.validate(it)) {
                 object : FilterOp() {
-                    private val item = ItemUtl.ofUnsafe(it)
+                    private val item = ItemUtl.of(it)
 
                     override fun matches(stack: ItemStack): Boolean {
                         return stack.`is`(item)
@@ -165,7 +162,7 @@ enum class FilterOpProvider : FilterOpFactory {
                         TODO()
                     }
                 }
-            }
+            } else FilterOp.None
         }
     ),
 
@@ -186,7 +183,11 @@ enum class FilterOpProvider : FilterOpFactory {
 
     id_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     modid_is(
@@ -234,7 +235,11 @@ enum class FilterOpProvider : FilterOpFactory {
 
     idname_matches(
         ArgDesc("regex", ArgType.Reg),
-        { FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) } }
+        {
+            if (CatchingUtl.isValidRegex(it)) {
+                FilterOp.WithId(it) { a, b -> a.matches(Regex(b)) }
+            } else FilterOp.None
+        }
     ),
 
     has_tag(
@@ -243,9 +248,9 @@ enum class FilterOpProvider : FilterOpFactory {
             if (IdUtl.auto(it) == null) FilterOp.None
             else {
                 object : FilterOp() {
-                    private val tagRl = IdUtl.auto(it)
+                    private val rl = IdUtl.auto(it)!!
                     override fun matches(stack: ItemStack): Boolean {
-                        return stack.tags.anyMatch { rl -> rl.location == tagRl }
+                        return stack.tags.anyMatch { key -> key.location == rl }
                     }
 
                     override fun matchesNonItem(obj: Any): Boolean {
@@ -260,10 +265,9 @@ enum class FilterOpProvider : FilterOpFactory {
     has_data(
         ArgDesc("dataId", ArgType.DataId),
         {
-            if (DataComponentUtl.validate(it)) FilterOp.None
-            else {
+            if (DataComponentUtl.validate(it)) {
                 object : FilterOp() {
-                    private val data = DataComponentUtl.ofUnsafe(it)
+                    private val data = DataComponentUtl.of(it)
 
                     override fun matches(stack: ItemStack): Boolean {
                         return stack.components.has(data)
@@ -274,7 +278,7 @@ enum class FilterOpProvider : FilterOpFactory {
                         TODO()
                     }
                 }
-            }
+            } else FilterOp.None
         }
     ),
 
@@ -294,7 +298,7 @@ enum class FilterOpProvider : FilterOpFactory {
     is_instanceof(
         ArgDesc("cls", ArgType.Clazz),
         {
-            if (runCatching { Class.forName(it) }.isSuccess) {
+            if (CatchingUtl.isValidClass(it)) {
                 object : FilterOp() {
                     private val clazz = Class.forName(it)
 
@@ -306,9 +310,7 @@ enum class FilterOpProvider : FilterOpFactory {
                         return clazz.isInstance(obj)
                     }
                 }
-            } else {
-                FilterOp.None
-            }
+            } else FilterOp.None
         }
     );
 
@@ -345,16 +347,18 @@ enum class FilterOpProvider : FilterOpFactory {
 }
 
 data class FilterOpGenerator(val provider: FilterOpProvider, val input: String) : IFilter {
-    fun generate(): FilterOp {
+    private val instance by lazy { generate() }
+
+    private fun generate(): FilterOp {
         return provider.factory.create(input)
     }
 
     override fun matches(stack: ItemStack): Boolean {
-        return generate().matches(stack)
+        return instance.matches(stack)
     }
 
     override fun matchesNonItem(obj: Any): Boolean {
-        return generate().matchesNonItem(obj)
+        return instance.matchesNonItem(obj)
     }
 }
 
@@ -373,14 +377,14 @@ enum class ArgType(val displayName: String, val validator: ((String) -> Boolean)
     Str("String", { true }),
     Id("Id", { IdUtl.validate(it) }),
     PartialId("Id.Partial", { IdUtl.validatePartial(it) }),
-    ItemId("Id", JefConstants.ITEM_IDS),
-    DataId("Id", JefConstants.DATA_COMPONENT_IDS),
+    ItemId("Id", { ItemUtl.validate(it) }),
+    DataId("Id", { DataComponentUtl.validate(it) }),
     Namespace("Id.Namesapce", { Identifier.isValidNamespace(it) }),
-    ModId("Id.Namespace", JefConstants.MOD_ID_LIST),
+    ModId("Id.Namespace", Platform.modIdList()),
     Path("Id.Path", { Identifier.isValidPath(it) }),
-    ModName("String", JefConstants.MOD_NAME_LIST, true),
-    Reg("Regex", { runCatching { Regex(it) }.isSuccess }),
-    Clazz("Class", { runCatching { Class.forName(it) }.isSuccess });
+    ModName("String", Platform.modNameList(), true),
+    Reg("Regex", { CatchingUtl.isValidRegex(it) }),
+    Clazz("Class", { CatchingUtl.isValidClass(it) });
 
     constructor(
         displayName: String,

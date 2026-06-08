@@ -28,6 +28,8 @@ class UndoButton(
     }
 
     override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        super.renderContents(guiGraphics, mouseX, mouseY, partialTick)
+
         guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
             UNDO_SPRITE_LOCATION,

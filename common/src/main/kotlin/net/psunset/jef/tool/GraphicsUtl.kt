@@ -11,6 +11,25 @@ import net.minecraft.world.level.Level
 import net.psunset.jef.gui.render.state.ScaledGuiItemRenderState
 import org.joml.Matrix3x2f
 
+object GraphicsUtl {
+    @JvmStatic
+    private val deferredRenderers = arrayListOf<Function0<Unit>>()
+
+    /**
+     * Fired at the head of [GuiGraphics.renderDeferredElements]
+     */
+    @JvmStatic
+    fun registerDeferredRenderer(runnable: () -> Unit) {
+        deferredRenderers.add(runnable)
+    }
+
+    @JvmStatic
+    fun runDeferredRenderers() {
+        deferredRenderers.forEach { it() }
+        deferredRenderers.clear()
+    }
+}
+
 /**
  * `scale` defaults to `16.0f` in vanilla.
  */

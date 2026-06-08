@@ -195,7 +195,7 @@ data class CustomFilter(
                 }
             }
             reader.endObject()
-            return CustomFilter(name!!, ItemUtl.of(icon!!) ?: Items.AIR, ops)
+            return CustomFilter(name!!, ItemUtl.tryParse(icon!!) ?: Items.AIR, ops)
         }
     }
 }
