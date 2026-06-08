@@ -1,7 +1,6 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.gui.Font
-import net.psunset.jef.util.JefConstants
 
 class ItemIdField(
     font: Font,
