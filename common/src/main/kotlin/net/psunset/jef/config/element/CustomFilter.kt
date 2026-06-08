@@ -12,6 +12,7 @@ import net.minecraft.world.item.Items
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
+import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
 
 data class CustomFilter(
@@ -194,7 +195,7 @@ data class CustomFilter(
                 }
             }
             reader.endObject()
-            return CustomFilter(name!!, BuiltInRegistries.ITEM.get(RLUtl.auto(icon!!)), ops)
+            return CustomFilter(name!!, ItemUtl.tryParse(icon!!) ?: Items.AIR, ops)
         }
     }
 }
