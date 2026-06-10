@@ -49,9 +49,14 @@ internal class CustomFilterConfigWidget(
                 super.mouseClicked(mouseX, mouseY, button)
     }
 
-    override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
-        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, delta) } ||
-                super.mouseScrolled(mouseX, mouseY, delta)
+    override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, dragX: Double, dragY: Double): Boolean {
+        return suggestionsList.any { it.mouseDragged(mouseX, mouseY, button, dragX, dragY) } ||
+                super.mouseDragged(mouseX, mouseY, button, dragX, dragY)
+    }
+
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
+        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, scrollX, scrollY) } ||
+                super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
