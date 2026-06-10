@@ -23,7 +23,7 @@
     "gui.justenoughfilters.logic_mode.title": "Logic Mode",
     "gui.justenoughfilters.logic_op.bin.title": "Binary Operator",
     "gui.justenoughfilters.logic_op.unary.title": "Unary Operator",
-    "jef.filter_op.has_data": "Does item have data component {%s}?",
+    "jef.filter_op.has_data": "§cUNSUPPORTED",
     "jef.filter_op.has_tag": "Does item have tag {%s}?",
     "jef.filter_op.id_is": "Is item's ID {%s}?",
     "jef.filter_op.idname_is": "Is item's registered name {%s}?",

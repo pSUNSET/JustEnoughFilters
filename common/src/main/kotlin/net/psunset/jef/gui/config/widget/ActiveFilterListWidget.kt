@@ -53,9 +53,9 @@ internal class ActiveFilterListWidget(
                 super.mouseDragged(mouseX, mouseY, button, dragX, dragY)
     }
 
-    override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, scrollX, scrollY) } ||
-                super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
+        return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, delta) } ||
+                super.mouseScrolled(mouseX, mouseY, delta)
     }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {

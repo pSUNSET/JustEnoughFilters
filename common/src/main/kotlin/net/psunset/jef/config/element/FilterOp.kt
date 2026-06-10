@@ -2,18 +2,12 @@ package net.psunset.jef.config.element
 
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.api.IFilter
 import net.psunset.jef.platform.Platform
-import net.psunset.jef.tool.DataComponentUtl
-import net.psunset.jef.tool.ItemUtl
-import net.psunset.jef.tool.RLUtl
-import net.psunset.jef.tool.idToString
-import net.psunset.jef.tool.toId
-import net.psunset.jef.util.JefConstants
+import net.psunset.jef.tool.*
 
 abstract class FilterOp : IFilter {
 
@@ -262,27 +256,14 @@ enum class FilterOpProvider : FilterOpFactory {
         }
     ),
 
-    // Data Component doesn't exist in 1.20.1
-//    has_data(
-//        ArgDesc("dataId", ArgType.DataId),
-//        {
-//            if (DataComponentUtl.validate(it)) FilterOp.None
-//            else {
-//                object : FilterOp() {
-//                    private val data = DataComponentUtl.of(it)
-//
-//                    override fun matches(stack: ItemStack): Boolean {
-//                        return stack.components.has(data)
-//                    }
-//
-//                    override fun matchesNonItem(obj: Any): Boolean {
-//                        return false
-//                        TODO()
-//                    }
-//                }
-//            }
-//        }
-//    ),
+    /**
+     * Data Component doesn't exist in 1.20.1.
+     * This is just a dummy to avoid game crash.
+     */
+    has_data(
+        ArgDesc("§cWARNING", ArgType.DataId),
+        { FilterOp.None }
+    ),
 
     is_fuel({ FilterOp.ItemOnly { AbstractFurnaceBlockEntity.isFuel(it) } }),
 
@@ -375,10 +356,10 @@ enum class ArgType(val displayName: String, val validator: ((String) -> Boolean)
     Id("Id", { RLUtl.validate(it) }),
     PartialId("Id.Partial", { RLUtl.validatePartial(it) }),
     ItemId("Id", { ItemUtl.validate(it) }),
-    DataId("Id", { DataComponentUtl.validate(it) }),
-    Namespace("Id.Namesapce", { ResourceLocation.isValidNamespace(it) }),
+    DataId("ALWAYS RETURNS FALSE", { false }),  // always deny the input
+    Namespace("Id.Namesapce", { RLUtl.isValidNamespace(it) }),
     ModId("Id.Namespace", Platform.modIdList()),
-    Path("Id.Path", { ResourceLocation.isValidPath(it) }),
+    Path("Id.Path", { RLUtl.isValidPath(it) }),
     ModName("String", Platform.modNameList(), true),
     Reg("Regex", { CatchingUtl.isValidRegex(it) }),
     Clazz("Class", { CatchingUtl.isValidClass(it) });
