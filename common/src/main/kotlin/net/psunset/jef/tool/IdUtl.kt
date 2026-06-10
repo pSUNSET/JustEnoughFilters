@@ -36,16 +36,18 @@ object IdUtl {
     }
 
     /**
-     * Returns true if `rl` is a valid [Identifier] and can be parsed successfully
+     * Omit default namespace, `minecraft`, is not allowed in this function.
+     *
+     * Returns true if `rl` is a valid [Identifier] and can be parsed successfully.
      */
     @JvmStatic
-    fun validate(rl: String): Boolean {
-        val idx = rl.indexOf(':')
+    fun validate(id: String): Boolean {
+        val idx = id.indexOf(':')
         if (idx > 0) {
-            if (!Identifier.isValidPath(rl.substring(idx + 1))) {
+            if (!Identifier.isValidPath(id.substring(idx + 1))) {
                 return false
             } else {
-                return Identifier.isValidNamespace(rl.substring(0, idx))
+                return Identifier.isValidNamespace(id.substring(0, idx))
             }
         }
         return false

@@ -47,6 +47,11 @@ internal class ActiveFilterListWidget(
                 super.mouseClicked(event, isDoubleClick)
     }
 
+    override fun mouseDragged(event: MouseButtonEvent, mouseX: Double, mouseY: Double): Boolean {
+        return suggestionsList.any { it.mouseDragged(event, mouseX, mouseY) } ||
+                super.mouseDragged(event, mouseX, mouseY)
+    }
+
     override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
         return suggestionsList.any { it.mouseScrolled(mouseX, mouseY, scrollX, scrollY) } ||
                 super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
