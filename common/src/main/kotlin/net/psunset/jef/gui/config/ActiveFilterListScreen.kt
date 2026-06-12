@@ -19,7 +19,7 @@ class ActiveFilterListScreen(
     }
 
     override fun addContents() {
-        list = layout.addToContents(ActiveFilterListWidget(minecraft!!, width, this))
+        list = layout.addToContents(ActiveFilterListWidget(minecraft, width, this))
     }
 
     override fun removed() {

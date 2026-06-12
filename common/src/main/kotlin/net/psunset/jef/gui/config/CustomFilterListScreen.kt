@@ -31,7 +31,7 @@ class CustomFilterListScreen(
     }
 
     override fun addContents() {
-        list = layout.addToContents(CustomFilterListWidget(minecraft!!, width, this))
+        list = layout.addToContents(CustomFilterListWidget(minecraft, width, this))
     }
 
     override fun removed() {
