@@ -58,16 +58,19 @@ object JustEnoughFilters {
     fun init(): Boolean {
         preInit()
 
-        if (isActive!!) {
-            ToggledFilters.init()
-            ItemTypeFilters.init()
-            ConfigManager.onLoading()
-
+//        if (isActive!!) {
 //            if (CompatUtl.REI.isLoaded()) {
 //                JefRegistries.registerProxy(ReiFilterProxyImpl)
 //            }
-        }
+//        }
 
         return isActive!!
+    }
+
+    @JvmStatic
+    fun postInit() {
+        ToggledFilters.init()
+        ItemTypeFilters.init()
+        ConfigManager.onLoading()
     }
 }

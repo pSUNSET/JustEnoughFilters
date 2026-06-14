@@ -38,7 +38,7 @@ class CustomFilterConfigScreen internal constructor(
     override fun removed() {
         list.tempFilters[i] = CustomFilter(
             widget!!.tempName,
-            BuiltInRegistries.ITEM.get(IdUtl.auto(widget!!.tempIcon)!!).get().value(),
+            widget!!.tempIcon,
             widget!!.tempOps
         )
         list.refresh()
@@ -59,7 +59,7 @@ class CustomFilterConfigScreen internal constructor(
     override fun onUndo() {
         if (widget != null) {
             widget!!.tempName = filter.name
-            widget!!.tempIcon = filter.icon.toString()
+            widget!!.tempIcon = filter.icon
             widget!!.tempOps = filter.ops.toMutableList()
             widget!!.refresh()
         }
