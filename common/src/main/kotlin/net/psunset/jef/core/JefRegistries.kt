@@ -13,8 +13,12 @@ object JefRegistries {
     @JvmField
     internal val TOGGLED_FILTERS = mutableMapOf<String, IToggledFilter>()
 
+    private var deferredToggledFilters: MutableList<() -> IToggledFilter>? = mutableListOf()
+
     @JvmField
     internal val ITEM_TYPE_FILTERS = mutableListOf<Pair<String, IItemTypeFilter>>()
+
+    private var deferredItemTypeFilters: MutableList<() -> IItemTypeFilter>? = mutableListOf()
 
     @JvmField
     internal val PROXIES = mutableListOf<IFilterProxy>()
@@ -25,6 +29,14 @@ object JefRegistries {
             throw IllegalStateException("ToggledFilter with id ${filter.id} is already registered.")
         }
         TOGGLED_FILTERS[filter.id.toString()] = filter
+    }
+
+    @JvmStatic
+    fun registerDeferredToggledFilter(supplier: () -> IToggledFilter) {
+        if (deferredToggledFilters == null) {
+            throw IllegalStateException("Registry is already closed.")
+        }
+        deferredToggledFilters!!.add(supplier)
     }
 
     @JvmStatic
@@ -41,7 +53,23 @@ object JefRegistries {
     }
 
     @JvmStatic
+    fun registerDeferredItemTypeFilter(supplier: () -> IItemTypeFilter) {
+        if (deferredItemTypeFilters == null) {
+            throw IllegalStateException("Registry is already closed.")
+        }
+        deferredItemTypeFilters!!.add(supplier)
+    }
+
+    @JvmStatic
     fun registerProxy(proxy: IFilterProxy) {
         PROXIES.add(proxy)
+    }
+
+    @JvmStatic
+    internal fun registerDeferredElements() {
+        deferredToggledFilters!!.forEach { registerToggledFilter(it()) }
+        deferredItemTypeFilters!!.forEach { registerItemTypeFilter(it()) }
+        deferredToggledFilters = null
+        deferredItemTypeFilters = null
     }
 }

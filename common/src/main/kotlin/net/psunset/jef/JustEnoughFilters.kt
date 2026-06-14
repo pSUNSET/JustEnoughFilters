@@ -75,5 +75,6 @@ object JustEnoughFilters {
         ToggledFilters.init()
         ItemTypeFilters.init()
         ConfigManager.onLoading()
+        JefRegistries.registerDeferredElements()
     }
 }
