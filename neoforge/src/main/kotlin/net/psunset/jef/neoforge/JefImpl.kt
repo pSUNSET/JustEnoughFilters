@@ -51,6 +51,7 @@ class JefImpl(container: ModContainer, modBus: IEventBus, dist: Dist) {
         @JvmField
         val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(JustEnoughFilters.ID)
 
+        @JvmStatic
         val DUMMY_ITEM: Item by ITEM_REGISTRY.registerSimpleItem("dummy")
     }
 }
