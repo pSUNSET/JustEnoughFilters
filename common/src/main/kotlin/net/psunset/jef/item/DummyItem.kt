@@ -11,5 +11,6 @@ object DummyItem {
     @JvmField
     var _inst: Item? = null
 
-    val INSTANCE: Item get() = _inst!!
+    @JvmStatic
+    val INSTANCE: Item by lazy { _inst!! }
 }

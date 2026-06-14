@@ -59,7 +59,7 @@ class CustomFilterConfigScreen internal constructor(
     override fun onUndo() {
         if (widget != null) {
             widget!!.tempName = filter.name
-            widget!!.tempIcon = filter.icon.toString()
+            widget!!.tempIcon = filter.icon
             widget!!.tempOps = filter.ops.toMutableList()
             widget!!.refresh()
         }
