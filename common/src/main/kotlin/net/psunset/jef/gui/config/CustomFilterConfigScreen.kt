@@ -47,7 +47,7 @@ class CustomFilterConfigScreen internal constructor(
     override fun removed() {
         list.tempFilters[i] = CustomFilter(
             widget!!.tempName,
-            BuiltInRegistries.ITEM.get(RLUtl.auto(widget!!.tempIcon)),
+            widget!!.tempIcon,
             widget!!.tempOps
         )
         list.refresh()

@@ -64,10 +64,6 @@ object JustEnoughFilters {
         preInit()
 
         if (isActive!!) {
-            ToggledFilters.init()
-            ItemTypeFilters.init()
-            ConfigManager.onLoading()
-
             if (CompatUtl.EMI.isLoaded()) {
                 JefRegistries.registerProxy(EmiFilterProxyImpl)
             }
@@ -78,5 +74,12 @@ object JustEnoughFilters {
         }
 
         return isActive!!
+    }
+
+    @JvmStatic
+    fun postInit() {
+        ToggledFilters.init()
+        ItemTypeFilters.init()
+        ConfigManager.onLoading()
     }
 }

@@ -27,7 +27,7 @@ internal class CustomFilterConfigWidget(
 ) {
 
     internal var tempName = filter.name
-    internal var tempIcon = filter.icon.idToString()
+    internal var tempIcon = filter.icon
     internal var tempOps = filter.ops.toMutableList()
 
     private var suggestionsList: MutableList<DropDownEditBox.Suggestions> = ArrayList(tempOps.size)

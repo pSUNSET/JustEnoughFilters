@@ -12,7 +12,7 @@ object ItemTypeFilters {
     val OFF = object : ItemTypeFilter(
         RLUtl.ofJef("off"),
         "",  // No Usage
-        Items.BARRIER,
+        Items.BARRIER
     ) {
         override fun matches(stack: ItemStack) = true
 
