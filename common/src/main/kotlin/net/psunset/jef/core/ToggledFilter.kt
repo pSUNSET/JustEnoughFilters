@@ -4,7 +4,6 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
-import net.psunset.jef.api.IFilter
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
@@ -19,7 +18,7 @@ abstract class ToggledFilter(
     override val activeIcon: ItemStack = FoilItemStack(iconItem)
 
     override fun matchesNonItem(obj: Any): Boolean = false
-    
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ToggledFilter) return false
