@@ -2,14 +2,12 @@ package net.psunset.jef.gui.config
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.config.element.CustomFilter
 import net.psunset.jef.gui.config.widget.CustomFilterConfigWidget
 import net.psunset.jef.gui.config.widget.CustomFilterListWidget
 import net.psunset.jef.tool.RLUtl
-import net.psunset.jef.tool.idToString
 
 class CustomFilterConfigScreen internal constructor(
     private val i: Int,
@@ -68,7 +66,7 @@ class CustomFilterConfigScreen internal constructor(
     override fun onUndo() {
         if (widget != null) {
             widget!!.tempName = filter.name
-            widget!!.tempIcon = filter.icon.idToString()
+            widget!!.tempIcon = filter.icon
             widget!!.tempOps = filter.ops.toMutableList()
             widget!!.refresh()
         }

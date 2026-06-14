@@ -9,7 +9,6 @@ import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.element.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
-import net.psunset.jef.tool.idToString
 import net.psunset.jef.util.JefConstants
 
 internal class CustomFilterConfigWidget(

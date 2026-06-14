@@ -7,12 +7,11 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IToggledFilter
-import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.DummyItem
+import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
 import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
-import net.psunset.jef.tool.idToString
 
 data class CustomFilter(
     val name: String,
