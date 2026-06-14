@@ -25,7 +25,7 @@ allprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     group = "$maven_group"
-    version = "${mod_version}+${minecraft_version_file_range}"
+    version = "${mod_version}+${minecraft_display_version}"
 
     repositories {
         maven {
@@ -129,8 +129,8 @@ publishMods {
         requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
         optional("jei", "roughly-enough-items", "emi")
 
-        displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
-        version.set "fabric-$mod_version+$minecraft_version_file_range"
+        displayName = "[Fabric $minecraft_display_version] v$mod_version"
+        version.set "fabric-$mod_version+$minecraft_display_version"
         modLoaders.addAll "fabric", "quilt"
     }
 
@@ -141,8 +141,8 @@ publishMods {
         requires("kotlin-for-forge", "cloth-config")
         optional("jei", "roughly-enough-items", "emi")
 
-        displayName = "[Forge $minecraft_version_file_range] v$mod_version"
-        version.set "forge-$mod_version+$minecraft_version_file_range"
+        displayName = "[Forge $minecraft_display_version] v$mod_version"
+        version.set "forge-$mod_version+$minecraft_display_version"
         modLoaders.add "forge"
     }
 
@@ -153,8 +153,8 @@ publishMods {
         requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
         optional("jei", "rei", "emi")
 
-        displayName = "[Fabric $minecraft_version_file_range] v$mod_version"
-        version.set "fabric-$mod_version+$minecraft_version_file_range"
+        displayName = "[Fabric $minecraft_display_version] v$mod_version"
+        version.set "fabric-$mod_version+$minecraft_display_version"
         modLoaders.addAll "fabric", "quilt"
     }
 
@@ -165,8 +165,8 @@ publishMods {
         requires("kotlin-for-forge", "cloth-config")
         optional("jei", "rei", "emi")
 
-        displayName = "[Forge $minecraft_version_file_range] v$mod_version"
-        version.set "forge-$mod_version+$minecraft_version_file_range"
+        displayName = "[Forge $minecraft_display_version] v$mod_version"
+        version.set "forge-$mod_version+$minecraft_display_version"
         modLoaders.add "forge"
     }
 }
