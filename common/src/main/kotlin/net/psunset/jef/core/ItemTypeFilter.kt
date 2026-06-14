@@ -26,9 +26,15 @@ abstract class ItemTypeFilter(
             for ((_, filter) in JefRegistries.ITEM_TYPE_FILTERS) {
                 if (filter == ItemTypeFilters.OFF) continue
                 if (currentFilter == filter) {
-                    list.append(Component.literal("\n> ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.AQUA))
+                    list.append(
+                        Component.literal("\n> ${I18n.get(filter.translationKey)}")
+                            .withStyle(ChatFormatting.AQUA)
+                    )
                 } else {
-                    list.append(Component.literal("\n  ${I18n.get(filter.translationKey)}").withStyle(ChatFormatting.GRAY))
+                    list.append(
+                        Component.literal("\n  ${I18n.get(filter.translationKey)}")
+                            .withStyle(ChatFormatting.GRAY)
+                    )
                 }
             }
             return list

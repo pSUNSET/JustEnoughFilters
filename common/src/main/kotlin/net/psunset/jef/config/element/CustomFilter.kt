@@ -3,28 +3,27 @@ package net.psunset.jef.config.element
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.FoilItemStack
+import net.psunset.jef.item.DummyItem
 import net.psunset.jef.item.NotFoilItemStack
 import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.ItemUtl
 
 data class CustomFilter(
     val name: String,
-    val icon: Item,
+    val icon: String,
     val ops: List<OpCombination>
 ) : IToggledFilter {
 
     override val id: Identifier = genId(name)
 
-    override val activeIcon: ItemStack = FoilItemStack(icon)
-    override val inactiveIcon: ItemStack = NotFoilItemStack(icon)
+    val iconItem = ItemUtl.tryParse(icon) ?: DummyItem.INSTANCE
+    override val activeIcon: ItemStack = FoilItemStack(iconItem)
+    override val inactiveIcon: ItemStack = NotFoilItemStack(iconItem)
     override val tooltip: Component = Component.literal(name)
 
     override fun matches(stack: ItemStack): Boolean {
@@ -107,7 +106,7 @@ data class CustomFilter(
             }
             return CustomFilter(
                 name,
-                Items.GRASS_BLOCK,
+                "minecraft:grass_block",
                 listOf(
                     OpCombination(
                         LogicOp.Binary.first,
@@ -130,7 +129,7 @@ data class CustomFilter(
         override fun write(writer: JsonWriter, obj: CustomFilter) {
             writer.beginObject()
                 .name("name").value(obj.name)
-                .name("icon").value(obj.icon.toString())
+                .name("icon").value(obj.icon)
                 .name("ops")
                 .beginArray()
             for (op in obj.ops) {
@@ -195,7 +194,7 @@ data class CustomFilter(
                 }
             }
             reader.endObject()
-            return CustomFilter(name!!, ItemUtl.tryParse(icon!!) ?: Items.AIR, ops)
+            return CustomFilter(name!!, icon!!, ops)
         }
     }
 }

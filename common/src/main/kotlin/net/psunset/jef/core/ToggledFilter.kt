@@ -18,7 +18,7 @@ abstract class ToggledFilter(
     override val activeIcon: ItemStack = FoilItemStack(iconItem)
 
     override fun matchesNonItem(obj: Any): Boolean = false
-    
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ToggledFilter) return false
