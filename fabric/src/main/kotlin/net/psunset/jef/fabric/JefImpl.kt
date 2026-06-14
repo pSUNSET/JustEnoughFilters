@@ -6,13 +6,14 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.Item
-import net.psunset.jef.gui.inventory.InventoryOverlayManager
 import net.psunset.jef.JustEnoughFilters
-import net.psunset.jef.config.ConfigManager
+import net.psunset.jef.gui.inventory.InventoryOverlayManager
 import net.psunset.jef.item.DummyItem
 import net.psunset.jef.platform.fabric.PlatformImpl
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 object JefImpl : ClientModInitializer {
 
@@ -35,8 +36,15 @@ object JefImpl : ClientModInitializer {
 
         DummyItem._inst = Registry.register(
             BuiltInRegistries.ITEM,
-            RLUtl.ofJef("dummy"),
-            Item(Item.Properties())
+            IdUtl.ofJef("dummy"),
+            Item(
+                Item.Properties().setId(
+                    ResourceKey.create(
+                        Registries.ITEM,
+                        IdUtl.ofJef("dummy")
+                    )
+                )
+            )
         )
     }
 }
