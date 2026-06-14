@@ -1,14 +1,12 @@
 package net.psunset.jef
 
-import net.psunset.jef.compat.rei.ReiFilterProxyImpl
+//import net.psunset.jef.compat.rei.ReiFilterProxyImpl
 import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.core.ItemTypeFilters
-import net.psunset.jef.core.JefRegistries
 import net.psunset.jef.core.ToggledFilters
 import net.psunset.jef.tool.CompatUtl
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import kotlin.properties.Delegates
 
 object JustEnoughFilters {
     const val ID = "justenoughfilters"
@@ -65,9 +63,9 @@ object JustEnoughFilters {
             ItemTypeFilters.init()
             ConfigManager.onLoading()
 
-            if (CompatUtl.REI.isLoaded()) {
-                JefRegistries.registerProxy(ReiFilterProxyImpl)
-            }
+//            if (CompatUtl.REI.isLoaded()) {
+//                JefRegistries.registerProxy(ReiFilterProxyImpl)
+//            }
         }
 
         return isActive!!

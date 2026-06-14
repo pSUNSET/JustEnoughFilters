@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.*
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
@@ -53,7 +53,7 @@ internal class CustomFilterConfigWidget(
                 super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
         // If any suggestions shown, hide all FilterOpConfigField's tooltip
         if (suggestionsList.any { it.visible }) {
             suggestionsList.forEach { it.parent.tooltipVisible = false }
@@ -61,7 +61,7 @@ internal class CustomFilterConfigWidget(
             suggestionsList.forEach { it.parent.tooltipVisible = true }
         }
 
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        super.extractWidgetRenderState(graphics, mouseX, mouseY, a)
     }
 
     fun refresh() {
@@ -137,30 +137,30 @@ internal class CustomFilterConfigWidget(
 
         private val children: List<AbstractWidget> = listOf(nameField, iconField)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val nameHintWidth = font.width(nameHint)
             val iconHintWidth = font.width(iconHint)
             val strY = contentY + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
             var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - Button.DEFAULT_SPACING
 
-            guiGraphics.drawString(font, nameHint, x, strY, -2039584)
+            graphics.text(font, nameHint, x, strY, -2039584)
             x += font.width(nameHint)
 
             nameField.setPosition(x, contentY)
-            nameField.render(guiGraphics, mouseX, mouseY, partialTick)
+            nameField.extractRenderState(graphics, mouseX, mouseY, a)
             x += Button.DEFAULT_WIDTH + Button.DEFAULT_SPACING * 2
 
-            guiGraphics.drawString(font, iconHint, x, strY, -2039584)
+            graphics.text(font, iconHint, x, strY, -2039584)
             x += font.width(iconHint)
 
             iconField.setPosition(x, contentY)
-            iconField.render(guiGraphics, mouseX, mouseY, partialTick)
+            iconField.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
         override fun children(): List<GuiEventListener> {
@@ -233,17 +233,17 @@ internal class CustomFilterConfigWidget(
 
         private val children = listOf(binLogicBtn, unaryLogicBtn, filterField, filterArgsField, removeBtn, addBtn)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             var x = (screen.width - children.sumOf { it.width } - Button.DEFAULT_SPACING * children.lastIndex) / 2
             for (child in children) {
                 child.setPosition(x, contentY)
-                child.render(guiGraphics, mouseX, mouseY, partialTick)
+                child.extractRenderState(graphics, mouseX, mouseY, a)
                 x += child.width + Button.DEFAULT_SPACING
             }
         }

@@ -37,16 +37,17 @@ dependencies {
     neoForge "net.neoforged:neoforge:$neoforge_version"
     implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
     
-    modRuntimeOnly "me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"
+    runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"
 
-    modImplementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    implementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
+    // NOT support beyond 26.1
+//    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
     // NOT support beyond 1.21.2
-//    modCompileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+//    compileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    common(project(path: ':common')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 }
 
@@ -76,13 +77,27 @@ jar {
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+
+    archiveClassifier = 'raw'
 }
 
 shadowJar {
+    dependsOn jar
+    from zipTree(jar.archiveFile)
     configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+    archiveClassifier = null
+    zip64 = true
 }
 
-remapJar {
-    input.set shadowJar.archiveFile
+assemble.dependsOn shadowJar
+
+configurations {
+    apiElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
+    runtimeElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
 }

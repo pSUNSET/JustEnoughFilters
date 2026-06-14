@@ -1,7 +1,6 @@
 package net.psunset.jef.gui.inventory.widget
 
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -36,10 +35,10 @@ class LogicModeCycleButton(
         setTooltip(Tooltip.create(LogicMode.genTooltip()))
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        guiGraphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
 
-        guiGraphics.blit(
+        graphics.blit(
             RenderPipelines.GUI_TEXTURED,
             FilterManager.logicMode.icon,
             x,

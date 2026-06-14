@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.Tooltip
@@ -92,18 +92,18 @@ internal class CustomFilterListWidget(
 
         private val children = listOf(editBtn, removeBtn)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val x = (screen.width - editBtn.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
             editBtn.setPosition(x, contentY)
-            editBtn.render(guiGraphics, mouseX, mouseY, partialTick)
+            editBtn.extractRenderState(graphics, mouseX, mouseY, a)
             removeBtn.setPosition(x + editBtn.width + Button.DEFAULT_SPACING, contentY)
-            removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
+            removeBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
         override fun children(): List<GuiEventListener> {
@@ -124,16 +124,16 @@ internal class CustomFilterListWidget(
 
         private val children = listOf(addBtn)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val x = (screen.width - Button.SMALL_WIDTH - Button.DEFAULT_SPACING - addBtn.width) / 2
             addBtn.setPosition(x + Button.SMALL_WIDTH + Button.DEFAULT_SPACING,contentY)
-            addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
+            addBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
         override fun children(): List<GuiEventListener> {

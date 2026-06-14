@@ -1,6 +1,6 @@
 package net.psunset.jef.gui.inventory
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.client.renderer.Rect2i
@@ -36,7 +36,7 @@ object InventoryOverlayManager {
 
     fun drawFilterBar(
         screen: Screen,
-        guiGraphics: GuiGraphics,
+        graphics: GuiGraphicsExtractor,
         mouseX: Int,
         mouseY: Int
     ) {
@@ -49,7 +49,7 @@ object InventoryOverlayManager {
             overlay.init(overlayBounds!!.x, overlayBounds!!.y, overlayBounds!!.width)
         }
         lastOverlayBounds = overlayBounds
-        overlay.render(guiGraphics, mouseX, mouseY, 0f)
+        overlay.extractRenderState(graphics, mouseX, mouseY, 0f)
     }
 
     fun refresh() {

@@ -1,6 +1,6 @@
 package net.psunset.jef.gui.config.widget
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
@@ -66,10 +66,10 @@ sealed class LogicOpConfigButton(
             responder(op)
         }
 
-        override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-            super.renderDefaultSprite(guiGraphics)
+        override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+            super.extractDefaultSprite(graphics)
             if (op.sprite != null) {
-                guiGraphics.blit(
+                graphics.blit(
                     RenderPipelines.GUI_TEXTURED,
                     op.sprite!!,
                     x + 1,
@@ -115,10 +115,10 @@ sealed class LogicOpConfigButton(
             responder(op)
         }
 
-        override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-            super.renderDefaultSprite(guiGraphics)
+        override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+            super.extractDefaultSprite(graphics)
             if (op.sprite != null) {
-                guiGraphics.blit(
+                graphics.blit(
                     RenderPipelines.GUI_TEXTURED,
                     op.sprite!!,
                     x + 1,

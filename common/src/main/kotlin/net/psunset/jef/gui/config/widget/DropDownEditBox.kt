@@ -2,7 +2,7 @@ package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.EditBox
@@ -123,10 +123,10 @@ abstract class DropDownEditBox(
         }
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
-        GraphicsUtl.registerDeferredRenderer {
-            suggestions.render(guiGraphics, mouseX, mouseY, partialTick)
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+        super.extractWidgetRenderState(graphics, mouseX, mouseY, a)
+        GraphicsUtl.registerDeferredExtractor {
+            suggestions.extractRenderState(graphics, mouseX, mouseY, a)
         }
     }
 
@@ -172,16 +172,16 @@ abstract class DropDownEditBox(
             }
         }
 
-        override fun renderListBackground(guiGraphics: GuiGraphics) {
-            guiGraphics.fill(x, y + 4, right, bottom, -22016)
-            guiGraphics.fill(x + 1, y + 5, right - 1, bottom - 1, -6250336)
+        override fun extractListBackground(graphics: GuiGraphicsExtractor) {
+            graphics.fill(x, y + 4, right, bottom, -22016)
+            graphics.fill(x + 1, y + 5, right - 1, bottom - 1, -6250336)
         }
 
-        override fun renderListSeparators(guiGraphics: GuiGraphics) {
+        override fun extractListSeparators(graphics: GuiGraphicsExtractor) {
         }
 
-        override fun enableScissor(guiGraphics: GuiGraphics) {
-            guiGraphics.enableScissor(x + 1, y + 4, right - 1, bottom - 1)
+        override fun enableScissor(graphics: GuiGraphicsExtractor) {
+            graphics.enableScissor(x + 1, y + 4, right - 1, bottom - 1)
         }
 
         override fun scrollBarX(): Int {
@@ -193,7 +193,7 @@ abstract class DropDownEditBox(
         }
 
         override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-            if (isActive && scrollbarVisible() && isMouseOver(mouseX, mouseY)) {
+            if (isActive && isMouseOver(mouseX, mouseY)) {
                 return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
             }
             return false
@@ -224,23 +224,23 @@ abstract class DropDownEditBox(
 
         private val children = listOf<AbstractWidget>()
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val _height = font.lineHeight + 3
             val _x = parent.x
             val subText = font.plainSubstrByWidth(text, parent.width - 4)
 
             if (parent.isReversed) {
-                guiGraphics.fill(_x + 1, contentY + 1, parent.right - 1, contentY + _height, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, contentY + 2, if (isHovering) -22016 else -2039584)
+                graphics.fill(_x + 1, contentY + 1, parent.right - 1, contentY + _height, -16777216)
+                graphics.text(font, subText, _x + 2, contentY + 2, if (hovered) -22016 else -2039584)
             } else {
-                guiGraphics.fill(_x + 1, contentY, parent.right - 1, contentY + _height - 1, -16777216)
-                guiGraphics.drawString(font, subText, _x + 2, contentY + 1, if (isHovering) -22016 else -2039584)
+                graphics.fill(_x + 1, contentY, parent.right - 1, contentY + _height - 1, -16777216)
+                graphics.text(font, subText, _x + 2, contentY + 1, if (hovered) -22016 else -2039584)
             }
         }
 

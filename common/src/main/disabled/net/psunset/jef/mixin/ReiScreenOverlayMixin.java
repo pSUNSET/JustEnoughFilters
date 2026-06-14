@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+// When REI update to mc26.1 :(
 @Mixin(ScreenOverlayImpl.class)
 public class ReiScreenOverlayMixin {
 

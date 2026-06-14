@@ -1,6 +1,6 @@
 package net.psunset.jef.gui.inventory
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.input.MouseButtonEvent
 import net.psunset.jef.core.FilterManager
@@ -68,9 +68,9 @@ class FilterBarOverlay internal constructor() {
         buttons.add(clearBtn)
     }
 
-    fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    fun extractRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, partialTick: Float) {
         for (btn in buttons) {
-            btn.render(guiGraphics, mouseX, mouseY, partialTick)
+            btn.extractRenderState(graphics, mouseX, mouseY, partialTick)
         }
     }
 

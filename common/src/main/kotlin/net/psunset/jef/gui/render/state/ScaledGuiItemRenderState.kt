@@ -1,8 +1,8 @@
 package net.psunset.jef.gui.render.state
 
 import net.minecraft.client.gui.navigation.ScreenRectangle
-import net.minecraft.client.gui.render.state.GuiItemRenderState
 import net.minecraft.client.renderer.item.TrackingItemStackRenderState
+import net.minecraft.client.renderer.state.gui.GuiItemRenderState
 import org.joml.Matrix3x2f
 
 /**
@@ -11,14 +11,13 @@ import org.joml.Matrix3x2f
  * May be broken when `itemStackRenderState.isOversizedInGui()` is `true`.
  */
 class ScaledGuiItemRenderState(
-    name: String,
     pose: Matrix3x2f,
     itemStackRenderState: TrackingItemStackRenderState,
     x: Int,
     y: Int,
     @JvmField val scale: Float,
     scissorArea: ScreenRectangle?
-) : GuiItemRenderState(name, pose, itemStackRenderState, x, y, scissorArea) {
+) : GuiItemRenderState(pose, itemStackRenderState, x, y, scissorArea) {
 
     private val fakeOversizedItemBounds: ScreenRectangle = ScreenRectangle(x, y, scale.toInt(), scale.toInt())
 

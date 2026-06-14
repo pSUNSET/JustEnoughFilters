@@ -1,6 +1,9 @@
-accessWidener v2 named
+accessWidener v2 official
 
 extendable class net/minecraft/world/item/ItemStack
-extendable class net/minecraft/client/gui/render/state/GuiItemRenderState
-accessible field net/minecraft/client/gui/GuiGraphics minecraft Lnet/minecraft/client/Minecraft;
-
+extendable class net/minecraft/client/renderer/state/gui/GuiItemRenderState
+accessible class net/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack
+accessible field net/minecraft/client/gui/GuiGraphicsExtractor minecraft Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/client/gui/GuiGraphicsExtractor guiRenderState Lnet/minecraft/client/renderer/state/gui/GuiRenderState;
+accessible field net/minecraft/client/gui/GuiGraphicsExtractor pose Lorg/joml/Matrix3x2fStack;
+accessible field net/minecraft/client/gui/GuiGraphicsExtractor scissorStack Lnet/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack;

@@ -1,6 +1,6 @@
 package net.psunset.jef.gui.config.widget
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.renderer.RenderPipelines
@@ -27,10 +27,10 @@ class UndoButton(
         setTooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.undo.tooltip")))
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        super.renderContents(guiGraphics, mouseX, mouseY, partialTick)
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+        super.extractContents(graphics, mouseX, mouseY, a)
 
-        guiGraphics.blit(
+        graphics.blit(
             RenderPipelines.GUI_TEXTURED,
             UNDO_SPRITE_LOCATION,
             x + 1,

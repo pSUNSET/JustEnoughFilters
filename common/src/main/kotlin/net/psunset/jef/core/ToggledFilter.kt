@@ -14,11 +14,11 @@ abstract class ToggledFilter(
     override val tooltip: Component,
 ) : IToggledFilter {
 
-    override val inactiveIcon: ItemStack = NotFoilItemStack(iconItem)
-    override val activeIcon: ItemStack = FoilItemStack(iconItem)
+    override val inactiveIcon: ItemStack by lazy { NotFoilItemStack(iconItem) }
+    override val activeIcon: ItemStack by lazy { FoilItemStack(iconItem) }
 
     override fun matchesNonItem(obj: Any): Boolean = false
-    
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is ToggledFilter) return false

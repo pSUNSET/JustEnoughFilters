@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.ChatFormatting
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.CommonComponents
@@ -33,18 +33,18 @@ class FilterToggleButton(
         refreshTooltip()
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
         val active = FilterManager.isFilterEnabled(filter)
 
         val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
-        guiGraphics.fill(x, y, x + width, y + height, color)
+        graphics.fill(x, y, x + width, y + height, color)
 
         val icon = if (active) filter.activeIcon else filter.inactiveIcon
 
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        guiGraphics.renderScaledItem(icon, iconX, iconY, size.toFloat())
+        graphics.renderScaledItem(icon, iconX, iconY, size.toFloat())
     }
 
     private fun refreshTooltip() {

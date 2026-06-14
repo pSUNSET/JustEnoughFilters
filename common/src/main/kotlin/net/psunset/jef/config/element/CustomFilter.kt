@@ -23,8 +23,8 @@ data class CustomFilter(
 
     override val id: Identifier = genId(name)
 
-    override val activeIcon: ItemStack = FoilItemStack(icon)
-    override val inactiveIcon: ItemStack = NotFoilItemStack(icon)
+    override val activeIcon: ItemStack by lazy {  FoilItemStack(icon) }
+    override val inactiveIcon: ItemStack by lazy { NotFoilItemStack(icon) }
     override val tooltip: Component = Component.literal(name)
 
     override fun matches(stack: ItemStack): Boolean {

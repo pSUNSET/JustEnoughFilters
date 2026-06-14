@@ -1,6 +1,6 @@
 package net.psunset.jef.gui.inventory.widget
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -36,13 +36,13 @@ class ItemTypeCycleButton(
         setTooltip(Tooltip.create(ItemTypeFilter.genTooltip()))
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        guiGraphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
 
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        guiGraphics.renderScaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
+        graphics.renderScaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
     }
 
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {

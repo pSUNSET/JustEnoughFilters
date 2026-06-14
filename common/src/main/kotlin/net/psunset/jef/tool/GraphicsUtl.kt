@@ -2,7 +2,7 @@ package net.psunset.jef.tool
 
 import net.minecraft.CrashReport
 import net.minecraft.ReportedException
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.renderer.item.TrackingItemStackRenderState
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemDisplayContext
@@ -13,27 +13,27 @@ import org.joml.Matrix3x2f
 
 object GraphicsUtl {
     @JvmStatic
-    private val deferredRenderers = arrayListOf<Function0<Unit>>()
+    private val deferredExtractors = arrayListOf<Function0<Unit>>()
 
     /**
-     * Fired at the head of [GuiGraphics.renderDeferredElements]
+     * Fired at the head of [GuiGraphicsExtractor.extractDeferredElements]
      */
     @JvmStatic
-    fun registerDeferredRenderer(runnable: () -> Unit) {
-        deferredRenderers.add(runnable)
+    fun registerDeferredExtractor(runnable: () -> Unit) {
+        deferredExtractors.add(runnable)
     }
 
     @JvmStatic
-    fun runDeferredRenderers() {
-        deferredRenderers.forEach { it() }
-        deferredRenderers.clear()
+    fun runDeferredExtractors() {
+        deferredExtractors.forEach { it() }
+        deferredExtractors.clear()
     }
 }
 
 /**
  * `scale` defaults to `16.0f` in vanilla.
  */
-fun GuiGraphics.renderScaledItem(
+fun GuiGraphicsExtractor.renderScaledItem(
     stack: ItemStack,
     x: Int,
     y: Int,
@@ -46,7 +46,7 @@ fun GuiGraphics.renderScaledItem(
 /**
  * `scale` defaults to `16.0f` in vanilla.
  */
-fun GuiGraphics.renderScaledFakeItem(
+fun GuiGraphicsExtractor.renderScaledFakeItem(
     stack: ItemStack,
     x: Int,
     y: Int,
@@ -58,10 +58,10 @@ fun GuiGraphics.renderScaledFakeItem(
 
 /**
  * `scale` defaults to `16.0f` in vanilla.
- * An edition of [GuiGraphics.renderItem] using [ScaledGuiItemRenderState]
+ * An edition of [GuiGraphicsExtractor.item] using [ScaledGuiItemRenderState]
  */
-fun GuiGraphics.renderScaledItem(
-    entity: LivingEntity?,
+fun GuiGraphicsExtractor.renderScaledItem(
+    owner: LivingEntity?,
     level: Level?,
     stack: ItemStack,
     x: Int,
@@ -70,35 +70,34 @@ fun GuiGraphics.renderScaledItem(
     seed: Int = 0,
 ) {
     if (!stack.isEmpty) {
-        val trackingItemStackRenderState = TrackingItemStackRenderState()
+        val itemStackRenderState = TrackingItemStackRenderState()
         this.minecraft.itemModelResolver.updateForTopItem(
-            trackingItemStackRenderState,
+            itemStackRenderState,
             stack,
             ItemDisplayContext.GUI,
             level,
-            entity,
+            owner,
             seed
         )
 
         try {
-            this.guiRenderState.submitItem(
+            this.guiRenderState.addItem(
                 ScaledGuiItemRenderState(
-                    stack.item.name.toString(),
-                    Matrix3x2f(this.pose()),
-                    trackingItemStackRenderState,
+                    Matrix3x2f(this.pose),
+                    itemStackRenderState,
                     x,
                     y,
                     scale,
                     this.scissorStack.peek()
                 )
             )
-        } catch (throwable: Throwable) {
-            val crashReport = CrashReport.forThrowable(throwable, "Rendering item")
-            val crashReportCategory = crashReport.addCategory("Item being rendered")
-            crashReportCategory.setDetail("Item Type") { stack.item.toString() }
-            crashReportCategory.setDetail("Item Components") { stack.components.toString() }
-            crashReportCategory.setDetail("Item Foil") { stack.hasFoil().toString() }
-            throw ReportedException(crashReport)
+        } catch (t: Throwable) {
+            val report = CrashReport.forThrowable(t, "Rendering item")
+            val category = report.addCategory("Item being rendered")
+            category.setDetail("Item Type") { stack.item.toString() }
+            category.setDetail("Item Components") { stack.components.toString() }
+            category.setDetail("Item Foil") { stack.hasFoil().toString() }
+            throw ReportedException(report)
         }
     }
 }

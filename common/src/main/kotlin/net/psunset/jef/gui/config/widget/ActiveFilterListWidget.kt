@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.Tooltip
@@ -57,7 +57,7 @@ internal class ActiveFilterListWidget(
                 super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
-    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
         // If any suggestions shown, hide all FilterOpConfigField's tooltip
         if (suggestionsList.any { it.visible }) {
             suggestionsList.forEach { it.parent.tooltipVisible = false }
@@ -65,7 +65,7 @@ internal class ActiveFilterListWidget(
             suggestionsList.forEach { it.parent.tooltipVisible = true }
         }
 
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick)
+        super.extractWidgetRenderState(graphics, mouseX, mouseY, a)
     }
 
     fun refresh() {
@@ -118,18 +118,18 @@ internal class ActiveFilterListWidget(
 
         private val children = listOf(idField, removeBtn)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val x = (screen.width - idField.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
             idField.setPosition(x, contentY)
-            idField.render(guiGraphics, mouseX, mouseY, partialTick)
+            idField.extractRenderState(graphics, mouseX, mouseY, a)
             removeBtn.setPosition(x + idField.width + Button.DEFAULT_SPACING, contentY)
-            removeBtn.render(guiGraphics, mouseX, mouseY, partialTick)
+            removeBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
         override fun children(): List<GuiEventListener> {
@@ -150,16 +150,16 @@ internal class ActiveFilterListWidget(
 
         private val children = listOf(addBtn)
 
-        override fun renderContent(
-            guiGraphics: GuiGraphics,
+        override fun extractContent(
+            graphics: GuiGraphicsExtractor,
             mouseX: Int,
             mouseY: Int,
-            isHovering: Boolean,
-            partialTick: Float
+            hovered: Boolean,
+            a: Float
         ) {
             val x = (screen.width - 256 - Button.DEFAULT_SPACING - addBtn.width) / 2
             addBtn.setPosition(x + 256 + Button.DEFAULT_SPACING, contentY)
-            addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
+            addBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
         override fun children(): List<GuiEventListener> {

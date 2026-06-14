@@ -27,23 +27,23 @@ configurations {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_api_version+$minecraft_version"
-    modImplementation "net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version"
+    implementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$fabric_api_version+$minecraft_version"
+    implementation "net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version"
     
-    modRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") { exclude(group: "net.fabricmc.fabric-api") }
+    runtimeOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") { exclude(group: "net.fabricmc.fabric-api") }
 
-    // Loom version is too high
-//    modImplementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
+    implementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    // NOT support beyond 26.1
+//    implementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
     // NOT support beyond 1.21.2
-//    modImplementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
+//    implementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
 
-    modImplementation "com.terraformersmc:modmenu:$modmenu_version"
+    implementation "com.terraformersmc:modmenu:$modmenu_version"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    common(project(path: ':common')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 }
 
@@ -76,13 +76,27 @@ jar {
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+    
+    archiveClassifier = 'raw'
 }
 
 shadowJar {
+    dependsOn jar
+    from zipTree(jar.archiveFile)
     configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+    archiveClassifier = null
+    zip64 = true
 }
 
-remapJar {
-    input.set shadowJar.archiveFile
+assemble.dependsOn shadowJar
+
+configurations {
+    apiElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
+    runtimeElements {
+        outgoing.artifacts.clear()
+        outgoing.artifact(shadowJar)
+    }
 }

@@ -13,7 +13,7 @@ abstract class ItemTypeFilter(
     override val translationKey: String,
     iconItem: ItemLike,
 ) : IItemTypeFilter {
-    override val icon = ItemStack(iconItem)
+    override val icon by lazy { ItemStack(iconItem) }
 
     companion object {
 

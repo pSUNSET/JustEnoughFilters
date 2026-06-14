@@ -6,13 +6,11 @@
     "plugin": "net.psunset.jef.fabric.JefMixinPluginImpl",
     "client": [
         "AbstractWidgetMixin",
-        "GuiGraphicsMixin",
+        "GuiGraphicsExtractorMixin",
         "JeiIngredientFilterMixin",
         "JeiIngredientListOverlayMixin",
         "OversizedItemRendererMixin",
-        "OversizedItemRenderStateMixin",
-        "ReiAsyncSearchManagerMixin",
-        "ReiScreenOverlayMixin"
+        "OversizedItemRenderStateMixin"
     ],
     "mixins": [
     ],

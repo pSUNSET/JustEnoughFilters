@@ -33,7 +33,7 @@ abstract class FilterOp : IFilter {
         private val factory: (String, String) -> Boolean
     ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
-            return factory(I18n.get(stack.item.name.string), input)
+            return factory(I18n.get(stack.itemName.string), input)
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
@@ -250,7 +250,7 @@ enum class FilterOpProvider : FilterOpFactory {
                 object : FilterOp() {
                     private val rl = IdUtl.auto(it)!!
                     override fun matches(stack: ItemStack): Boolean {
-                        return stack.tags.anyMatch { key -> key.location == rl }
+                        return stack.tags().anyMatch { key -> key.location == rl }
                     }
 
                     override fun matchesNonItem(obj: Any): Boolean {

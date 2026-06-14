@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.ChatFormatting
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.client.gui.components.Tooltip
@@ -32,10 +32,10 @@ class ClearButton(
         )
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        guiGraphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+        graphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
-        guiGraphics.blit(
+        graphics.blit(
             RenderPipelines.GUI_TEXTURED,
             ICON,
             x,
