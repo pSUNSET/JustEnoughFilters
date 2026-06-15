@@ -36,7 +36,7 @@ class FilterBarOverlay internal constructor() {
 
         // Center alignment if availableWidth is provided
         var currentX = x
-        val currentY = y + PADDING
+        val currentY = y + REVERSED_HEIGHT - PADDING - btnSize
         if (availableWidth != null && totalWidth < availableWidth) {
             currentX += (availableWidth - totalWidth) / 2
         } else {
