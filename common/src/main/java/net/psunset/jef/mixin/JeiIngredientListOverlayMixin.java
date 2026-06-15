@@ -33,10 +33,10 @@ public class JeiIngredientListOverlayMixin {
         ImmutableRect2i availableContentsArea = cir.getReturnValue();
 
         // Crop bottom to reserve space for filter bar
-        ImmutableRect2i cropped = availableContentsArea.cropBottom(FilterBarOverlay.REVERSED_HEIGHT);
+        ImmutableRect2i cropped = availableContentsArea.cropBottom(FilterBarOverlay.REVERSED_HEIGHT + 4);
 
         // Store the reserved area (the space we just cropped)
-        this.jef$reservedArea = availableContentsArea.keepBottom(FilterBarOverlay.REVERSED_HEIGHT);
+        this.jef$reservedArea = availableContentsArea.keepBottom(FilterBarOverlay.REVERSED_HEIGHT + 4);
 
         cir.setReturnValue(cropped);
     }
