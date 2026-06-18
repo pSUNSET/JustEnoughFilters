@@ -5,8 +5,7 @@ import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.CommonComponents
-import net.minecraft.network.chat.Component
-import net.psunset.jef.config.element.LogicOp
+import net.psunset.jef.config.LogicOp
 import net.psunset.jef.gui.widget.AbstractLeftRightClickButton
 
 sealed class LogicOpConfigButton(

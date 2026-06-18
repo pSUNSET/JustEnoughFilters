@@ -5,7 +5,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.impl.client.search.AsyncSearchManager;
 import net.minecraft.world.item.ItemStack;
-import net.psunset.jef.core.FilterManager;
+import net.psunset.jef.builtin.FilterManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

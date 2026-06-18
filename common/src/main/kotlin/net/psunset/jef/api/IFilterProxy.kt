@@ -1,6 +1,6 @@
 package net.psunset.jef.api
 
-import net.psunset.jef.core.JefRegistries
+import net.psunset.jef.registry.JefRegistries
 
 /**
  * An interface for filter proxies to implement refresh functionality.

@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
-import net.psunset.jef.config.element.*
+import net.psunset.jef.config.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
 import net.psunset.jef.util.JefConstants
 
@@ -93,7 +93,7 @@ internal class CustomFilterConfigWidget(
             OpCombination(
                 LogicOp.Binary.and,
                 LogicOp.Unary.so,
-                FilterOpGenerator(FilterOpProvider.name_contains, "")
+                FilterOpGenerator("name_contains", "")
             )
         )
     }
@@ -213,10 +213,11 @@ internal class CustomFilterConfigWidget(
         ) {
             op = op.copy(filter = op.filter.copy(input = it))
         }.apply {
-            if (op.filter.provider.argDesc == null) {
+            val argDesc = FilterOpProvider.valueOfOrUnknown(op.filter.provider).argDesc
+            if (argDesc == null) {
                 visible = false
             } else {
-                tooltip = Tooltip.create(Component.literal(op.filter.provider.argDesc.toString()))
+                tooltip = Tooltip.create(Component.literal(argDesc.toString()))
             }
             setMaxLength(256)
             value = op.filter.input
@@ -226,19 +227,20 @@ internal class CustomFilterConfigWidget(
             minecraft,
             Button.DEFAULT_WIDTH,
             Button.DEFAULT_HEIGHT,
-        ) {
-            val isInputNeeded = it.argDesc != null
+        ) { id, provider ->
+            val isInputNeeded = provider.argDesc != null
             op = if (isInputNeeded) {
-                filterArgsField.tooltip = Tooltip.create(Component.literal(it.argDesc.toString()))
-                op.copy(filter = op.filter.copy(provider = it))
+                filterArgsField.tooltip = Tooltip.create(Component.literal(provider.argDesc.toString()))
+                op.copy(filter = op.filter.copy(provider = id))
             } else {
-                op.copy(filter = FilterOpGenerator(it, ""))
+                op.copy(filter = FilterOpGenerator(id, ""))
             }
             filterArgsField.visible = isInputNeeded
         }.apply {
             setMaxLength(64)
-            tooltip = Tooltip.create(op.filter.provider.tooltip)
-            value = op.filter.provider.name
+            val provider = FilterOpProvider.valueOfOrUnknown(op.filter.provider)
+            tooltip = Tooltip.create(provider.tooltip)
+            value = provider.name
             widget.suggestionsList.add(i, suggestions)
         }
 

@@ -1,9 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.Font
-import net.psunset.jef.config.element.FilterOpProvider
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 
 class FilterIdConfigField(
     minecraft: Minecraft,

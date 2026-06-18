@@ -6,7 +6,7 @@ import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.tool.RLUtl
 
 class ClearButton(

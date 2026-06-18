@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.ConfigManager
-import net.psunset.jef.config.element.CustomFilter
+import net.psunset.jef.config.CustomFilter
 import net.psunset.jef.gui.config.widget.CustomFilterConfigWidget
 import net.psunset.jef.gui.config.widget.CustomFilterListWidget
 import net.psunset.jef.tool.RLUtl

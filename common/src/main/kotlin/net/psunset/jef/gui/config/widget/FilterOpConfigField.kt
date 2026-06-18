@@ -1,9 +1,8 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.components.Tooltip
-import net.psunset.jef.config.element.FilterOpProvider
+import net.psunset.jef.config.FilterOpProvider
 
 class FilterOpConfigField(
     minecraft: Minecraft,
@@ -11,7 +10,7 @@ class FilterOpConfigField(
     y: Int,
     width: Int,
     height: Int,
-    private val saveConsumer: (FilterOpProvider) -> Unit,
+    private val saveConsumer: (String, FilterOpProvider) -> Unit,
 ) : DropDownEditBox(
     minecraft,
     x,
@@ -20,7 +19,7 @@ class FilterOpConfigField(
     height,
     null
 ) {
-    constructor(minecraft: Minecraft, width: Int, height: Int, saveConsumer: (FilterOpProvider) -> Unit) : this(
+    constructor(minecraft: Minecraft, width: Int, height: Int, saveConsumer: (String, FilterOpProvider) -> Unit) : this(
         minecraft,
         0,
         0,
@@ -34,6 +33,6 @@ class FilterOpConfigField(
     override fun onSave(newValue: String) {
         val provider = FilterOpProvider.valueOf(newValue)
         tooltip = Tooltip.create(provider.tooltip)
-        saveConsumer(provider)
+        saveConsumer(newValue, provider)
     }
 }
