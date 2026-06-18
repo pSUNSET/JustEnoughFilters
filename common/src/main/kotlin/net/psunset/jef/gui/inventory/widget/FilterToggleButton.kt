@@ -1,13 +1,12 @@
 package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.ChatFormatting
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.IToggledFilter
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.tool.renderScaledItem
 import kotlin.math.min
 

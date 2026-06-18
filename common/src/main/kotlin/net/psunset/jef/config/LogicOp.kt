@@ -1,4 +1,4 @@
-package net.psunset.jef.config.element
+package net.psunset.jef.config
 
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component

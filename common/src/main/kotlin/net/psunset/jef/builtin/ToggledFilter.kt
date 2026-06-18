@@ -1,4 +1,4 @@
-package net.psunset.jef.core
+package net.psunset.jef.builtin
 
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -13,6 +13,12 @@ abstract class ToggledFilter(
     iconItem: ItemLike,
     override val tooltip: Component,
 ) : IToggledFilter {
+
+    constructor(id: ResourceLocation, iconItem: ItemLike):this(
+        id,
+        iconItem,
+        Component.translatable("jef.toggled_filter.${id.namespace}.${id.path}")
+    )
 
     override val inactiveIcon: ItemStack = NotFoilItemStack(iconItem)
     override val activeIcon: ItemStack = FoilItemStack(iconItem)

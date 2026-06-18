@@ -7,9 +7,8 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Item
-import net.psunset.jef.gui.inventory.InventoryOverlayManager
 import net.psunset.jef.JustEnoughFilters
-import net.psunset.jef.config.ConfigManager
+import net.psunset.jef.gui.inventory.InventoryOverlayManager
 import net.psunset.jef.item.DummyItem
 import net.psunset.jef.platform.fabric.PlatformImpl
 import net.psunset.jef.tool.RLUtl

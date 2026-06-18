@@ -1,4 +1,4 @@
-package net.psunset.jef.config.element
+package net.psunset.jef.config
 
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
@@ -111,7 +111,7 @@ data class CustomFilter(
                     OpCombination(
                         LogicOp.Binary.first,
                         LogicOp.Unary.so,
-                        FilterOpGenerator(FilterOpProvider.name_contains, "")
+                        FilterOpGenerator("name_contains", "")
                     )
                 )
             )
@@ -125,7 +125,7 @@ data class CustomFilter(
         }
     }
 
-    internal class Adapter : TypeAdapter<CustomFilter>() {
+    internal object Adapter : TypeAdapter<CustomFilter>() {
         override fun write(writer: JsonWriter, obj: CustomFilter) {
             writer.beginObject()
                 .name("name").value(obj.name)
@@ -138,7 +138,7 @@ data class CustomFilter(
                     .name("unary").value(op.unary.name)
                     .name("filter")
                     .beginObject()
-                    .name("provider").value(op.filter.provider.name)
+                    .name("provider").value(op.filter.provider)
                     .name("input").value(op.filter.input)
                     .endObject()
                     .endObject()
@@ -185,7 +185,7 @@ data class CustomFilter(
                                 OpCombination(
                                     LogicOp.Binary.valueOf(bin!!),
                                     LogicOp.Unary.valueOf(unary!!),
-                                    FilterOpGenerator(FilterOpProvider.valueOf(provider!!), input!!),
+                                    FilterOpGenerator(provider!!, input!!),
                                 )
                             )
                         }

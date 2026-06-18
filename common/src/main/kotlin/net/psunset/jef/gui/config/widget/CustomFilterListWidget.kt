@@ -9,7 +9,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.Component
 import net.psunset.jef.config.ConfigManager
-import net.psunset.jef.config.element.CustomFilter
+import net.psunset.jef.config.CustomFilter
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
 import net.psunset.jef.gui.config.CustomFilterListScreen
 

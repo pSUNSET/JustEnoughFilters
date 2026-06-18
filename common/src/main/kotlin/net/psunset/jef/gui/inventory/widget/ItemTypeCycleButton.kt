@@ -2,10 +2,9 @@ package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Tooltip
-import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.CommonComponents
-import net.psunset.jef.core.FilterManager
-import net.psunset.jef.core.ItemTypeFilter
+import net.psunset.jef.builtin.FilterManager
+import net.psunset.jef.builtin.ItemTypeFilter
 import net.psunset.jef.gui.widget.AbstractLeftRightClickButton
 import net.psunset.jef.tool.renderScaledItem
 import kotlin.math.min

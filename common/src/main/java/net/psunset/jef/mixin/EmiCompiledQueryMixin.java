@@ -2,7 +2,7 @@ package net.psunset.jef.mixin;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.search.EmiSearch;
-import net.psunset.jef.core.FilterManager;
+import net.psunset.jef.builtin.FilterManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

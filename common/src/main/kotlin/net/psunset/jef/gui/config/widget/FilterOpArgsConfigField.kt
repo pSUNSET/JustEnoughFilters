@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.gui.Font
-import net.psunset.jef.config.element.FilterOpProvider
+import net.psunset.jef.config.FilterOpProvider
 
 class FilterOpArgsConfigField(
     font: Font,
@@ -9,7 +9,7 @@ class FilterOpArgsConfigField(
     y: Int,
     width: Int,
     height: Int,
-    val providerGetter: () -> FilterOpProvider,
+    val providerSupplier: () -> String,
     saveConsumer: (String) -> Unit,
 ) : ValidateEditBox(
     font,
@@ -23,7 +23,7 @@ class FilterOpArgsConfigField(
         font: Font,
         width: Int,
         height: Int,
-        providerSupplier: () -> FilterOpProvider,
+        providerSupplier: () -> String,
         saveConsumer: (String) -> Unit
     ) : this(
         font,
@@ -36,6 +36,8 @@ class FilterOpArgsConfigField(
     )
 
     override fun validate(newValue: String): Boolean {
-        return providerGetter().validate(newValue)
+        return FilterOpProvider.valueOfOrUnknown(
+            providerSupplier.invoke()
+        ).validate(newValue)
     }
 }

@@ -4,8 +4,7 @@ import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.stream.JsonReader
-import net.psunset.jef.config.element.CustomFilter
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.tool.PathUtl
 import java.io.FileReader
 import java.nio.file.Files
@@ -44,7 +43,7 @@ object ConfigManager {
     val GSON: Gson = GsonBuilder()
         .setPrettyPrinting()
         .enableComplexMapKeySerialization()
-        .registerTypeAdapter(object : TypeToken<CustomFilter>() {}.type, CustomFilter.Adapter())
+        .registerTypeAdapter(object : TypeToken<CustomFilter>() {}.type, CustomFilter.Adapter)
         .create()
 
     /**

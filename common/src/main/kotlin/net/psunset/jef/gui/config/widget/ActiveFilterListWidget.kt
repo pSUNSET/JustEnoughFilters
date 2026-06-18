@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.network.chat.Component
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.gui.config.ActiveFilterListScreen
 
 internal class ActiveFilterListWidget(
