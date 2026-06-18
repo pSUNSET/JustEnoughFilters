@@ -1,4 +1,4 @@
-package net.psunset.jef.core
+package net.psunset.jef.builtin
 
 import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n

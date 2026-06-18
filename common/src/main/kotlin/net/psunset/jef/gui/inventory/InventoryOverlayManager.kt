@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.input.MouseButtonEvent
 import net.minecraft.client.renderer.Rect2i
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.tool.valEq
 
 object InventoryOverlayManager {

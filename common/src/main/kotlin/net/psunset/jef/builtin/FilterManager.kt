@@ -1,4 +1,4 @@
-package net.psunset.jef.core
+package net.psunset.jef.builtin
 
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.JustEnoughFilters
@@ -6,6 +6,7 @@ import net.psunset.jef.api.IItemTypeFilter
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.gui.inventory.InventoryOverlayManager
+import net.psunset.jef.registry.JefRegistries
 
 object FilterManager {
 
@@ -16,7 +17,7 @@ object FilterManager {
         get() = ConfigManager.customFilters + JefRegistries.TOGGLED_FILTERS.values
 
     val allToggledFilterEntries: Map<String, IToggledFilter>
-        get() = ConfigManager.customFilterEntries + JefRegistries.TOGGLED_FILTERS
+        get() = ConfigManager.customFilterEntries + JefRegistries.TOGGLED_FILTERS.entries
 
     /**
      * The filters that are active and available in filter bar
@@ -38,7 +39,7 @@ object FilterManager {
 
     private var itemTypeFilterIdx = 0
     val itemTypeFilter: IItemTypeFilter
-        get() = JefRegistries.ITEM_TYPE_FILTERS[itemTypeFilterIdx].second
+        get() = JefRegistries.ITEM_TYPE_FILTERS.values[itemTypeFilterIdx]
 
     fun isFilterEnabled(filter: IToggledFilter): Boolean {
         return _enabledToggledFilters.contains(filter)
@@ -52,7 +53,7 @@ object FilterManager {
         _activeToggledFilters.clear()
         _enabledToggledFilters.clear()
         for (id in ids) {
-            if (allToggledFilterEntries[id] != null) {
+            if (allToggledFilterEntries.containsKey(id)) {
                 _activeToggledFilters.add(allToggledFilterEntries[id]!!)
                 continue
             }
@@ -65,7 +66,7 @@ object FilterManager {
         _activeToggledFilters.clear()
         _enabledToggledFilters.clear()
         for (id in ids) {
-            if (allToggledFilterEntries[id] != null) {
+            if (allToggledFilterEntries.containsKey(id)) {
                 _activeToggledFilters.add(allToggledFilterEntries[id]!!)
                 continue
             }
@@ -88,7 +89,7 @@ object FilterManager {
     }
 
     fun refreshProxies() {
-        JefRegistries.PROXIES.forEach { it.refresh() }
+        JefRegistries.PROXIES.entries.forEach { it.refresh() }
     }
 
     internal fun stepLogicMode() {
@@ -118,7 +119,7 @@ object FilterManager {
     internal fun reverseItemTypeFilter() {
         itemTypeFilterIdx--
         if (itemTypeFilterIdx < 0) {
-            itemTypeFilterIdx = JefRegistries.ITEM_TYPE_FILTERS.lastIndex
+            itemTypeFilterIdx = JefRegistries.ITEM_TYPE_FILTERS.size - 1
         }
         refreshProxies()
     }

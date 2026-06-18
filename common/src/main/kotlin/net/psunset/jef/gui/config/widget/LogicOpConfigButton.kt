@@ -9,7 +9,7 @@ import net.minecraft.client.input.InputWithModifiers
 import net.minecraft.client.input.MouseButtonInfo
 import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
-import net.psunset.jef.config.element.LogicOp
+import net.psunset.jef.config.LogicOp
 
 sealed class LogicOpConfigButton(
     x: Int,
