@@ -2,9 +2,10 @@ package net.psunset.jef
 
 //import net.psunset.jef.compat.rei.ReiFilterProxyImpl
 import net.psunset.jef.config.ConfigManager
-import net.psunset.jef.core.ItemTypeFilters
-import net.psunset.jef.core.JefRegistries
-import net.psunset.jef.core.ToggledFilters
+import net.psunset.jef.builtin.ItemTypeFilters
+import net.psunset.jef.registry.JefRegistries
+import net.psunset.jef.builtin.ToggledFilters
+import net.psunset.jef.config.FilterOpProviders
 import net.psunset.jef.tool.CompatUtl
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,6 +17,12 @@ object JustEnoughFilters {
     @JvmField
     val LOGGER: Logger = LogManager.getLogger(NAME)
 
+    /**
+     * `null` if the mod has not been init yet;
+     * `true` if the mod should be activated;
+     * `false` if the mod should be deactivated.
+     */
+    @JvmStatic
     var isActive: Boolean? = null
         private set
 
@@ -47,7 +54,7 @@ object JustEnoughFilters {
                 $result
             """.trimIndent()
 
-        for (line in output.lines()) LOGGER.info(line)
+        for (line in output.lineSequence()) LOGGER.info(line)
 
         return isActive!!
     }
@@ -59,20 +66,22 @@ object JustEnoughFilters {
     fun init(): Boolean {
         preInit()
 
-//        if (isActive!!) {
-//            if (CompatUtl.REI.isLoaded()) {
-//                JefRegistries.registerProxy(ReiFilterProxyImpl)
-//            }
-//        }
+        if (isActive!!) {
+            ToggledFilters.init()
+            ItemTypeFilters.init()
+            FilterOpProviders.init()
+
+            if (CompatUtl.REI.isLoaded()) {
+                JefRegistries.PROXIES.register(ReiFilterProxyImpl)
+            }
+        }
 
         return isActive!!
     }
 
     @JvmStatic
     fun postInit() {
-        ToggledFilters.init()
-        ItemTypeFilters.init()
+        JefRegistries.closeAll()
         ConfigManager.onLoading()
-        JefRegistries.registerDeferredElements()
     }
 }

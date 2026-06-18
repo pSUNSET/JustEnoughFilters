@@ -3,7 +3,7 @@ package net.psunset.jef.gui.inventory
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.input.MouseButtonEvent
-import net.psunset.jef.core.FilterManager
+import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.gui.inventory.widget.ClearButton
 import net.psunset.jef.gui.inventory.widget.FilterToggleButton
 import net.psunset.jef.gui.inventory.widget.ItemTypeCycleButton
