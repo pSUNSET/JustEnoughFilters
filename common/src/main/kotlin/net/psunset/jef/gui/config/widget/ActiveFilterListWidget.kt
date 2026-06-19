@@ -40,7 +40,9 @@ internal class ActiveFilterListWidget(
         this.addEntry(LastLine(screen, this))
     }
 
-    override fun getRowWidth(): Int = 310
+    override fun getRowWidth(): Int {
+        return ROW_WIDTH
+    }
 
     override fun mouseClicked(event: MouseButtonEvent, isDoubleClick: Boolean): Boolean {
         return suggestionsList.any { it.mouseClicked(event, isDoubleClick) } ||
@@ -105,7 +107,7 @@ internal class ActiveFilterListWidget(
 
         private val idField = FilterIdConfigField(
             minecraft,
-            256,
+            Button.SMALL_WIDTH * 2,
             Button.DEFAULT_HEIGHT,
         ) { id = it }.apply {
             setMaxLength(256)
@@ -125,7 +127,7 @@ internal class ActiveFilterListWidget(
             hovered: Boolean,
             a: Float
         ) {
-            val x = (screen.width - idField.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
+            val x = (screen.width - ROW_WIDTH) / 2
             idField.setPosition(x, contentY)
             idField.extractRenderState(graphics, mouseX, mouseY, a)
             removeBtn.setPosition(x + idField.width + Button.DEFAULT_SPACING, contentY)
@@ -157,8 +159,8 @@ internal class ActiveFilterListWidget(
             hovered: Boolean,
             a: Float
         ) {
-            val x = (screen.width - 256 - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + 256 + Button.DEFAULT_SPACING, contentY)
+            val x = (screen.width - ROW_WIDTH) / 2
+            addBtn.setPosition(x + Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING, contentY)
             addBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
@@ -169,5 +171,9 @@ internal class ActiveFilterListWidget(
         override fun narratables(): List<NarratableEntry> {
             return this.children
         }
+    }
+
+    companion object {
+        const val ROW_WIDTH = Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING + Button.DEFAULT_HEIGHT
     }
 }

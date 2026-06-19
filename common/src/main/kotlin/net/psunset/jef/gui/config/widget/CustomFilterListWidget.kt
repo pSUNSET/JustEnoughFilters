@@ -37,7 +37,9 @@ internal class CustomFilterListWidget(
         this.addEntry(LastLine(screen, this))
     }
 
-    override fun getRowWidth(): Int = 310
+    override fun getRowWidth(): Int {
+        return ROW_WIDTH
+    }
 
     fun refresh() {
         this.clearEntries()
@@ -77,7 +79,7 @@ internal class CustomFilterListWidget(
                 CustomFilterConfigScreen(i, filter, screen, widget)
             )
         }
-            .width(Button.SMALL_WIDTH)
+            .width(Button.SMALL_WIDTH * 2)
             .tooltip(
                 Tooltip.create(
                     Component.translatable(
@@ -99,7 +101,7 @@ internal class CustomFilterListWidget(
             hovered: Boolean,
             a: Float
         ) {
-            val x = (screen.width - editBtn.width - Button.DEFAULT_SPACING - removeBtn.width) / 2
+            val x = (screen.width - ROW_WIDTH) / 2
             editBtn.setPosition(x, contentY)
             editBtn.extractRenderState(graphics, mouseX, mouseY, a)
             removeBtn.setPosition(x + editBtn.width + Button.DEFAULT_SPACING, contentY)
@@ -131,8 +133,8 @@ internal class CustomFilterListWidget(
             hovered: Boolean,
             a: Float
         ) {
-            val x = (screen.width - Button.SMALL_WIDTH - Button.DEFAULT_SPACING - addBtn.width) / 2
-            addBtn.setPosition(x + Button.SMALL_WIDTH + Button.DEFAULT_SPACING,contentY)
+            val x = (screen.width - ROW_WIDTH) / 2
+            addBtn.setPosition(x + Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING, contentY)
             addBtn.extractRenderState(graphics, mouseX, mouseY, a)
         }
 
@@ -143,5 +145,9 @@ internal class CustomFilterListWidget(
         override fun narratables(): List<NarratableEntry> {
             return this.children
         }
+    }
+
+    companion object {
+        const val ROW_WIDTH = Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING + Button.DEFAULT_HEIGHT
     }
 }
