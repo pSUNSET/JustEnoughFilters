@@ -11,6 +11,11 @@ import net.psunset.jef.config.*
 import net.psunset.jef.gui.config.CustomFilterConfigScreen
 import net.psunset.jef.util.JefConstants
 
+/**
+ * 16| Name: `nameField` | Icon: `iconField` |16
+ *
+ * 16| `binOp` | `unaryOp` | `filterField` | `argsField` | `removeBtn` | `addBtn` |16
+ */
 internal class CustomFilterConfigWidget(
     minecraft: Minecraft,
     width: Int,
@@ -41,7 +46,7 @@ internal class CustomFilterConfigWidget(
         }
     }
 
-    override fun getRowWidth(): Int = 512
+    override fun getRowWidth(): Int = width - 32
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         return suggestionsList.any { it.mouseClicked(mouseX, mouseY, button) } ||
@@ -164,14 +169,14 @@ internal class CustomFilterConfigWidget(
             var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - JefConstants.BUTTON_SPACING
 
             guiGraphics.drawString(font, nameHint, x, strY, 14737632)
-            x += font.width(nameHint)
+            x += nameHintWidth
 
             nameField.setPosition(x, top)
             nameField.render(guiGraphics, mouseX, mouseY, partialTick)
             x += Button.DEFAULT_WIDTH + JefConstants.BUTTON_SPACING * 2
 
             guiGraphics.drawString(font, iconHint, x, strY, 14737632)
-            x += font.width(iconHint)
+            x += iconHintWidth
 
             iconField.setPosition(x, top)
             iconField.render(guiGraphics, mouseX, mouseY, partialTick)
@@ -248,6 +253,9 @@ internal class CustomFilterConfigWidget(
         private val addBtn = AddButton { widget.addDefaultOp(i + 1) }
 
         private val children = listOf(binLogicBtn, unaryLogicBtn, filterField, filterArgsField, removeBtn, addBtn)
+        private val fieldsExclusiveSpace = arrayOf(binLogicBtn, unaryLogicBtn, removeBtn, addBtn).let {
+            it.sumOf { inner -> inner.width } + Button.DEFAULT_SPACING * children.lastIndex
+        }
 
         override fun render(
             guiGraphics: GuiGraphics,
@@ -261,13 +269,16 @@ internal class CustomFilterConfigWidget(
             hovering: Boolean,
             partialTick: Float
         ) {
-            var x = (screen.width - children.sumOf { it.width } - JefConstants.BUTTON_SPACING * children.lastIndex) / 2
+            val fieldWidth = (width - fieldsExclusiveSpace) / 2
+            var x = (screen.width - width) / 2
             for (child in children) {
+                if (child is EditBox) {
+                    child.width = fieldWidth
+                }
                 child.setPosition(x, top)
                 child.render(guiGraphics, mouseX, mouseY, partialTick)
                 x += child.width + JefConstants.BUTTON_SPACING
             }
-
         }
 
         override fun children(): List<GuiEventListener> {
