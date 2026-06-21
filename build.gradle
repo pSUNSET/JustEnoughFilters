@@ -25,7 +25,7 @@ allprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     group = "$maven_group"
-    version = "${mod_version}+${minecraft_display_version}"
+    version = "${mod_version}+${it.name}-${minecraft_display_version}"
 
     repositories {
         maven {
@@ -51,7 +51,7 @@ subprojects {
     apply plugin: 'dev.architectury.loom'
 
     base {
-        archivesName = "$mod_id-$project.name"
+        archivesName = "$mod_id"
     }
 
     loom {
@@ -130,7 +130,7 @@ publishMods {
         optional("jei", "roughly-enough-items")
 
         displayName = "[Fabric $minecraft_display_version] v$mod_version"
-        version.set "fabric-$mod_version+$minecraft_display_version"
+        version.set "$mod_version+fabric-$minecraft_display_version"
         modLoaders.addAll "fabric", "quilt"
     }
 
@@ -142,7 +142,7 @@ publishMods {
         optional("jei", "roughly-enough-items")
 
         displayName = "[NeoForge $minecraft_display_version] v$mod_version"
-        version.set "neoforge-$mod_version+$minecraft_display_version"
+        version.set "$mod_version+neoforge-$minecraft_display_version"
         modLoaders.add "neoforge"
     }
 
@@ -154,7 +154,7 @@ publishMods {
         optional("jei", "rei")
 
         displayName = "[Fabric $minecraft_display_version] v$mod_version"
-        version.set "fabric-$mod_version+$minecraft_display_version"
+        version.set "$mod_version+fabric-$minecraft_display_version"
         modLoaders.addAll "fabric", "quilt"
     }
 
@@ -166,7 +166,7 @@ publishMods {
         optional("jei", "rei")
 
         displayName = "[NeoForge $minecraft_display_version] v$mod_version"
-        version.set "neoforge-$mod_version+$minecraft_display_version"
+        version.set "$mod_version+neoforge-$minecraft_display_version"
         modLoaders.add "neoforge"
     }
 }
