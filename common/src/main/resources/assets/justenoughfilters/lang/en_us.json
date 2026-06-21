@@ -48,7 +48,7 @@
     "jef.filter_op.name_startswith": "Does item name start with {%s}?",
     "jef.filter_op.id_startswith": "Does item's ID start with {%s}?",
     "jef.filter_op.idname_startswith": "Does item's registered name start with {%s}?",
-    "jef.filter_op.unknown.unknown": "Unknown Operation",
+    "jef.filter_op.unknown": "WARNING: Unknown Operation!\nReturns false instead.",
     "jef.item_type_filter.justenoughfilters.block": "Block",
     "jef.item_type_filter.justenoughfilters.item": "Item",
     "jef.item_type_filter.justenoughfilters.non_item": "Non-Item",

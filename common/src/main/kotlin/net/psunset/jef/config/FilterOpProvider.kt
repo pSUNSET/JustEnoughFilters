@@ -1,5 +1,6 @@
 package net.psunset.jef.config
 
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
@@ -41,8 +42,6 @@ fun interface FilterOpFactory1 : Function1<String, FilterOp>, FilterOpFactory {
 
 /**
  * [name] will be `{id.toString()}`
- *
- * [tooltip]'s key will be `jef.filter_op.{id.namespace}.{id.path}`
  */
 class FilterOpProvider : FilterOpFactory {
 
@@ -50,39 +49,74 @@ class FilterOpProvider : FilterOpFactory {
     val argDesc: ArgDesc?
     val factory: FilterOpFactory
 
-    private val tooltipKey: String
     val tooltip: Component
 
-    constructor(id: ResourceLocation, argDesc: ArgDesc, factory1: FilterOpFactory1) {
-        this.name = id.toString()
+    /**
+     * [tooltip] defaults to `jef.filter_op.{id.namespace}.{id.path}` with an arg `argDesc.name`
+     */
+    constructor(id: ResourceLocation, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
+        id,
+        Component.translatable(
+            "jef.filter_op.${id.namespace}.${id.path}",
+            argDesc.name
+        ),
+        argDesc,
+        factory1
+    )
+
+    /**
+     * [tooltip] defaults to `jef.filter_op.{id.namespace}.{id.path}`
+     */
+    constructor(id: ResourceLocation, factory0: FilterOpFactory0) : this(
+        id,
+        Component.translatable("jef.filter_op.${id.namespace}.${id.path}"),
+        factory0
+    )
+
+    /**
+     * This constructor allows customized [tooltip]
+     */
+    constructor(id: ResourceLocation, tooltip: Component, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
+        id.toString(),
+        tooltip,
+        argDesc,
+        factory1
+    )
+
+    /**
+     * This constructor allows customized [tooltip]
+     */
+    constructor(id: ResourceLocation, tooltip: Component, factory0: FilterOpFactory0) : this(
+        id.toString(),
+        tooltip,
+        factory0
+    )
+
+    internal constructor(name: String, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
+        name,
+        Component.translatable("jef.filter_op.$name", argDesc.name),
+        argDesc,
+        factory1
+    )
+
+    internal constructor(name: String, factory0: FilterOpFactory0) : this(
+        name,
+        Component.translatable("jef.filter_op.$name"),
+        factory0
+    )
+
+    internal constructor(name: String, tooltip: Component, argDesc: ArgDesc, factory1: FilterOpFactory1) {
+        this.name = name
+        this.tooltip = tooltip
         this.argDesc = argDesc
         this.factory = factory1
-        this.tooltipKey = "jef.filter_op.${id.namespace}.${id.path}"
-        this.tooltip = Component.translatable(tooltipKey, this.argDesc.name)
     }
 
-    constructor(id: ResourceLocation, factory0: FilterOpFactory0) {
-        this.name = id.toString()
+    internal constructor(name: String, tooltip: Component, factory0: FilterOpFactory0) {
+        this.name = name
+        this.tooltip = tooltip
         this.argDesc = null
         this.factory = factory0
-        this.tooltipKey = "jef.filter_op.${id.namespace}.${id.path}"
-        this.tooltip = Component.translatable(tooltipKey)
-    }
-
-    internal constructor(name: String, argDesc: ArgDesc, factory1: FilterOpFactory1) {
-        this.name = name
-        this.argDesc = argDesc
-        this.factory = factory1
-        this.tooltipKey = "jef.filter_op.$name"
-        this.tooltip = Component.translatable(tooltipKey, this.argDesc.name)
-    }
-
-    internal constructor(name: String, factory0: FilterOpFactory0) {
-        this.name = name
-        this.argDesc = null
-        this.factory = factory0
-        this.tooltipKey = "jef.filter_op.$name"
-        this.tooltip = Component.translatable(tooltipKey)
     }
 
     override fun create(input: String): FilterOp {
@@ -96,7 +130,6 @@ class FilterOpProvider : FilterOpFactory {
     companion object {
         /**
          * Unavailable before `ClientSetupEvent`
-         * Gets all filters' names instead of ids.
          */
         @JvmStatic
         val NAMES: Set<String> by lazy {
@@ -124,7 +157,11 @@ class FilterOpProvider : FilterOpFactory {
          */
         @JvmStatic
         fun valueOfOrUnknown(name: String): FilterOpProvider {
-            return valueOfNullable(name) ?: FilterOpProviders.UNKNOWN
+            return valueOfNullable(name) ?: FilterOpProvider(
+                name,
+                Component.translatable("jef.filter_op.unknown")
+                    .withStyle(ChatFormatting.RED),
+            ) { FilterOp.None }
         }
     }
 }
@@ -364,12 +401,6 @@ object FilterOpProviders {
             }
         } else FilterOp.None
     }
-
-    /**
-     * NEVER register this.
-     */
-    @JvmField
-    val UNKNOWN = FilterOpProvider(RLUtl.UNKNOWN) { FilterOp.None }
 
     @JvmStatic
     fun register(name: String, desc: ArgDesc, factory1: FilterOpFactory1): FilterOpProvider {
