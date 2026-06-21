@@ -10,8 +10,6 @@ dependencies {
     // For using @Environment and EnvType
     compileOnly "net.fabricmc:fabric-loader:$fabric_loader_version"
 
-    compileOnly "me.shedaniel.cloth:cloth-config:$cloth_config_version"
-
     compileOnly "mezz.jei:jei-$minecraft_version-common:$jei_version"
     compileOnly "mezz.jei:jei-$minecraft_version-gui:$jei_version"
 

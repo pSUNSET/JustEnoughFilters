@@ -36,8 +36,6 @@ repositories {
 dependencies {
     neoForge "net.neoforged:neoforge:$neoforge_version"
     implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
-    
-    runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"
 
     implementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
@@ -59,8 +57,7 @@ processResources {
                 version: "$mod_version",
                 neoforge_version_range: "$neoforge_version_range",
                 minecraft_version_neoforge_range: "$minecraft_version_neoforge_range",
-                kff_version_range: "$kff_version_range",
-                cloth_config_version_neoforge_range: "$cloth_config_version_neoforge_range",
+                kff_version_range: "$kff_version_range"
         ])
     }
 }
