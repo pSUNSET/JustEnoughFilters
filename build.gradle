@@ -133,7 +133,7 @@ publishMods {
         from curseforgeSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
+        requires("fabric-language-kotlin", "fabric-api", "modmenu")
         optional("jei", "roughly-enough-items", "emi")
 
         displayName = "[Fabric $minecraft_display_version] v$mod_version"
@@ -145,7 +145,7 @@ publishMods {
         from curseforgeSettings
         file project(":neoforge")
 
-        requires("kotlin-for-forge", "cloth-config")
+        requires("kotlin-for-forge")
         optional("jei", "roughly-enough-items", "emi")
 
         displayName = "[NeoForge $minecraft_display_version] v$mod_version"
@@ -157,7 +157,7 @@ publishMods {
         from modrinthSettings
         file project(":fabric")
 
-        requires("fabric-language-kotlin", "fabric-api", "modmenu", "cloth-config")
+        requires("fabric-language-kotlin", "fabric-api", "modmenu")
         optional("jei", "rei", "emi")
 
         displayName = "[Fabric $minecraft_display_version] v$mod_version"
@@ -169,7 +169,7 @@ publishMods {
         from modrinthSettings
         file project(":neoforge")
 
-        requires("kotlin-for-forge", "cloth-config")
+        requires("kotlin-for-forge")
         optional("jei", "rei", "emi")
 
         displayName = "[NeoForge $minecraft_display_version] v$mod_version"
