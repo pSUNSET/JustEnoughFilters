@@ -191,14 +191,29 @@ internal class CustomFilterConfigWidget(
                 field = value
             }
 
+
+        // wield arrangement but it's necessary
+
         private val binLogicBtn = LogicOpConfigButton.Binary(op.bin, i == 0) { op = op.copy(bin = it) }
 
         private val unaryLogicBtn = LogicOpConfigButton.Unary(op.unary) { op = op.copy(unary = it) }
 
-        // wield arrangement but args field must init before filter field
+        private val removeBtn = RemoveButton { widget.removeOp(i) }.apply { active = i != 0 }
+
+        private val addBtn = AddButton { widget.addDefaultOp(i + 1) }
+
+        /**
+         * const `5` must be length of [children] - 1
+         */
+        private val fieldExclusiveSpace = arrayOf(binLogicBtn, unaryLogicBtn, removeBtn, addBtn).let {
+            it.sumOf { inner -> inner.width } + Button.DEFAULT_SPACING * 5
+        }
+
+        private var fieldWidth = (widget.rowWidth - fieldExclusiveSpace) / 2
+
         private val filterArgsField = FilterOpArgsConfigField(
             minecraft.font,
-            Button.DEFAULT_WIDTH,
+            fieldWidth,
             Button.DEFAULT_HEIGHT,
             { op.filter.provider }
         ) {
@@ -216,7 +231,7 @@ internal class CustomFilterConfigWidget(
 
         private val filterField: FilterOpConfigField = FilterOpConfigField(
             minecraft,
-            Button.DEFAULT_WIDTH,
+            fieldWidth,
             Button.DEFAULT_HEIGHT,
         ) { id, provider ->
             val isInputNeeded = provider.argDesc != null
@@ -235,13 +250,7 @@ internal class CustomFilterConfigWidget(
             widget.suggestionsList.add(i, suggestions)
         }
 
-        private val removeBtn = RemoveButton { widget.removeOp(i) }.apply { active = i != 0 }
-        private val addBtn = AddButton { widget.addDefaultOp(i + 1) }
-
         private val children = listOf(binLogicBtn, unaryLogicBtn, filterField, filterArgsField, removeBtn, addBtn)
-        private val fieldsExclusiveSpace = arrayOf(binLogicBtn, unaryLogicBtn, removeBtn, addBtn).let {
-            it.sumOf { inner -> inner.width } + Button.DEFAULT_SPACING * children.lastIndex
-        }
 
         override fun renderContent(
             guiGraphics: GuiGraphics,
@@ -250,7 +259,7 @@ internal class CustomFilterConfigWidget(
             isHovering: Boolean,
             partialTick: Float
         ) {
-            val fieldWidth = (width - fieldsExclusiveSpace) / 2
+            fieldWidth = (width - fieldExclusiveSpace) / 2
             var x = (screen.width - width) / 2
             for (child in children) {
                 if (child is EditBox) {
