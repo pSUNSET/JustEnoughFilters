@@ -67,10 +67,10 @@ abstract class DropDownEditBox(
         setResponder { newValue ->
             if (selections.any { it.equals(newValue, ignoreCase = true) }) {
                 setTextColor(-2039584)
-                onSave(newValue)
             } else {
                 setTextColor(-43691)
             }
+            onSave(newValue)
             suggestions.refreshEntries(selections.sorted())
         }
     }
