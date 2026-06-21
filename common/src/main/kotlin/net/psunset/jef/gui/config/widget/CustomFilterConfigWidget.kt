@@ -75,7 +75,7 @@ internal class CustomFilterConfigWidget(
     }
 
     override fun getScrollbarPosition(): Int {
-        return rowRight + 3
+        return width - 6
     }
 
     fun refresh() {

@@ -44,7 +44,7 @@ internal class CustomFilterListWidget(
     }
 
     override fun getScrollbarPosition(): Int {
-        return rowRight + 3
+        return rowRight + 8
     }
 
     fun refresh() {
