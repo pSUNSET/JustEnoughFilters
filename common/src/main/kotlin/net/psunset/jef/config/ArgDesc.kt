@@ -1,9 +1,7 @@
 package net.psunset.jef.config
 
-import net.minecraft.resources.ResourceLocation
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.tool.CatchingUtl
-import net.psunset.jef.tool.DataComponentUtl
 import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
 
@@ -47,16 +45,13 @@ class ArgType(val name: String, val validator: ((String) -> Boolean)) {
         val ItemId = ArgType("Id", { ItemUtl.validate(it) })
 
         @JvmField
-        val DataId = ArgType("Id", { DataComponentUtl.validate(it) })
-
-        @JvmField
-        val Namespace = ArgType("Id.Namesapce", { ResourceLocation.isValidNamespace(it) })
+        val Namespace = ArgType("Id.Namesapce", { RLUtl.isValidNamespace(it) })
 
         @JvmField
         val ModId = ArgType("Id.Namespace", Platform.modIdList())
 
         @JvmField
-        val Path = ArgType("Id.Path", { ResourceLocation.isValidPath(it) })
+        val Path = ArgType("Id.Path", { RLUtl.isValidPath(it) })
 
         @JvmField
         val ModName = ArgType("String", Platform.modNameList(), true)

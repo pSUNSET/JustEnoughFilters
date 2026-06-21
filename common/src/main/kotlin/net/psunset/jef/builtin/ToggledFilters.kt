@@ -1,6 +1,5 @@
 package net.psunset.jef.builtin
 
-import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.*
@@ -39,8 +38,7 @@ object ToggledFilters {
     val FOOD_FILTER by register(RLUtl.ofJef("food")) {
         object : ToggledFilter(it, Items.APPLE) {
             override fun matches(stack: ItemStack): Boolean {
-                return stack.`is`(CTags.Items.FOODS) ||
-                        stack.has(DataComponents.FOOD)
+                return stack.`is`(CTags.Items.FOODS) || stack.isEdible
             }
         }
     }
@@ -59,9 +57,9 @@ object ToggledFilters {
         object : ToggledFilter(it, Items.DIAMOND_PICKAXE) {
             override fun matches(stack: ItemStack): Boolean {
                 val item = stack.item
-                val b0 = stack.has(DataComponents.TOOL)
+                val b0 = !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).isEmpty
                 val b1 = stack.`is`(CTags.Items.TOOLS)
-                val b2 = stack.has(DataComponents.MAX_DAMAGE) &&
+                val b2 = stack.maxDamage > 0 &&
                         stack.maxStackSize == 1 &&
                         stack.isEnchantable &&
                         (item !is Equipable || !item.equipmentSlot.isArmor)
@@ -75,7 +73,7 @@ object ToggledFilters {
         object : ToggledFilter(it, Items.DIAMOND_CHESTPLATE) {
             override fun matches(stack: ItemStack): Boolean {
                 val item = stack.item
-                val b0 = item is Equipable && item.equipmentSlot.type == EquipmentSlot.Type.HUMANOID_ARMOR
+                val b0 = item is Equipable && item.equipmentSlot.type == EquipmentSlot.Type.ARMOR
                 val b1 = stack.`is`(CTags.Items.ARMORS)
                 return b0 || b1
             }

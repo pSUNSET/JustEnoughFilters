@@ -175,7 +175,7 @@ internal class ActiveFilterListWidget(
             partialTick: Float
         ) {
             val x = (screen.width - ROW_WIDTH) / 2
-            addBtn.setPosition(x + Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING, top)
+            addBtn.setPosition(x + Button.SMALL_WIDTH * 2 + JefConstants.BUTTON_SPACING, top)
             addBtn.render(guiGraphics, mouseX, mouseY, partialTick)
         }
 
@@ -189,6 +189,6 @@ internal class ActiveFilterListWidget(
     }
 
     companion object {
-        const val ROW_WIDTH = Button.SMALL_WIDTH * 2 + Button.DEFAULT_SPACING + Button.DEFAULT_HEIGHT
+        const val ROW_WIDTH = Button.SMALL_WIDTH * 2 + JefConstants.BUTTON_SPACING + Button.DEFAULT_HEIGHT
     }
 }

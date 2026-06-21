@@ -10,7 +10,6 @@ import net.psunset.jef.api.IFilter
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.registry.JefRegistries
 import net.psunset.jef.tool.CatchingUtl
-import net.psunset.jef.tool.DataComponentUtl
 import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
 
@@ -336,28 +335,6 @@ object FilterOpProviders {
                 private val rl = RLUtl.auto(it)!!
                 override fun matches(stack: ItemStack): Boolean {
                     return stack.tags.anyMatch { key -> key.location == rl }
-                }
-
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
-                }
-            }
-        }
-    }
-
-    @JvmField
-    val has_data = register(
-        "has_data",
-        ArgDesc("dataId", ArgType.DataId)
-    ) {
-        if (DataComponentUtl.validate(it)) FilterOp.None
-        else {
-            object : FilterOp() {
-                private val data = DataComponentUtl.of(it)
-
-                override fun matches(stack: ItemStack): Boolean {
-                    return stack.components.has(data)
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {

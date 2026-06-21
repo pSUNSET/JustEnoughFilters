@@ -220,7 +220,7 @@ internal class CustomFilterConfigWidget(
          * const `5` must be length of [children] - 1
          */
         private val fieldExclusiveSpace = arrayOf(binLogicBtn, unaryLogicBtn, removeBtn, addBtn).let {
-            it.sumOf { inner -> inner.width } + Button.DEFAULT_SPACING * 5
+            it.sumOf { inner -> inner.width } + JefConstants.BUTTON_SPACING * 5
         }
 
         private var fieldWidth = (widget.rowWidth - fieldExclusiveSpace) / 2
