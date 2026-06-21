@@ -38,13 +38,6 @@ versionRange = "${minecraft_version_neoforge_range}"
 ordering = "NONE"
 side = "CLIENT"
 
-[[dependencies.justenoughfilters]]
-modId = "cloth_config"
-type = "required"
-versionRange = "${cloth_config_version_neoforge_range}"
-ordering = "NONE"
-side = "CLIENT"
-
 [[mixins]]
 config = "justenoughfilters.mixins.json"
 
