@@ -80,9 +80,20 @@ object RLUtl {
         return partial.all { ResourceLocation.isAllowedInResourceLocation(it) }
     }
 
+    /**
+     * Replaces all uppercase char to lowercase one and all other invalid char to underscore `_`.
+     *
+     * @return validated path
+     */
     @JvmStatic
     fun toValidPath(path: String): String {
-        return path.lowercase().replace(Regex("[^a-z0-9/._-]"), "_")
+        return path.lowercase().toCharArray().apply {
+            for (i in indices) {
+                if (!ResourceLocation.validPathChar(this[i])) {
+                    this[i] = '_'
+                }
+            }
+        }.concatToString()
     }
 
     @JvmStatic
