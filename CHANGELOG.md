@@ -1,2 +1,2 @@
 - Fixes
-    - Args validation color will be incorrect after editing filter operation
+    - Builtin type filters are now pinned at the top
