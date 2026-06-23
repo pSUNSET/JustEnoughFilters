@@ -3,7 +3,7 @@ package net.psunset.jef.config
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IFilter
-import net.psunset.jef.tool.idToString
+import net.psunset.jef.tool.toIdString
 import net.psunset.jef.tool.toId
 import net.psunset.jef.util.NonItemHelper
 
@@ -51,7 +51,7 @@ abstract class FilterOp : IFilter {
         private val factory: (String, String) -> Boolean
     ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
-            return factory(stack.item.idToString(), input)
+            return factory(stack.item.toIdString(), input)
         }
 
         override fun matchesNonItem(obj: Any): Boolean {

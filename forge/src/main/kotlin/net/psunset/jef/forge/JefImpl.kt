@@ -29,15 +29,20 @@ object JefImpl {
 
     init {
         PlatformImpl  // init it
+
         if (FMLLoader.getDist().isClient) {
-            if (JustEnoughFilters.init()) {
+            if (JustEnoughFilters.preInit()) {
+
                 LOADING_CONTEXT.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory::class.java) {
                     ConfigScreenHandler.ConfigScreenFactory { _, modsScreen -> JefMainConfigScreen(modsScreen) }
                 }
 
                 FORGE_BUS.addListener<ScreenEvent.MouseButtonPressed.Pre>(::onMouseClick)
                 MOD_BUS.addListener<FMLClientSetupEvent>(::onClientSetup)
+
                 ITEM_REGISTRY.register(MOD_BUS)
+
+                JustEnoughFilters.init()
             }
         }
     }

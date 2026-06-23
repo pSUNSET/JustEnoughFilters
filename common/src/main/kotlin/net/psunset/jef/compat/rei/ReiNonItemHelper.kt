@@ -3,7 +3,6 @@ package net.psunset.jef.compat.rei
 import dev.architectury.fluid.FluidStack
 import me.shedaniel.rei.api.common.entry.type.BuiltinEntryTypes
 import net.minecraft.client.resources.language.I18n
-import net.minecraft.core.component.DataComponentMap
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.util.Unit
@@ -40,13 +39,6 @@ object ReiNonItemHelper : INonItemHelper {
             return obj.fluid.builtInRegistryHolder().tags()
         }
         return Stream.empty()
-    }
-
-    override fun getComponents(obj: Any): DataComponentMap {
-        if (obj is FluidStack) {
-            return obj.components
-        }
-        return DataComponentMap.EMPTY
     }
 
     fun init() {

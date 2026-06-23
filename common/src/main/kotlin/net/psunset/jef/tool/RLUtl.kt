@@ -43,9 +43,9 @@ object RLUtl {
         val idx = rl.indexOf(':')
         if (idx > 0) {
             val path = rl.substring(idx + 1)
-            if (ResourceLocation.isValidPath(path)) {
+            if (isValidPath(path)) {
                 val namespace = rl.substring(0, idx)
-                if (ResourceLocation.isValidNamespace(namespace)) {
+                if (isValidNamespace(namespace)) {
                     return of(namespace, path)
                 }
             }
@@ -89,7 +89,7 @@ object RLUtl {
     fun toValidPath(path: String): String {
         return path.lowercase().toCharArray().apply {
             for (i in indices) {
-                if (!ResourceLocation.validPathChar(this[i])) {
+                if (!validPathChar(this[i])) {
                     this[i] = '_'
                 }
             }
@@ -115,12 +115,4 @@ object RLUtl {
     fun validPathChar(ch: Char): Boolean {
         return ch == '_' || ch == '-' || ch in 'a'..'z' || ch in '0'..'9' || ch == '/' || ch == '.'
     }
-}
-
-fun Item.idToString(): String {
-    return toId().toString()
-}
-
-fun Item.toId(): ResourceLocation {
-    return BuiltInRegistries.ITEM.getKey(this)
 }

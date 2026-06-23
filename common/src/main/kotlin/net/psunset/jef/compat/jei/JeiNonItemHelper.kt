@@ -2,7 +2,6 @@ package net.psunset.jef.compat.jei
 
 import net.minecraft.Util
 import net.minecraft.client.resources.language.I18n
-import net.minecraft.core.component.DataComponentMap
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.material.Fluid
@@ -30,11 +29,6 @@ abstract class JeiNonItemHelper : INonItemHelper {
      */
     abstract fun getFluid(obj: Any): Fluid
 
-    /**
-     * @param obj must be an instance of [fluidApi]
-     */
-    abstract fun getFluidComponents(obj: Any): DataComponentMap
-
     override fun getName(obj: Any): String {
         if (obj.javaClass.isAssignableFrom(fluidApi)) {
             return I18n.get(Util.makeDescriptionId("block", getFluid(obj).toId()))
@@ -54,13 +48,6 @@ abstract class JeiNonItemHelper : INonItemHelper {
             return getFluid(obj).builtInRegistryHolder().tags()
         }
         return Stream.empty()
-    }
-
-    override fun getComponents(obj: Any): DataComponentMap {
-        if (obj.javaClass.isAssignableFrom(fluidApi)) {
-            return getFluidComponents(obj)
-        }
-        return DataComponentMap.EMPTY
     }
 
     companion object {

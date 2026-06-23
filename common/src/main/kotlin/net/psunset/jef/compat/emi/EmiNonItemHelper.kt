@@ -3,7 +3,6 @@ package net.psunset.jef.compat.emi
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.Util
 import net.minecraft.client.resources.language.I18n
-import net.minecraft.core.component.DataComponentMap
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Items
@@ -41,14 +40,6 @@ object EmiNonItemHelper : INonItemHelper {
             return obj.builtInRegistryHolder().tags()
         }
         return Stream.empty()
-    }
-
-    override fun getComponents(obj: Any): DataComponentMap {
-        if (obj is Fluid) {
-            return DataComponentMap.EMPTY
-            TODO()
-        }
-        return DataComponentMap.EMPTY
     }
 
     fun init() {

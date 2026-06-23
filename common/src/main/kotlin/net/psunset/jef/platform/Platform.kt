@@ -17,12 +17,12 @@ object Platform {
 
     @JvmStatic
     fun name(): String {
-        return if (isNeoForge()) "NeoForge" else "Fabric"
+        return if (isForge()) "Forge" else "Fabric"
     }
 
     @JvmStatic
     fun lowercaseName(): String {
-        return if (isNeoForge()) "neoforge" else "fabric"
+        return if (isForge()) "forge" else "fabric"
     }
 
     @JvmStatic

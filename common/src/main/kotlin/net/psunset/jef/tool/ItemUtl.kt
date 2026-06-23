@@ -38,6 +38,10 @@ object ItemUtl {
     }
 }
 
+fun Item.toIdString(): String {
+    return toId().toString()
+}
+
 fun Item.toId(): ResourceLocation {
     return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.location() }
         .getOrDefault(RLUtl.UNKNOWN)

@@ -1,6 +1,5 @@
 package net.psunset.jef.util
 
-import net.minecraft.core.component.DataComponentMap
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.psunset.jef.api.INonItemHelper
@@ -26,10 +25,5 @@ object NonItemHelper {
     @JvmStatic
     fun getTags(obj: Any): Stream<out TagKey<*>> {
         return innerImpl.getTags(obj)
-    }
-
-    @JvmStatic
-    fun getComponents(obj: Any): DataComponentMap {
-        return innerImpl.getComponents(obj)
     }
 }
