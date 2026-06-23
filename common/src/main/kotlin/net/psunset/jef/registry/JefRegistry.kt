@@ -56,7 +56,7 @@ class JefRegistry<T : Any> {
     /**
      * @return [value]
      */
-    internal fun register(id: String, value: T): T  {
+    internal fun register(id: String, value: T): T {
         if (registry == null) {
             throw IllegalStateException("Registry is already closed.")
         }

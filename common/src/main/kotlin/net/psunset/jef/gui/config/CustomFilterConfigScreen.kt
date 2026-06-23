@@ -48,7 +48,7 @@ class CustomFilterConfigScreen internal constructor(
             if (idx != -1) {
                 ConfigManager.saveActiveFilters(
                     filtersInFile.also {
-                        it[idx]= CustomFilter.genId(widget!!.tempName).toString()
+                        it[idx] = CustomFilter.genId(widget!!.tempName).toString()
                     }
                 )
             }

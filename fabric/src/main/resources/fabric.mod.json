@@ -1,39 +1,39 @@
 {
-  "schemaVersion": 1,
-  "id": "justenoughfilters",
-  "version": "${version}",
-  "name": "Just Enough Filters (JEF)",
-  "description": "A lightweight add-on for JEI/REI/EMI. Filtering exact items is just a click away!",
-  "authors": [
-    "Project-SUNSET"
-  ],
-  "contact": {
-    "homepage": "https://modrinth.com/project/just-enough-filters",
-    "sources": "https://github.com/pSUNSET/JustEnoughFilters",
-    "issues": "https://github.com/pSUNSET/JustEnoughFilters/issues"
-  },
-  "license": "MIT",
-  "icon": "icon.png",
-  "environment": "client",
-  "entrypoints": {
-    "client": [
-      {
-        "adapter": "kotlin",
-        "value": "net.psunset.jef.fabric.JefImpl"
-      }
+    "schemaVersion": 1,
+    "id": "justenoughfilters",
+    "version": "${version}",
+    "name": "Just Enough Filters (JEF)",
+    "description": "A lightweight add-on for JEI/REI/EMI. Filtering exact items is just a click away!",
+    "authors": [
+        "Project-SUNSET"
     ],
-    "modmenu": [
-        "net.psunset.jef.compat.fabric.modmenu.JefCompatModMenu"
-    ]
-  },
-  "mixins": [
-    "justenoughfilters.mixins.json"
-  ],
-  "accessWidener": "justenoughfilters.accesswidener",
-  "depends": {
-    "minecraft": "${minecraft_version_fabric_range}",
-    "fabricloader": "${fabric_loader_version_range}",
-    "fabric-api": "${fabric_api_version_range}",
-    "fabric-language-kotlin": "${fabric_kotlin_version_range}"
-  }
+    "contact": {
+        "homepage": "https://modrinth.com/project/just-enough-filters",
+        "sources": "https://github.com/pSUNSET/JustEnoughFilters",
+        "issues": "https://github.com/pSUNSET/JustEnoughFilters/issues"
+    },
+    "license": "MIT",
+    "icon": "icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            {
+                "adapter": "kotlin",
+                "value": "net.psunset.jef.fabric.JefImpl"
+            }
+        ],
+        "modmenu": [
+            "net.psunset.jef.compat.fabric.modmenu.JefCompatModMenu"
+        ]
+    },
+    "mixins": [
+        "justenoughfilters.mixins.json"
+    ],
+    "accessWidener": "justenoughfilters.accesswidener",
+    "depends": {
+        "minecraft": "${minecraft_version_fabric_range}",
+        "fabricloader": "${fabric_loader_version_range}",
+        "fabric-api": "${fabric_api_version_range}",
+        "fabric-language-kotlin": "${fabric_kotlin_version_range}"
+    }
 }

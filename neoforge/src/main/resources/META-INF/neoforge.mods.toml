@@ -42,4 +42,4 @@ side = "CLIENT"
 config = "justenoughfilters.mixins.json"
 
 [[accessTransformers]]
-file="META-INF/accesstransformer.cfg"
+file = "META-INF/accesstransformer.cfg"

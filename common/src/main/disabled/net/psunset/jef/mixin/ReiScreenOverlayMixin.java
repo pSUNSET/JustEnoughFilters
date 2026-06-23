@@ -23,7 +23,7 @@ public class ReiScreenOverlayMixin {
 
         if (!original.isEmpty()) {
 
-            if (REIRuntime.getInstance().getContextualSearchFieldLocation()==SearchFieldLocation.BOTTOM_SIDE) {
+            if (REIRuntime.getInstance().getContextualSearchFieldLocation() == SearchFieldLocation.BOTTOM_SIDE) {
                 InventoryOverlayManager.INSTANCE.updateBounds(
                         original.x,
                         original.y + original.height - FilterBarOverlay.REVERSED_HEIGHT - 24,  // 24 = reservedSearchFieldHeight
