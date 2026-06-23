@@ -63,7 +63,13 @@ object IdUtl {
 
     @JvmStatic
     fun toValidPath(path: String): String {
-        return path.lowercase().replace(Regex("[^a-z0-9/._-]"), "_")
+        return path.lowercase().toCharArray().apply {
+            for (i in indices) {
+                if (!Identifier.validPathChar(this[i])) {
+                    this[i] = '_'
+                }
+            }
+        }.concatToString()
     }
 }
 
