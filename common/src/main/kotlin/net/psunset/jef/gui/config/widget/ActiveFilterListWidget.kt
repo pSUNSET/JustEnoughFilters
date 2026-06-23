@@ -25,7 +25,7 @@ internal class ActiveFilterListWidget(
 
     var tempFilters: MutableList<String> =
         FilterManager.activeToggledFilters.map { it.id.toString() }.toMutableList()
-    internal set
+        internal set
 
     private var suggestionsList: MutableList<DropDownEditBox.Suggestions> = ArrayList(tempFilters.size)
 

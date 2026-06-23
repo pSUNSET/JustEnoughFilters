@@ -22,7 +22,7 @@ abstract class FilterOp : IFilter {
 
     class NonItemOnly(
         private val factory: (Any) -> Boolean
-    ): FilterOp() {
+    ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
             return false
         }
