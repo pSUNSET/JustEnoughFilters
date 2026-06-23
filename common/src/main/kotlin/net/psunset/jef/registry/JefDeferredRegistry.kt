@@ -93,7 +93,7 @@ class JefDeferredRegistry<R : Any> {
      */
     private fun <T : R> priorReg(id: String, supplier: Supplier<T>): DeferredElement<T> {
         ids.add(id)
-        return DeferredElement(supplier).also { registry!![id] = it }
+        return DeferredElement(supplier).also { priorRegistry!![id] = it }
     }
 
     /**
