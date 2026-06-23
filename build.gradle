@@ -1,6 +1,6 @@
 plugins {
-    id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
-    id 'architectury-plugin' version '3.4-SNAPSHOT'
+    id 'dev.architectury.loom-remap' version '1.14-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.5-SNAPSHOT'
     id 'com.gradleup.shadow' version '9.4.2' apply false
     id "me.modmuss50.mod-publish-plugin" version "2.0.0"
     id 'org.jetbrains.kotlin.jvm' version '2.3.10' apply false
@@ -48,7 +48,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'dev.architectury.loom-remap'
 
     base {
         archivesName = "$mod_id"
