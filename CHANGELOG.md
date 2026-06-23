@@ -1,2 +1,6 @@
+- Features
+  - Builtin filter operations fully support non-item objects
+
 - Fixes
-  - No longer require redundant library, Cloth Config API.
+  - Filter operation args get incorrect implicit reset when editing operation
+  - Filter operation args validation color didn't work when editing operation
