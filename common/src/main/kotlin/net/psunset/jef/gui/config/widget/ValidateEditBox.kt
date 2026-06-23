@@ -1,6 +1,5 @@
 package net.psunset.jef.gui.config.widget
 
-import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.network.chat.CommonComponents

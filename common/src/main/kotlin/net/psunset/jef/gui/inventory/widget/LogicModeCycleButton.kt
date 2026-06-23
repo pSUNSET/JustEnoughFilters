@@ -1,6 +1,5 @@
 package net.psunset.jef.gui.inventory.widget
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Tooltip

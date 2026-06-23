@@ -10,8 +10,8 @@ import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.item.DummyItem
 import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
-import net.psunset.jef.tool.ItemLikeUtl
 import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.ItemLikeUtl
 
 data class CustomFilter(
     val name: String,

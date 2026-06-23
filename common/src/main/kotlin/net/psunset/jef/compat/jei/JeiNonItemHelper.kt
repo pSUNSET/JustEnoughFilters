@@ -1,10 +1,10 @@
 package net.psunset.jef.compat.jei
 
-import net.minecraft.util.Util
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponentMap
 import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
+import net.minecraft.util.Util
 import net.minecraft.world.level.material.Fluid
 import net.psunset.jef.api.INonItemHelper
 import net.psunset.jef.platform.Platform

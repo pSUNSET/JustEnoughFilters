@@ -7,7 +7,8 @@ import net.minecraft.client.gui.render.state.pip.OversizedItemRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.psunset.jef.gui.render.state.ScaledGuiItemRenderState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(OversizedItemRenderer.class)
 public abstract class OversizedItemRendererMixin extends PictureInPictureRenderer<OversizedItemRenderState> {

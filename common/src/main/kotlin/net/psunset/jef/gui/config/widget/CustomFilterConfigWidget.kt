@@ -119,12 +119,14 @@ internal class CustomFilterConfigWidget(
             setResponder {
                 if (it.isNotBlank()) {
                     widget.tempName = it
-                    setTooltip(Tooltip.create(
-                        Component.translatable(
-                            "gui.justenoughfilters.config.custom_filter.name.tooltip",
-                            CustomFilter.genId(it).toString()
+                    setTooltip(
+                        Tooltip.create(
+                            Component.translatable(
+                                "gui.justenoughfilters.config.custom_filter.name.tooltip",
+                                CustomFilter.genId(it).toString()
+                            )
                         )
-                    ))
+                    )
                 }
             }
             value = widget.tempName
