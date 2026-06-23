@@ -237,7 +237,8 @@ internal class CustomFilterConfigWidget(
             val isInputNeeded = provider.argDesc != null
             op = if (isInputNeeded) {
                 filterArgsField.setTooltip(Tooltip.create(Component.literal(provider.argDesc.toString())))
-                op.copy(filter = op.filter.copy(provider = id))
+                filterArgsField.refreshColor()
+                op.copy(filter = FilterOpGenerator(id, filterArgsField.value))
             } else {
                 op.copy(filter = FilterOpGenerator(id, ""))
             }

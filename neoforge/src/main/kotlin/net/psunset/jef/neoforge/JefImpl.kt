@@ -23,14 +23,20 @@ class JefImpl(container: ModContainer, modBus: IEventBus, dist: Dist) {
 
     init {
         PlatformImpl  // init it
-        if (JustEnoughFilters.init()) {
+
+        if (JustEnoughFilters.preInit()) {
+
             container.registerExtensionPoint(
                 IConfigScreenFactory::class.java,
                 IConfigScreenFactory { _, p -> JefMainConfigScreen(p) }
             )
+
             FORGE_BUS.addListener(ScreenEvent.MouseButtonPressed.Pre::class.java, ::onMouseClick)
             MOD_BUS.addListener(FMLClientSetupEvent::class.java, ::onClientSetup)
+
             ITEM_REGISTRY.register(MOD_BUS)
+
+            JustEnoughFilters.init()
         }
     }
 

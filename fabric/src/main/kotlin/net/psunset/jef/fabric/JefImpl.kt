@@ -22,7 +22,7 @@ object JefImpl : ClientModInitializer {
     }
 
     override fun onInitializeClient() {
-        if (!JustEnoughFilters.init()) return
+        if (!JustEnoughFilters.preInit()) return
 
         ScreenEvents.AFTER_INIT.register { client, screen, scaledWidth, scaledHeight ->
             ScreenMouseEvents.allowMouseClick(screen).register { _, context ->
@@ -46,5 +46,7 @@ object JefImpl : ClientModInitializer {
                 )
             )
         )
+
+        JustEnoughFilters.init()
     }
 }

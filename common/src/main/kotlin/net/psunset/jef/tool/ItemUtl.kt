@@ -3,6 +3,7 @@ package net.psunset.jef.tool
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
+import kotlin.jvm.optionals.getOrDefault
 
 object ItemUtl {
 
@@ -36,4 +37,9 @@ object ItemUtl {
     fun validate(id: Identifier): Boolean {
         return BuiltInRegistries.ITEM.containsKey(id)
     }
+}
+
+fun Item.toId(): ResourceLocation {
+    return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.location() }
+        .getOrDefault(RLUtl.UNKNOWN)
 }
