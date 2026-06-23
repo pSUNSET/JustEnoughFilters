@@ -3,8 +3,8 @@ package net.psunset.jef.config
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IFilter
-import net.psunset.jef.tool.toIdString
 import net.psunset.jef.tool.toId
+import net.psunset.jef.tool.toIdString
 import net.psunset.jef.util.NonItemHelper
 
 abstract class FilterOp : IFilter {
@@ -23,7 +23,7 @@ abstract class FilterOp : IFilter {
 
     class NonItemOnly(
         private val factory: (Any) -> Boolean
-    ): FilterOp() {
+    ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
             return false
         }

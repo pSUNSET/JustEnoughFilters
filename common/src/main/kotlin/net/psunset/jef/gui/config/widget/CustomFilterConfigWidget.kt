@@ -166,7 +166,8 @@ internal class CustomFilterConfigWidget(
             val nameHintWidth = font.width(nameHint)
             val iconHintWidth = font.width(iconHint)
             val strY = top + (Button.DEFAULT_HEIGHT - font.lineHeight) / 2
-            var x = (screen.width - nameHintWidth - iconHintWidth) / 2 - Button.DEFAULT_WIDTH - JefConstants.BUTTON_SPACING
+            var x = (screen.width - nameHintWidth - iconHintWidth) / 2 -
+                    Button.DEFAULT_WIDTH - JefConstants.BUTTON_SPACING
 
             guiGraphics.drawString(font, nameHint, x, strY, 14737632)
             x += nameHintWidth

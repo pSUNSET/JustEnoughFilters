@@ -59,10 +59,10 @@ processResources {
 
     filesMatching('META-INF/mods.toml') {
         expand([
-                version: "$mod_version",
-                forge_version_range: "$forge_version_range",
+                version                      : "$mod_version",
+                forge_version_range          : "$forge_version_range",
                 minecraft_version_forge_range: "$minecraft_version_forge_range",
-                kff_version_range: "$kff_version_range"
+                kff_version_range            : "$kff_version_range"
         ])
     }
 }

@@ -28,5 +28,5 @@ class FilterIdConfigField(
     )
 
     override val selections: Collection<String>
-        get() =  FilterManager.allToggledFilters.map { it.id.toString() }
+        get() = FilterManager.allToggledFilters.map { it.id.toString() }
 }

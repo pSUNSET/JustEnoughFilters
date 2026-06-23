@@ -14,7 +14,7 @@ abstract class ToggledFilter(
     override val tooltip: Component,
 ) : IToggledFilter {
 
-    constructor(id: ResourceLocation, iconItem: ItemLike):this(
+    constructor(id: ResourceLocation, iconItem: ItemLike) : this(
         id,
         iconItem,
         Component.translatable("jef.toggled_filter.${id.namespace}.${id.path}")
