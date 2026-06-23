@@ -4,8 +4,8 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.gui.ingredients.IngredientFilter;
 import net.minecraft.world.item.ItemStack;
-import net.psunset.jef.builtin.FilterManager;
 import net.psunset.jef.api.IFilterProxy;
+import net.psunset.jef.builtin.FilterManager;
 import net.psunset.jef.registry.JefRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,8 +45,7 @@ public abstract class JeiIngredientFilterMixin implements IFilterProxy {
 
         Stream<ITypedIngredient<?>> filteredStream = originalStream.filter(ingredient -> {
             if (ingredient.getType() == VanillaTypes.ITEM_STACK) {
-                ItemStack itemStack = (ItemStack) ingredient.getIngredient();
-                return FilterManager.INSTANCE.test(itemStack);
+                return FilterManager.INSTANCE.test((ItemStack) ingredient.getIngredient());
             }
             return FilterManager.INSTANCE.testNonItem(ingredient.getIngredient());
         });

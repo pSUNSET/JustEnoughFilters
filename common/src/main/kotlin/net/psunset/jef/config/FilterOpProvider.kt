@@ -11,8 +11,8 @@ import net.psunset.jef.platform.Platform
 import net.psunset.jef.registry.JefRegistries
 import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
-import net.psunset.jef.tool.ItemUtl
 import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.util.NonItemHelper
 
 /**
  * To create a [FilterOp]
@@ -221,23 +221,8 @@ object FilterOpProviders {
     @JvmField
     val id_is = register(
         "id_is",
-        ArgDesc("id", ArgType.ItemId)
-    ) {
-        if (ItemUtl.validate(it)) {
-            object : FilterOp() {
-                private val item = ItemUtl.of(it)
-
-                override fun matches(stack: ItemStack): Boolean {
-                    return stack.`is`(item)
-                }
-
-                override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
-                }
-            }
-        } else FilterOp.None
-    }
+        ArgDesc("id", ArgType.ItemLikeId)
+    ) { FilterOp.WithId(it) { a, b -> a == b } }
 
     @JvmField
     val id_startswith = register(
@@ -339,8 +324,8 @@ object FilterOpProviders {
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
+                    return NonItemHelper.getTags(obj)
+                        .anyMatch { key -> key.location == rl }
                 }
             }
         }
@@ -361,8 +346,7 @@ object FilterOpProviders {
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {
-                    return false
-                    TODO()
+                    return NonItemHelper.getComponents(obj).has(data)
                 }
             }
         }

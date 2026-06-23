@@ -7,10 +7,10 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IToggledFilter
-import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.DummyItem
+import net.psunset.jef.item.FoilItemStack
 import net.psunset.jef.item.NotFoilItemStack
-import net.psunset.jef.tool.ItemUtl
+import net.psunset.jef.tool.ItemLikeUtl
 import net.psunset.jef.tool.RLUtl
 
 data class CustomFilter(
@@ -21,7 +21,7 @@ data class CustomFilter(
 
     override val id: ResourceLocation = genRL(name)
 
-    val iconItem = ItemUtl.tryParse(icon) ?: DummyItem.INSTANCE
+    val iconItem = ItemLikeUtl.tryParse(icon) ?: DummyItem.INSTANCE
     override val activeIcon: ItemStack = FoilItemStack(iconItem)
     override val inactiveIcon: ItemStack = NotFoilItemStack(iconItem)
     override val tooltip: Component = Component.literal(name)

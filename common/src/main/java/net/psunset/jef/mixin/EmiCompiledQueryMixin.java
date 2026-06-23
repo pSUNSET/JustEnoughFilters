@@ -2,6 +2,7 @@ package net.psunset.jef.mixin;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.search.EmiSearch;
+import net.minecraft.world.item.ItemStack;
 import net.psunset.jef.builtin.FilterManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +22,7 @@ public class EmiCompiledQueryMixin {
     private void jef$applyFilters(EmiStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue()) return;
 
-        if (!stack.getItemStack().isEmpty()) {
+        if (stack.getItemStack() != ItemStack.EMPTY) {
             cir.setReturnValue(FilterManager.INSTANCE.test(stack.getItemStack()));
             return;
         }

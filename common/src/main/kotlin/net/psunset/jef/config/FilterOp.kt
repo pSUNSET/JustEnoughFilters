@@ -4,6 +4,7 @@ import net.minecraft.client.resources.language.I18n
 import net.minecraft.world.item.ItemStack
 import net.psunset.jef.api.IFilter
 import net.psunset.jef.tool.toId
+import net.psunset.jef.util.NonItemHelper
 
 abstract class FilterOp : IFilter {
 
@@ -40,8 +41,7 @@ abstract class FilterOp : IFilter {
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
-            return false
-            TODO()
+            return factory(NonItemHelper.getName(obj), input)
         }
     }
 
@@ -54,8 +54,7 @@ abstract class FilterOp : IFilter {
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
-            return false
-            TODO()
+            return factory(NonItemHelper.getId(obj).toString(), input)
         }
     }
 
@@ -68,8 +67,7 @@ abstract class FilterOp : IFilter {
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
-            return false
-            TODO()
+            return factory(NonItemHelper.getId(obj).namespace, input)
         }
     }
 
@@ -82,8 +80,7 @@ abstract class FilterOp : IFilter {
         }
 
         override fun matchesNonItem(obj: Any): Boolean {
-            return false
-            TODO()
+            return factory(NonItemHelper.getId(obj).path, input)
         }
     }
 

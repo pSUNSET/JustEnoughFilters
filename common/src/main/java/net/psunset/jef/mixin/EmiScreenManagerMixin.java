@@ -8,7 +8,6 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.screen.widget.EmiSearchWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.psunset.jef.JustEnoughFilters;
 import net.psunset.jef.gui.inventory.FilterBarOverlay;
 import net.psunset.jef.gui.inventory.InventoryOverlayManager;
 import org.spongepowered.asm.mixin.Mixin;

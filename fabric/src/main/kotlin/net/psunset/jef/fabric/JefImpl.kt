@@ -20,7 +20,7 @@ object JefImpl : ClientModInitializer {
     }
 
     override fun onInitializeClient() {
-        if (!JustEnoughFilters.init()) return
+        if (!JustEnoughFilters.preInit()) return
 
         ScreenEvents.AFTER_INIT.register { client, screen, scaledWidth, scaledHeight ->
             ScreenMouseEvents.allowMouseClick(screen).register { _, mouseX, mouseY, button ->
@@ -37,5 +37,7 @@ object JefImpl : ClientModInitializer {
             RLUtl.ofJef("dummy"),
             Item(Item.Properties())
         )
+
+        JustEnoughFilters.init()
     }
 }
