@@ -1,2 +1,2 @@
 - Fixes
-    - Correct the mixin refmap path, which causes crash in `fabric-1.20.1`. (1.20.1 only)
+    - Args validation color will be incorrect after editing filter operation
