@@ -2,27 +2,27 @@ package net.psunset.jef.tool
 
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
+import net.minecraft.world.level.material.Fluid
 import kotlin.jvm.optionals.getOrDefault
 
-object ItemUtl {
+object FluidUtl {
     @JvmStatic
-    fun of(id: String): Item {
+    fun of(id: String): Fluid {
         return of(RLUtl.auto(id)!!)
     }
 
     @JvmStatic
-    fun of(id: ResourceLocation): Item {
-        return BuiltInRegistries.ITEM.get(id)
+    fun of(id: ResourceLocation): Fluid {
+        return BuiltInRegistries.FLUID.get(id)
     }
 
     @JvmStatic
-    fun tryParse(id: String): Item? {
+    fun tryParse(id: String): Fluid? {
         return if (validate(id)) of(id) else null
     }
 
     @JvmStatic
-    fun tryParse(id: ResourceLocation): Item? {
+    fun tryParse(id: ResourceLocation): Fluid? {
         return if (validate(id)) of(id) else null
     }
 
@@ -34,11 +34,11 @@ object ItemUtl {
 
     @JvmStatic
     fun validate(id: ResourceLocation): Boolean {
-        return BuiltInRegistries.ITEM.containsKey(id)
+        return BuiltInRegistries.FLUID.containsKey(id)
     }
 }
 
-fun Item.toId(): ResourceLocation {
-    return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.location() }
+fun Fluid.toId(): ResourceLocation {
+    return BuiltInRegistries.FLUID.wrapAsHolder(this).unwrapKey().map { it.location() }
         .getOrDefault(RLUtl.UNKNOWN)
 }

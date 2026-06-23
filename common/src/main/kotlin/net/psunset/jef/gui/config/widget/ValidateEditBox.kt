@@ -35,13 +35,21 @@ abstract class ValidateEditBox(
 
     init {
         setResponder { newValue ->
-            if (validate(newValue)) {
-                setTextColor(14737632)
-            } else {
-                setTextColor(16733525)
-            }
+            refreshColor(newValue)
             saveConsumer(newValue)
         }
+    }
+
+    fun refreshColor(input: String) {
+        if (validate(input)) {
+            setTextColor(14737632)
+        } else {
+            setTextColor(16733525)
+        }
+    }
+
+    fun refreshColor() {
+        refreshColor(value)
     }
 
     abstract fun validate(newValue: String): Boolean

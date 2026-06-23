@@ -3,8 +3,8 @@ package net.psunset.jef.gui.config
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
-import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.builtin.FilterManager
+import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.gui.config.widget.ActiveFilterListWidget
 
 class ActiveFilterListScreen(

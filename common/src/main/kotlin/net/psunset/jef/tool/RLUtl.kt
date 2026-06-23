@@ -1,8 +1,6 @@
 package net.psunset.jef.tool
 
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.psunset.jef.JustEnoughFilters
 
 object RLUtl {
@@ -34,13 +32,32 @@ object RLUtl {
         return ResourceLocation(path)
     }
 
+    /**
+     * Only full location is allowed.
+     * Empty namespace standing for [ResourceLocation.DEFAULT_NAMESPACE] is not allowed.
+     *
+     * @return Parsed `rl` if it is available; otherwise, `null`
+     */
     @JvmStatic
     fun auto(rl: String): ResourceLocation? {
-        return ResourceLocation.tryParse(rl)
+        val idx = rl.indexOf(':')
+        if (idx > 0) {
+            val path = rl.substring(idx + 1)
+            if (ResourceLocation.isValidPath(path)) {
+                val namespace = rl.substring(0, idx)
+                if (ResourceLocation.isValidNamespace(namespace)) {
+                    return of(namespace, path)
+                }
+            }
+        }
+        return null
     }
 
     /**
-     * Returns true if `rl` is a valid [ResourceLocation] and can be parsed successfully
+     * Only full location is allowed.
+     * Empty namespace standing for [ResourceLocation.DEFAULT_NAMESPACE] is not allowed.
+     *
+     * @return `true` if `rl` is a valid [ResourceLocation] and can be parsed successfully
      */
     @JvmStatic
     fun validate(rl: String): Boolean {
@@ -56,7 +73,7 @@ object RLUtl {
     }
 
     /**
-     * Returns true if every single char in `partial` is allowed in [ResourceLocation]
+     * @return `true` if every single char in `partial` is allowed in [ResourceLocation]
      */
     @JvmStatic
     fun validatePartial(partial: String): Boolean {

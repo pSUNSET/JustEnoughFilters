@@ -2,7 +2,7 @@ package net.psunset.jef.config
 
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.tool.CatchingUtl
-import net.psunset.jef.tool.ItemUtl
+import net.psunset.jef.tool.ItemLikeUtl
 import net.psunset.jef.tool.RLUtl
 
 class ArgDesc(val name: String, val type: ArgType) {
@@ -33,33 +33,35 @@ class ArgType(val name: String, val validator: ((String) -> Boolean)) {
 
     companion object {
         @JvmField
-        val Str = ArgType("String", { true })
+        val Str = ArgType("String") { true }
 
         @JvmField
-        val Id = ArgType("Id", { RLUtl.validate(it) })
+        val Id = ArgType("Id") { RLUtl.validate(it) }
 
         @JvmField
-        val PartialId = ArgType("Id.Partial", { RLUtl.validatePartial(it) })
+        val PartialId = ArgType("Id.Partial") { RLUtl.validatePartial(it) }
 
         @JvmField
-        val ItemId = ArgType("Id", { ItemUtl.validate(it) })
+        val ItemLikeId = ArgType("Id") {
+            ItemLikeUtl.validate(it)
+        }
 
         @JvmField
-        val Namespace = ArgType("Id.Namesapce", { RLUtl.isValidNamespace(it) })
+        val Namespace = ArgType("Id.Namesapce") { RLUtl.isValidNamespace(it) }
 
         @JvmField
         val ModId = ArgType("Id.Namespace", Platform.modIdList())
 
         @JvmField
-        val Path = ArgType("Id.Path", { RLUtl.isValidPath(it) })
+        val Path = ArgType("Id.Path") { RLUtl.isValidPath(it) }
 
         @JvmField
         val ModName = ArgType("String", Platform.modNameList(), true)
 
         @JvmField
-        val Reg = ArgType("Regex", { CatchingUtl.isValidRegex(it) })
+        val Reg = ArgType("Regex") { CatchingUtl.isValidRegex(it) }
 
         @JvmField
-        val Clazz = ArgType("Class", { CatchingUtl.isValidClass(it) })
+        val Clazz = ArgType("Class") { CatchingUtl.isValidClass(it) }
     }
 }

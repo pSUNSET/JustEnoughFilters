@@ -2,7 +2,6 @@ package net.psunset.jef.platform
 
 import org.jetbrains.annotations.ApiStatus
 import java.nio.file.Path
-import kotlin.jvm.optionals.getOrDefault
 
 object Platform {
 
@@ -17,6 +16,16 @@ object Platform {
     fun isFabric(): Boolean = innerImpl.isFabric()
 
     @JvmStatic
+    fun name(): String {
+        return if (isNeoForge()) "NeoForge" else "Fabric"
+    }
+
+    @JvmStatic
+    fun lowercaseName(): String {
+        return if (isNeoForge()) "neoforge" else "fabric"
+    }
+
+    @JvmStatic
     fun isLoaded(modId: String): Boolean = innerImpl.isLoaded(modId)
 
     @JvmStatic
@@ -26,7 +35,7 @@ object Platform {
     fun configDir(): Path = innerImpl.configDir()
 
     @JvmStatic
-    fun getModName(modId: String): String = innerImpl.getModName(modId) ?: "Unknown"
+    fun getModName(modId: String): String = innerImpl.getModName(modId) ?: "[unknown]"
 
     @JvmStatic
     fun modNameList(): List<String> = innerImpl.getModNames()
