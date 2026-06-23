@@ -3,7 +3,7 @@ package net.psunset.jef.registry
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
 import com.google.common.collect.ImmutableSet
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import java.util.function.Function
 import java.util.function.Supplier
 
@@ -75,7 +75,7 @@ class JefDeferredRegistry<R : Any> {
      * The actual value will get unwrapped after `ClientSetupEvent` fired.
      * @return [DeferredElement], wrapper of the value
      */
-    fun <T : R> register(id: ResourceLocation, supplier: Supplier<T>): DeferredElement<T> {
+    fun <T : R> register(id: Identifier, supplier: Supplier<T>): DeferredElement<T> {
         return register(id.toString(), supplier)
     }
 
@@ -84,7 +84,7 @@ class JefDeferredRegistry<R : Any> {
      * The actual value will get unwrapped after `ClientSetupEvent` fired.
      * @return [DeferredElement], wrapper of the value
      */
-    fun <T : R> register(id: ResourceLocation, func: Function<ResourceLocation, T>): DeferredElement<T> {
+    fun <T : R> register(id: Identifier, func: Function<Identifier, T>): DeferredElement<T> {
         return register(id.toString()) { func.apply(id) }
     }
 
@@ -100,7 +100,7 @@ class JefDeferredRegistry<R : Any> {
      * For own use, make sure the elements got registered in head.
      * @return [DeferredElement], wrapper of the value
      */
-    internal fun <T : R> priorReg(id: ResourceLocation, supplier: Supplier<T>): DeferredElement<T> {
+    internal fun <T : R> priorReg(id: Identifier, supplier: Supplier<T>): DeferredElement<T> {
         return priorReg(id.toString(), supplier)
     }
 
@@ -108,7 +108,7 @@ class JefDeferredRegistry<R : Any> {
      * For own use, make sure the elements got registered in head.
      * @return [DeferredElement], wrapper of the value
      */
-    internal fun <T : R> priorReg(id: ResourceLocation, func: Function<ResourceLocation, T>): DeferredElement<T> {
+    internal fun <T : R> priorReg(id: Identifier, func: Function<Identifier, T>): DeferredElement<T> {
         return priorReg(id.toString()) { func.apply(id) }
     }
 

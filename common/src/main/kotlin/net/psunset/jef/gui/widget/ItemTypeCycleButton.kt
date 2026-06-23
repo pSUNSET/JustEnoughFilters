@@ -7,8 +7,8 @@ import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.InputWithModifiers
 import net.minecraft.client.input.MouseButtonInfo
 import net.minecraft.network.chat.Component
-import net.psunset.jef.core.FilterManager
-import net.psunset.jef.core.ItemTypeFilter
+import net.psunset.jef.builtin.FilterManager
+import net.psunset.jef.builtin.ItemTypeFilter
 import net.psunset.jef.tool.renderScaledItem
 import kotlin.math.min
 

@@ -3,7 +3,7 @@ package net.psunset.jef.registry
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
 import com.google.common.collect.ImmutableSet
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * Calling [register] is only allowed before `ClientSetupEvent`.
@@ -71,7 +71,7 @@ class JefRegistry<T : Any> {
     /**
      * @return [value]
      */
-    fun register(id: ResourceLocation, value: T): T {
+    fun register(id: Identifier, value: T): T {
         return register(id.toString(), value)
     }
 

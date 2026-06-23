@@ -31,8 +31,18 @@ object IdUtl {
     }
 
     @JvmStatic
-    fun auto(rl: String): Identifier? {
-        return Identifier.tryParse(rl)
+    fun auto(id: String): Identifier? {
+        val idx = id.indexOf(':')
+        if (idx > 0) {
+            val path = id.substring(idx + 1)
+            if (Identifier.isValidPath(path)) {
+                val namespace = id.substring(0, idx)
+                if (Identifier.isValidNamespace(namespace)) {
+                    return of(namespace, path)
+                }
+            }
+        }
+        return null
     }
 
     /**

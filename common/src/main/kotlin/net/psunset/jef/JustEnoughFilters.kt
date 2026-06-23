@@ -1,6 +1,10 @@
 package net.psunset.jef
 
-//import net.psunset.jef.compat.rei.ReiFilterProxyImpl
+import net.psunset.jef.builtin.ItemTypeFilters
+import net.psunset.jef.builtin.ToggledFilters
+import net.psunset.jef.compat.jei.JeiNonItemHelper
+import net.psunset.jef.compat.rei.ReiFilterProxy
+import net.psunset.jef.compat.rei.ReiNonItemHelper
 import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.builtin.ItemTypeFilters
 import net.psunset.jef.registry.JefRegistries
