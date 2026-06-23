@@ -41,7 +41,7 @@ object IdUtl {
             if (Identifier.isValidPath(path)) {
                 val namespace = id.substring(0, idx)
                 if (Identifier.isValidNamespace(namespace)) {
-                    return RLUtl.of(namespace, path)
+                    return of(namespace, path)
                 }
             }
         }

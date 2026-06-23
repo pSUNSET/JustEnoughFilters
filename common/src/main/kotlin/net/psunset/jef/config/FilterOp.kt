@@ -37,7 +37,7 @@ abstract class FilterOp : IFilter {
         private val factory: (String, String) -> Boolean
     ) : FilterOp() {
         override fun matches(stack: ItemStack): Boolean {
-            return factory(I18n.get(stack.descriptionId), input)
+            return factory(I18n.get(stack.item.name.string), input)
         }
 
         override fun matchesNonItem(obj: Any): Boolean {

@@ -2,8 +2,6 @@ package net.psunset.jef
 
 import net.psunset.jef.builtin.ItemTypeFilters
 import net.psunset.jef.builtin.ToggledFilters
-import net.psunset.jef.compat.emi.EmiFilterProxy
-import net.psunset.jef.compat.emi.EmiNonItemHelper
 import net.psunset.jef.compat.jei.JeiNonItemHelper
 import net.psunset.jef.compat.rei.ReiFilterProxy
 import net.psunset.jef.compat.rei.ReiNonItemHelper

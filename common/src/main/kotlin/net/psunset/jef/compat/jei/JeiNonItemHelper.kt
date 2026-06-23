@@ -1,14 +1,14 @@
 package net.psunset.jef.compat.jei
 
-import net.minecraft.Util
+import net.minecraft.util.Util
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponentMap
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.material.Fluid
 import net.psunset.jef.api.INonItemHelper
 import net.psunset.jef.platform.Platform
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.toId
 import net.psunset.jef.util.NonItemHelper
 import java.util.stream.Stream
@@ -42,11 +42,11 @@ abstract class JeiNonItemHelper : INonItemHelper {
         return "[unknown]"
     }
 
-    override fun getId(obj: Any): ResourceLocation {
+    override fun getId(obj: Any): Identifier {
         if (obj.javaClass.isAssignableFrom(fluidApi)) {
             return getFluid(obj).toId()
         }
-        return RLUtl.UNKNOWN
+        return IdUtl.UNKNOWN
     }
 
     override fun getTags(obj: Any): Stream<out TagKey<*>> {

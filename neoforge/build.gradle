@@ -37,9 +37,9 @@ dependencies {
     neoForge "net.neoforged:neoforge:$neoforge_version"
     implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
 
-    modImplementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    modCompileOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
     // NOT support beyond 1.21.2
 //    modCompileOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"

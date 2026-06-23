@@ -1,7 +1,7 @@
 package net.psunset.jef.util
 
 import net.minecraft.core.component.DataComponentMap
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
 import net.psunset.jef.api.INonItemHelper
 import org.jetbrains.annotations.ApiStatus
@@ -19,7 +19,7 @@ object NonItemHelper {
     }
 
     @JvmStatic
-    fun getId(obj: Any): ResourceLocation {
+    fun getId(obj: Any): Identifier {
         return innerImpl.getId(obj)
     }
 

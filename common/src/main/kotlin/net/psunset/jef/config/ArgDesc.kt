@@ -1,11 +1,11 @@
 package net.psunset.jef.config
 
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
 import net.psunset.jef.tool.ItemLikeUtl
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 
 class ArgDesc(val name: String, val type: ArgType) {
 
@@ -38,10 +38,10 @@ class ArgType(val name: String, val validator: ((String) -> Boolean)) {
         val Str = ArgType("String") { true }
 
         @JvmField
-        val Id = ArgType("Id") { RLUtl.validate(it) }
+        val Id = ArgType("Id") { IdUtl.validate(it) }
 
         @JvmField
-        val PartialId = ArgType("Id.Partial") { RLUtl.validatePartial(it) }
+        val PartialId = ArgType("Id.Partial") { IdUtl.validatePartial(it) }
 
         @JvmField
         val ItemLikeId = ArgType("Id") {
@@ -52,13 +52,13 @@ class ArgType(val name: String, val validator: ((String) -> Boolean)) {
         val DataId = ArgType("Id") { DataComponentUtl.validate(it) }
 
         @JvmField
-        val Namespace = ArgType("Id.Namesapce") { ResourceLocation.isValidNamespace(it) }
+        val Namespace = ArgType("Id.Namesapce") { Identifier.isValidNamespace(it) }
 
         @JvmField
         val ModId = ArgType("Id.Namespace", Platform.modIdList())
 
         @JvmField
-        val Path = ArgType("Id.Path") { ResourceLocation.isValidPath(it) }
+        val Path = ArgType("Id.Path") { Identifier.isValidPath(it) }
 
         @JvmField
         val ModName = ArgType("String", Platform.modNameList(), true)

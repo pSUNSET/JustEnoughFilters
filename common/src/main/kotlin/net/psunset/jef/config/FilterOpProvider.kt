@@ -1,17 +1,17 @@
 package net.psunset.jef.config
 
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity
 import net.psunset.jef.api.IFilter
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.registry.JefRegistries
 import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.util.NonItemHelper
 
 /**
@@ -54,7 +54,7 @@ class FilterOpProvider : FilterOpFactory {
     /**
      * [tooltip] defaults to `jef.filter_op.{id.namespace}.{id.path}` with an arg `argDesc.name`
      */
-    constructor(id: ResourceLocation, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
+    constructor(id: Identifier, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
         id,
         Component.translatable(
             "jef.filter_op.${id.namespace}.${id.path}",
@@ -67,7 +67,7 @@ class FilterOpProvider : FilterOpFactory {
     /**
      * [tooltip] defaults to `jef.filter_op.{id.namespace}.{id.path}`
      */
-    constructor(id: ResourceLocation, factory0: FilterOpFactory0) : this(
+    constructor(id: Identifier, factory0: FilterOpFactory0) : this(
         id,
         Component.translatable("jef.filter_op.${id.namespace}.${id.path}"),
         factory0
@@ -76,7 +76,7 @@ class FilterOpProvider : FilterOpFactory {
     /**
      * This constructor allows customized [tooltip]
      */
-    constructor(id: ResourceLocation, tooltip: Component, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
+    constructor(id: Identifier, tooltip: Component, argDesc: ArgDesc, factory1: FilterOpFactory1) : this(
         id.toString(),
         tooltip,
         argDesc,
@@ -86,7 +86,7 @@ class FilterOpProvider : FilterOpFactory {
     /**
      * This constructor allows customized [tooltip]
      */
-    constructor(id: ResourceLocation, tooltip: Component, factory0: FilterOpFactory0) : this(
+    constructor(id: Identifier, tooltip: Component, factory0: FilterOpFactory0) : this(
         id.toString(),
         tooltip,
         factory0
@@ -316,9 +316,9 @@ object FilterOpProviders {
         "has_tag",
         ArgDesc("tagId", ArgType.Id)
     ) {
-        if (RLUtl.auto(it) == null) FilterOp.None else {
+        if (IdUtl.auto(it) == null) FilterOp.None else {
             object : FilterOp() {
-                private val rl = RLUtl.auto(it)!!
+                private val rl = IdUtl.auto(it)!!
                 override fun matches(stack: ItemStack): Boolean {
                     return stack.tags.anyMatch { key -> key.location == rl }
                 }
@@ -354,7 +354,13 @@ object FilterOpProviders {
 
     @JvmField
     val is_fuel = register("is_fuel") {
-        FilterOp.ItemOnly { AbstractFurnaceBlockEntity.isFuel(it) }
+        FilterOp.ItemOnly {
+            if (Minecraft.getInstance().level == null) {
+                false
+            } else {
+                Minecraft.getInstance().level!!.fuelValues().isFuel(it)
+            }
+        }
     }
 
     @JvmField

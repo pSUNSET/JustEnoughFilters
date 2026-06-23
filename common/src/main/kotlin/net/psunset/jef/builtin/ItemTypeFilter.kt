@@ -15,7 +15,7 @@ abstract class ItemTypeFilter(
     iconItem: ItemLike,
 ) : IItemTypeFilter {
 
-    constructor(id: ResourceLocation, iconItem: ItemLike) : this(
+    constructor(id: Identifier, iconItem: ItemLike) : this(
         id,
         "jef.item_type_filter.${id.namespace}.${id.path}",
         iconItem

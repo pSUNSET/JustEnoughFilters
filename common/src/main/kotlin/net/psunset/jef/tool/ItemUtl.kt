@@ -39,7 +39,7 @@ object ItemUtl {
     }
 }
 
-fun Item.toId(): ResourceLocation {
-    return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.location() }
-        .getOrDefault(RLUtl.UNKNOWN)
+fun Item.toId(): Identifier {
+    return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.identifier() }
+        .getOrDefault(IdUtl.UNKNOWN)
 }

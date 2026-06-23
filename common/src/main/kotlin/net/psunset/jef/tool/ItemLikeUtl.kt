@@ -1,16 +1,16 @@
 package net.psunset.jef.tool
 
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.ItemLike
 
 object ItemLikeUtl {
     @JvmStatic
     fun of(id: String): ItemLike {
-        return of(RLUtl.auto(id)!!)
+        return of(IdUtl.auto(id)!!)
     }
 
     @JvmStatic
-    fun of(id: ResourceLocation): ItemLike {
+    fun of(id: Identifier): ItemLike {
         return ItemUtl.tryParse(id) ?: BlockUtl.of(id)
     }
 
@@ -20,7 +20,7 @@ object ItemLikeUtl {
     }
 
     @JvmStatic
-    fun tryParse(id: ResourceLocation): ItemLike? {
+    fun tryParse(id: Identifier): ItemLike? {
         return ItemUtl.tryParse(id) ?: BlockUtl.tryParse(id)
     }
 
@@ -30,7 +30,7 @@ object ItemLikeUtl {
     }
 
     @JvmStatic
-    fun validate(id: ResourceLocation): Boolean {
+    fun validate(id: Identifier): Boolean {
         return ItemUtl.validate(id) || BlockUtl.validate(id)
     }
 }

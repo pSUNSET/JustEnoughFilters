@@ -4,11 +4,11 @@ import dev.architectury.fluid.FluidStack
 import me.shedaniel.rei.api.common.entry.type.BuiltinEntryTypes
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.component.DataComponentMap
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
 import net.minecraft.util.Unit
 import net.psunset.jef.api.INonItemHelper
-import net.psunset.jef.tool.RLUtl
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.toId
 import net.psunset.jef.util.NonItemHelper
 import java.util.stream.Stream
@@ -25,14 +25,14 @@ object ReiNonItemHelper : INonItemHelper {
         return "[unknown]"
     }
 
-    override fun getId(obj: Any): ResourceLocation {
+    override fun getId(obj: Any): Identifier {
         if (obj is FluidStack) {
             return obj.fluid.toId()
         }
         if (obj == Unit.INSTANCE) {
             return BuiltinEntryTypes.EMPTY_ID
         }
-        return RLUtl.UNKNOWN
+        return IdUtl.UNKNOWN
     }
 
     override fun getTags(obj: Any): Stream<out TagKey<*>> {
