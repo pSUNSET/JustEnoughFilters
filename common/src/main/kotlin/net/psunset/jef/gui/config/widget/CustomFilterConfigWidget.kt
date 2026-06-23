@@ -239,12 +239,12 @@ internal class CustomFilterConfigWidget(
             Button.DEFAULT_HEIGHT,
         ) { id, provider ->
             val isInputNeeded = provider.argDesc != null
-            op = if (isInputNeeded) {
+            if (isInputNeeded) {
                 filterArgsField.tooltip = Tooltip.create(Component.literal(provider.argDesc.toString()))
+                op = op.copy(filter = FilterOpGenerator(id, filterArgsField.value))
                 filterArgsField.refreshColor()
-                op.copy(filter = FilterOpGenerator(id, filterArgsField.value))
             } else {
-                op.copy(filter = FilterOpGenerator(id, ""))
+                op = op.copy(filter = FilterOpGenerator(id, ""))
             }
             filterArgsField.visible = isInputNeeded
         }.apply {
