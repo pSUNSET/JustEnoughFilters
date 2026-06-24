@@ -84,7 +84,7 @@ object ToggledFilters {
                 val b0 = stack.has(DataComponents.MAX_DAMAGE) &&
                         equipableData != null &&
                         equipableData.slot.type == EquipmentSlot.Type.HUMANOID_ARMOR
-                val b1 = stack.`is`(CTags.Items.ARMORS)
+                val b1 = stack.`is`(CTags.Items.HUMANOID_ARMORS)
                 return b0 || b1
             }
         }
