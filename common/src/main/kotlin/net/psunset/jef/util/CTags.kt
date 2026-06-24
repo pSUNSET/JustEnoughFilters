@@ -14,6 +14,6 @@ object CTags {
         val TOOLS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("tools"))
 
         @JvmField
-        val ARMORS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("armors"))
+        val HUMANOID_ARMORS: TagKey<Item> = TagKey.create(Registries.ITEM, IdUtl.ofC("armors/humanoid"))
     }
 }
