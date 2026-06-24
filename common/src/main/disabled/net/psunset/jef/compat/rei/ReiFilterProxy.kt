@@ -4,7 +4,7 @@ import me.shedaniel.rei.api.client.REIRuntime
 import net.psunset.jef.api.IFilterProxy
 
 // When REI update to mc26.1 :(
-object ReiFilterProxyImpl : IFilterProxy {
+object ReiFilterProxy : IFilterProxy {
     override fun `jef$refresh`() {
         REIRuntime.getInstance().overlay.ifPresent { it.queueReloadOverlay() }
     }

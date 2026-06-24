@@ -3,13 +3,9 @@ package net.psunset.jef
 import net.psunset.jef.builtin.ItemTypeFilters
 import net.psunset.jef.builtin.ToggledFilters
 import net.psunset.jef.compat.jei.JeiNonItemHelper
-import net.psunset.jef.compat.rei.ReiFilterProxy
-import net.psunset.jef.compat.rei.ReiNonItemHelper
 import net.psunset.jef.config.ConfigManager
-import net.psunset.jef.builtin.ItemTypeFilters
-import net.psunset.jef.registry.JefRegistries
-import net.psunset.jef.builtin.ToggledFilters
 import net.psunset.jef.config.FilterOpProviders
+import net.psunset.jef.registry.JefRegistries
 import net.psunset.jef.tool.CompatUtl
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -34,7 +30,7 @@ object JustEnoughFilters {
      * @return should this mod be loaded
      */
     @JvmStatic
-    internal fun preInit(): Boolean {
+    fun preInit(): Boolean {
         val j = CompatUtl.JEI.isLoaded()
         val r = CompatUtl.REI.isLoaded()
 
@@ -63,24 +59,21 @@ object JustEnoughFilters {
         return isActive!!
     }
 
-    /**
-     * @return should this mod be loaded
-     */
     @JvmStatic
-    fun init(): Boolean {
-        preInit()
+    fun init() {
+        ToggledFilters.init()
+        ItemTypeFilters.init()
+        FilterOpProviders.init()
 
-        if (isActive!!) {
-            ToggledFilters.init()
-            ItemTypeFilters.init()
-            FilterOpProviders.init()
+//        if (CompatUtl.REI.isLoaded()) {
+//            JefRegistries.PROXIES.register(ReiFilterProxy)
+//            ReiNonItemHelper.init()
+//
+//        } else
+        if (CompatUtl.JEI.isLoaded()) {
+            JeiNonItemHelper.init()
 
-            if (CompatUtl.REI.isLoaded()) {
-                JefRegistries.PROXIES.register(ReiFilterProxyImpl)
-            }
         }
-
-        return isActive!!
     }
 
     @JvmStatic

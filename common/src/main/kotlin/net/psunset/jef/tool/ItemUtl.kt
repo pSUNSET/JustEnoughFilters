@@ -3,6 +3,7 @@ package net.psunset.jef.tool
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
+import kotlin.jvm.optionals.getOrDefault
 
 object ItemUtl {
 

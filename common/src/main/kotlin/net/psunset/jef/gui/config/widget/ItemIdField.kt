@@ -1,6 +1,7 @@
 package net.psunset.jef.gui.config.widget
 
 import net.minecraft.client.gui.Font
+import net.psunset.jef.tool.ItemLikeUtl
 import net.psunset.jef.tool.ItemUtl
 
 class ItemIdField(
@@ -28,6 +29,6 @@ class ItemIdField(
     )
 
     override fun validate(newValue: String): Boolean {
-        return ItemUtl.validate(newValue)
+        return ItemLikeUtl.validate(newValue)
     }
 }

@@ -4,8 +4,8 @@ import net.minecraft.resources.Identifier
 import net.psunset.jef.platform.Platform
 import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
-import net.psunset.jef.tool.ItemLikeUtl
 import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.ItemLikeUtl
 
 class ArgDesc(val name: String, val type: ArgType) {
 
@@ -44,9 +44,7 @@ class ArgType(val name: String, val validator: ((String) -> Boolean)) {
         val PartialId = ArgType("Id.Partial") { IdUtl.validatePartial(it) }
 
         @JvmField
-        val ItemLikeId = ArgType("Id") {
-            ItemLikeUtl.validate(it)
-        }
+        val ItemLikeId = ArgType("Id") { ItemLikeUtl.validate(it) }
 
         @JvmField
         val DataId = ArgType("Id") { DataComponentUtl.validate(it) }

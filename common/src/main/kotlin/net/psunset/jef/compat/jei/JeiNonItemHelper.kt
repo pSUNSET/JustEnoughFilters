@@ -36,28 +36,28 @@ abstract class JeiNonItemHelper : INonItemHelper {
     abstract fun getFluidComponents(obj: Any): DataComponentMap
 
     override fun getName(obj: Any): String {
-        if (obj.javaClass.isAssignableFrom(fluidApi)) {
+        if (fluidApi.isInstance(obj)) {
             return I18n.get(Util.makeDescriptionId("block", getFluid(obj).toId()))
         }
         return "[unknown]"
     }
 
     override fun getId(obj: Any): Identifier {
-        if (obj.javaClass.isAssignableFrom(fluidApi)) {
+        if (fluidApi.isInstance(obj)) {
             return getFluid(obj).toId()
         }
         return IdUtl.UNKNOWN
     }
 
     override fun getTags(obj: Any): Stream<out TagKey<*>> {
-        if (obj.javaClass.isAssignableFrom(fluidApi)) {
+        if (fluidApi.isInstance(obj)) {
             return getFluid(obj).builtInRegistryHolder().tags()
         }
         return Stream.empty()
     }
 
     override fun getComponents(obj: Any): DataComponentMap {
-        if (obj.javaClass.isAssignableFrom(fluidApi)) {
+        if (fluidApi.isInstance(obj)) {
             return getFluidComponents(obj)
         }
         return DataComponentMap.EMPTY

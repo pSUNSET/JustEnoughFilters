@@ -320,7 +320,7 @@ object FilterOpProviders {
             object : FilterOp() {
                 private val rl = IdUtl.auto(it)!!
                 override fun matches(stack: ItemStack): Boolean {
-                    return stack.tags.anyMatch { key -> key.location == rl }
+                    return stack.tags().anyMatch { key -> key.location == rl }
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {

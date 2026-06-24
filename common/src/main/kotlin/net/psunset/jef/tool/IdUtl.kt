@@ -1,10 +1,7 @@
 package net.psunset.jef.tool
 
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.Identifier
-import net.minecraft.world.item.Item
 import net.psunset.jef.JustEnoughFilters
-import kotlin.jvm.optionals.getOrDefault
 
 object IdUtl {
     @JvmField
@@ -30,6 +27,12 @@ object IdUtl {
         return Identifier.withDefaultNamespace(path)
     }
 
+    /**
+     * Only full location is allowed.
+     * Empty namespace standing for [Identifier.DEFAULT_NAMESPACE] is not allowed.
+     *
+     * @return Parsed `id` if it is available; otherwise, `null`
+     */
     @JvmStatic
     fun auto(id: String): Identifier? {
         val idx = id.indexOf(':')
@@ -46,9 +49,10 @@ object IdUtl {
     }
 
     /**
-     * Omit default namespace, `minecraft`, is not allowed in this function.
+     * Only full location is allowed.
+     * Empty namespace standing for [Identifier.DEFAULT_NAMESPACE] is not allowed.
      *
-     * Returns true if `rl` is a valid [Identifier] and can be parsed successfully.
+     * @return `true` if `rl` is a valid [Identifier] and can be parsed successfully
      */
     @JvmStatic
     fun validate(id: String): Boolean {
@@ -71,6 +75,11 @@ object IdUtl {
         return partial.all { Identifier.isAllowedInIdentifier(it) }
     }
 
+    /**
+     * Replaces all uppercase char to lowercase one and all other invalid char to underscore `_`.
+     *
+     * @return validated path
+     */
     @JvmStatic
     fun toValidPath(path: String): String {
         return path.lowercase().toCharArray().apply {
@@ -81,9 +90,4 @@ object IdUtl {
             }
         }.concatToString()
     }
-}
-
-fun Item.toId(): Identifier {
-    return BuiltInRegistries.ITEM.wrapAsHolder(this).unwrapKey().map { it.identifier() }
-        .getOrDefault(IdUtl.UNKNOWN)
 }

@@ -22,8 +22,8 @@ data class CustomFilter(
     override val id: Identifier = genId(name)
 
     val iconItem = ItemLikeUtl.tryParse(icon) ?: DummyItem.INSTANCE
-    override val activeIcon: ItemStack = FoilItemStack(iconItem)
-    override val inactiveIcon: ItemStack = NotFoilItemStack(iconItem)
+    override val activeIcon: ItemStack by lazy { FoilItemStack(iconItem) }
+    override val inactiveIcon: ItemStack by lazy { NotFoilItemStack(iconItem) }
     override val tooltip: Component = Component.literal(name)
 
     override fun matches(stack: ItemStack): Boolean {

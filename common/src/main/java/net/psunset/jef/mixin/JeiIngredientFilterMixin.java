@@ -45,8 +45,7 @@ public abstract class JeiIngredientFilterMixin implements IFilterProxy {
 
         Stream<ITypedIngredient<?>> filteredStream = originalStream.filter(ingredient -> {
             if (ingredient.getType() == VanillaTypes.ITEM_STACK) {
-                ItemStack itemStack = (ItemStack) ingredient.getIngredient();
-                return FilterManager.INSTANCE.test(itemStack);
+                return FilterManager.INSTANCE.test((ItemStack) ingredient.getIngredient());
             }
             return FilterManager.INSTANCE.testNonItem(ingredient.getIngredient());
         });
