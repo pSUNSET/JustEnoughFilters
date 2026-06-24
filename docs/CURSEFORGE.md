@@ -18,7 +18,6 @@ allowing you to quickly find exactly what you need without typing complex search
 
 ## Dependencies
 
-- [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 - [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) if using Fabric
 - Any of Kotlin Adapter mods:
     - For (Neo)Forge: [Kotlin for Forge](https://www.curseforge.com/minecraft/mc-mods/kotlin-for-forge)
@@ -61,3 +60,8 @@ Following are the customizable options available:
 
 - Active Filters: define which filters are active in inventory bar.
 - Custom Filters: create your own filters based on various criteria.
+
+## For Developers
+
+- Including this mod in every mod pack is welcome!
+- To dependent our mod and use API, please check out [code repo](https://github.com/pSUNSET/JustEnoughFilters).

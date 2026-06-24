@@ -17,24 +17,11 @@ You can download this mod on:
 
 Since we have no own maven repo yet, please use 
 [Curse Maven](https://www.cursemaven.com/) or
-[Modrinth Maven](https://support.modrinth.com/en/articles/8801191-modrinth-maven) instead.  
+[Modrinth Maven](https://support.modrinth.com/en/articles/8801191-modrinth-maven) instead.
 
-Also, Most API in JEF is still not mature yet, but following parts are already usable.
-
-### Registering New Toggled Filters
-
-You can register your own filters by implementing `IToggledFilter` and calling `JefRegistries.registerToggledFilter()`.
-
-### Registering New Type Filters
-
-Similar to preceding one.
-Create a object implementing `IItemTypeFilter` and call `JefRegistries.registerItemTypeFilter()`.
-
-### Refresh Proxies
-
-JEF uses `IFilterProxy` to notify item viewers when they need to refresh their ingredient lists.
-If you are integrating a new item viewer,
-implement this interface and register it via `JefRegistries.registerProxy()`.
+All available registries are in `JefRegistries`.  
+You can register the element with `JefRegistries.ONE_OF_REGISTRIES.register()` function.  
+Registration must be completed when your mod get initialized.
 
 ## Acknowledgements
 
