@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty
  * Implements [kotlin.jvm.functions.Function0] and [Supplier].
  *
  * Operator function [getValue] is also available,
- * meaning get deferred value with `by` keyword is supported.
+ * meaning getting deferred value with `by` keyword is supported.
  */
 class DeferredElement<T : Any>(private val supplier: Supplier<T>) : Function0<T>, Supplier<T> {
 
