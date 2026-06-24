@@ -2,7 +2,6 @@ package net.psunset.jef.platform
 
 import org.jetbrains.annotations.ApiStatus
 import java.nio.file.Path
-import kotlin.jvm.optionals.getOrDefault
 
 object Platform {
 

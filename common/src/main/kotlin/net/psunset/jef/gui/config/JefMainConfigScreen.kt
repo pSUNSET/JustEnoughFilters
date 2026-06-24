@@ -18,19 +18,21 @@ class JefMainConfigScreen(
         undoBtn.visible = false
     }
 
-    private val customFilterConfigBtn = Button.builder(Component.translatable("gui.button.justenoughfilters.config.custom_filters")) {
-        minecraft.setScreen(CustomFilterListScreen(this))
-    }
-        .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.custom_filters.tooltip")))
-        .width(Button.BIG_WIDTH)
-        .build()
+    private val customFilterConfigBtn =
+        Button.builder(Component.translatable("gui.button.justenoughfilters.config.custom_filters")) {
+            minecraft.setScreen(CustomFilterListScreen(this))
+        }
+            .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.custom_filters.tooltip")))
+            .width(Button.BIG_WIDTH)
+            .build()
 
-    private val activeFilterConfigBtn = Button.builder(Component.translatable("gui.button.justenoughfilters.config.active_filters")) {
-        minecraft.setScreen(ActiveFilterListScreen(this))
-    }
-        .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.active_filters.tooltip")))
-        .width(Button.BIG_WIDTH)
-        .build()
+    private val activeFilterConfigBtn =
+        Button.builder(Component.translatable("gui.button.justenoughfilters.config.active_filters")) {
+            minecraft.setScreen(ActiveFilterListScreen(this))
+        }
+            .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.active_filters.tooltip")))
+            .width(Button.BIG_WIDTH)
+            .build()
 
     override fun addContents() {
         this.layout.addToContents(LinearLayout.vertical().spacing(8).apply {

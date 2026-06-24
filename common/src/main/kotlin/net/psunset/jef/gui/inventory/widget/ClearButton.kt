@@ -3,8 +3,8 @@ package net.psunset.jef.gui.inventory.widget
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
-import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.client.gui.components.Tooltip
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.builtin.FilterManager
@@ -26,9 +26,11 @@ class ClearButton(
 ) {
 
     init {
-        setTooltip(Tooltip.create(
-            Component.translatable("gui.button.justenoughfilters.clear.tooltip")
-                .withStyle(ChatFormatting.RED))
+        setTooltip(
+            Tooltip.create(
+                Component.translatable("gui.button.justenoughfilters.clear.tooltip")
+                    .withStyle(ChatFormatting.RED)
+            )
         )
     }
 

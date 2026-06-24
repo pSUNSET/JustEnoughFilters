@@ -19,6 +19,6 @@ public abstract class OversizedItemRenderStateMixin implements PictureInPictureR
 
     @Inject(method = "scale", at = @At("RETURN"), cancellable = true)
     public void jef$editScale(CallbackInfoReturnable<Float> cir) {
-        cir.setReturnValue(this.guiItemRenderState instanceof ScaledGuiItemRenderState state ? state.scale: cir.getReturnValue());
+        cir.setReturnValue(this.guiItemRenderState instanceof ScaledGuiItemRenderState state ? state.scale : cir.getReturnValue());
     }
 }
