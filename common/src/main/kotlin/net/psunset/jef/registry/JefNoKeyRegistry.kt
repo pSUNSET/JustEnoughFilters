@@ -4,19 +4,19 @@ package net.psunset.jef.registry
  * Registry is always open.
  */
 @Suppress("UNCHECKED_CAST")
-class JefNoKeyRegistry<T : Any> {
+class JefNoKeyRegistry<R : Any> {
 
-    private val registry: MutableSet<T> = hashSetOf()
+    private val registry: MutableSet<R> = hashSetOf()
 
     /**
      * Gets real-time registered elements
      */
-    val entries: Set<T> get() = registry
+    val entries: Set<R> get() = registry
 
     /**
      * @return [value]
      */
-    fun register(value: T): T {
+    fun <T : R> register(value: T): T {
         registry.add(value)
         return value
     }
