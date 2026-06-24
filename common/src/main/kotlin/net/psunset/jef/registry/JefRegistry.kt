@@ -9,17 +9,17 @@ import net.minecraft.resources.ResourceLocation
  * Calling [register] is only allowed before `ClientSetupEvent`.
  * Getting [entries] is always allowed while [keys] and [values] is only allowed after `ClientSetupEvent`.
  */
-class JefRegistry<T : Any> {
+class JefRegistry<R : Any> {
 
     /**
      * Will be `null` after `ClientSetupEvent` fired.
      */
-    private var registry: LinkedHashMap<String, T>? = linkedMapOf()
+    private var registry: LinkedHashMap<String, R>? = linkedMapOf()
 
     /**
      * Will be init after `ClientSetupEvent` fired.
      */
-    private lateinit var readonlyRegistry: ImmutableMap<String, T>
+    private lateinit var readonlyRegistry: ImmutableMap<String, R>
 
     /**
      * Out of order
@@ -29,7 +29,7 @@ class JefRegistry<T : Any> {
     /**
      * Gets real-time registered elements
      */
-    val entries: Map<String, T> get() = registry ?: readonlyRegistry
+    val entries: Map<String, R> get() = registry ?: readonlyRegistry
 
     /**
      * Will be init after `ClientSetupEvent` fired.
@@ -40,7 +40,7 @@ class JefRegistry<T : Any> {
     /**
      * Will be init after `ClientSetupEvent` fired.
      */
-    lateinit var values: ImmutableList<T>
+    lateinit var values: ImmutableList<R>
         private set
 
     /**
@@ -56,7 +56,7 @@ class JefRegistry<T : Any> {
     /**
      * @return [value]
      */
-    internal fun register(id: String, value: T): T {
+    internal fun <T : R> register(id: String, value: T): T {
         if (registry == null) {
             throw IllegalStateException("Registry is already closed.")
         }
@@ -71,14 +71,14 @@ class JefRegistry<T : Any> {
     /**
      * @return [value]
      */
-    fun register(id: ResourceLocation, value: T): T {
+    fun <T : R> register(id: ResourceLocation, value: T): T {
         return register(id.toString(), value)
     }
 
     fun close() {
         readonlyRegistry = ImmutableMap.copyOf(registry!!)
         keys = readonlyRegistry.keys
-        values = (readonlyRegistry.values as ImmutableList<T>)
+        values = (readonlyRegistry.values as ImmutableList<R>)
         registry = null
     }
 }
