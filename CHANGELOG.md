@@ -1,2 +1,2 @@
-- Fixes
-    - Builtin type filters are now pinned at the top
+- Improves
+    - Builtin armor filter only allows tag `armors/humanoid` now. (1.21.11 - 26.1.x only)
