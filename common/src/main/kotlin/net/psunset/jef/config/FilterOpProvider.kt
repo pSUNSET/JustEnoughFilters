@@ -12,6 +12,7 @@ import net.psunset.jef.registry.JefRegistries
 import net.psunset.jef.tool.CatchingUtl
 import net.psunset.jef.tool.DataComponentUtl
 import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.block
 import net.psunset.jef.util.NonItemHelper
 
 /**
@@ -382,7 +383,8 @@ object FilterOpProviders {
                 private val clazz = Class.forName(it)
 
                 override fun matches(stack: ItemStack): Boolean {
-                    return clazz.isInstance(stack.item)
+                    return clazz.isInstance(stack.item) ||
+                            clazz.isInstance(stack.block)
                 }
 
                 override fun matchesNonItem(obj: Any): Boolean {

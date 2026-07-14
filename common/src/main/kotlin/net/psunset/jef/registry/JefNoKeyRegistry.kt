@@ -3,7 +3,6 @@ package net.psunset.jef.registry
 /**
  * Registry is always open.
  */
-@Suppress("UNCHECKED_CAST")
 class JefNoKeyRegistry<R : Any> {
 
     private val registry: MutableSet<R> = hashSetOf()
