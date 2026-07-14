@@ -3,6 +3,8 @@ package net.psunset.jef
 import net.psunset.jef.builtin.ItemTypeFilters
 import net.psunset.jef.builtin.ToggledFilters
 import net.psunset.jef.compat.jei.JeiNonItemHelper
+import net.psunset.jef.compat.rei.ReiFilterProxy
+import net.psunset.jef.compat.rei.ReiNonItemHelper
 import net.psunset.jef.config.ConfigManager
 import net.psunset.jef.config.FilterOpProviders
 import net.psunset.jef.registry.JefRegistries
@@ -65,12 +67,11 @@ object JustEnoughFilters {
         ItemTypeFilters.init()
         FilterOpProviders.init()
 
-//        if (CompatUtl.REI.isLoaded()) {
-//            JefRegistries.PROXIES.register(ReiFilterProxy)
-//            ReiNonItemHelper.init()
-//
-//        } else
-        if (CompatUtl.JEI.isLoaded()) {
+        if (CompatUtl.REI.isLoaded()) {
+            JefRegistries.PROXIES.register(ReiFilterProxy)
+            ReiNonItemHelper.init()
+
+        } else if (CompatUtl.JEI.isLoaded()) {
             JeiNonItemHelper.init()
 
         }

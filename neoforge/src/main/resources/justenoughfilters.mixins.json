@@ -10,7 +10,9 @@
         "JeiIngredientFilterMixin",
         "JeiIngredientListOverlayMixin",
         "OversizedItemRendererMixin",
-        "OversizedItemRenderStateMixin"
+        "OversizedItemRenderStateMixin",
+        "ReiAsyncSearchManagerMixin",
+        "ReiScreenOverlayMixin"
     ],
     "mixins": [
     ],

@@ -2,6 +2,7 @@ package net.psunset.jef.mixin;
 
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.REIRuntime;
+import me.shedaniel.rei.api.client.gui.compat.GuiGraphics;
 import me.shedaniel.rei.api.client.gui.config.SearchFieldLocation;
 import me.shedaniel.rei.impl.client.gui.ScreenOverlayImpl;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// When REI update to mc26.1 :(
 @Mixin(ScreenOverlayImpl.class)
 public class ReiScreenOverlayMixin {
 
@@ -50,8 +50,8 @@ public class ReiScreenOverlayMixin {
         }
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lme/shedaniel/rei/impl/client/gui/ScreenOverlayImpl;renderWidgets(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
-    private void jef$drawFilterBar(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, guiGraphics, mouseX, mouseY);
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lme/shedaniel/rei/impl/client/gui/ScreenOverlayImpl;renderWidgets(Lme/shedaniel/rei/api/client/gui/compat/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
+    private void jef$drawFilterBar(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, graphics, mouseX, mouseY);
     }
 }
