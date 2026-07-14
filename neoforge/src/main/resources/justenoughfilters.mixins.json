@@ -8,6 +8,8 @@
         "AbstractWidgetMixin",
         "GuiGraphicsExtractorMixin",
         "JeiIngredientFilterMixin",
+        "JeiIngredientListOverlayControllerMixin",
+        "JeiIngredientListOverlayLayoutMixin",
         "JeiIngredientListOverlayMixin",
         "OversizedItemRendererMixin",
         "OversizedItemRenderStateMixin",

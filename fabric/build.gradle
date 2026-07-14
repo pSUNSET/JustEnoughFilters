@@ -33,7 +33,7 @@ dependencies {
 
     implementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
 
-    implementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
     // NOT support beyond 1.21.2
 //    implementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
