@@ -1,2 +1,3 @@
-- Improves
-    - Builtin armor filter only allows tag `armors/humanoid` now. (1.21.11 - 26.1.x only)
+- Fixes
+  - is_instanceof filter function doesn't work with blocks. (#5)
+  - incompatibility with JEI update. (#6)
