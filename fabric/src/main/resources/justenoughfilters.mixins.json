@@ -10,6 +10,8 @@
         "EmiExclusionAreasMixin",
         "EmiScreenManagerMixin",
         "JeiIngredientFilterMixin",
+        "JeiIngredientListOverlayControllerMixin",
+        "JeiIngredientListOverlayLayoutMixin",
         "JeiIngredientListOverlayMixin",
         "ReiAsyncSearchManagerMixin",
         "ReiScreenOverlayMixin"
