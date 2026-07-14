@@ -31,9 +31,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_api_version+$minecraft_version"
     modImplementation "net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version"
 
-    modCompileOnly "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
+    modImplementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
     // NOT support beyond 1.21.2
 //    modImplementation "dev.emi:emi-fabric:$emi_version+$minecraft_version"
