@@ -2,6 +2,8 @@ package net.psunset.jef.tool
 
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.Identifier
+import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.Block
 import kotlin.jvm.optionals.getOrDefault
 
@@ -42,3 +44,6 @@ fun Block.toId(): Identifier {
     return BuiltInRegistries.BLOCK.wrapAsHolder(this).unwrapKey().map { it.identifier() }
         .getOrDefault(IdUtl.UNKNOWN)
 }
+
+val ItemStack.block: Block?
+    get() = (item as? BlockItem)?.block
