@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.builtin.FilterManager
-import net.psunset.jef.tool.renderScaledItem
+import net.psunset.jef.tool.scaledItem
 import kotlin.math.min
 
 class FilterToggleButton(
@@ -44,7 +44,7 @@ class FilterToggleButton(
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        graphics.renderScaledItem(icon, iconX, iconY, size.toFloat())
+        graphics.scaledItem(icon, iconX, iconY, size.toFloat())
     }
 
     private fun refreshTooltip() {

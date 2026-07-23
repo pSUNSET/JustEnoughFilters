@@ -60,7 +60,7 @@ class FilterBarOverlay internal constructor() {
         for (filter in FilterManager.activeToggledFilters) {
             val btn = FilterToggleButton(filter, currentX, currentY, btnSize, btnSize)
             buttons.add(btn)
-            currentX += btnSize + PADDING // 2px spacing
+            currentX += btnSize + PADDING
         }
 
         // Clear Button

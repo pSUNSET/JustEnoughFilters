@@ -33,34 +33,34 @@ object GraphicsUtl {
 /**
  * `scale` defaults to `16.0f` in vanilla.
  */
-fun GuiGraphicsExtractor.renderScaledItem(
+fun GuiGraphicsExtractor.scaledItem(
     stack: ItemStack,
     x: Int,
     y: Int,
     scale: Float = 16.0f,
     seed: Int = 0,
 ) {
-    this.renderScaledItem(this.minecraft.player, this.minecraft.level, stack, x, y, scale, seed)
+    this.scaledItem(this.minecraft.player, this.minecraft.level, stack, x, y, scale, seed)
 }
 
 /**
  * `scale` defaults to `16.0f` in vanilla.
  */
-fun GuiGraphicsExtractor.renderScaledFakeItem(
+fun GuiGraphicsExtractor.scaledFakeItem(
     stack: ItemStack,
     x: Int,
     y: Int,
     scale: Float = 16.0f,
     seed: Int = 0,
 ) {
-    this.renderScaledItem(null, null, stack, x, y, scale, seed)
+    this.scaledItem(null, null, stack, x, y, scale, seed)
 }
 
 /**
  * `scale` defaults to `16.0f` in vanilla.
  * An edition of [GuiGraphicsExtractor.item] using [ScaledGuiItemRenderState]
  */
-fun GuiGraphicsExtractor.renderScaledItem(
+fun GuiGraphicsExtractor.scaledItem(
     owner: LivingEntity?,
     level: Level?,
     stack: ItemStack,

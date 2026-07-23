@@ -39,7 +39,6 @@ public class ReiScreenOverlayMixin {
                 );
             }
 
-            // Crop the original area
             Rectangle cropped = new Rectangle(
                     original.x,
                     original.y,
@@ -50,7 +49,7 @@ public class ReiScreenOverlayMixin {
         }
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lme/shedaniel/rei/impl/client/gui/ScreenOverlayImpl;renderWidgets(Lme/shedaniel/rei/api/client/gui/compat/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
+    @Inject(method = "lateRender", at = @At("HEAD"))
     private void jef$drawFilterBar(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, graphics, mouseX, mouseY);
     }

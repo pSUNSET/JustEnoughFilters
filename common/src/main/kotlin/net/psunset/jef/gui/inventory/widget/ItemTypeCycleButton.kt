@@ -9,7 +9,7 @@ import net.minecraft.client.input.MouseButtonInfo
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.builtin.ItemTypeFilter
-import net.psunset.jef.tool.renderScaledItem
+import net.psunset.jef.tool.scaledItem
 import kotlin.math.min
 
 class ItemTypeCycleButton(
@@ -42,7 +42,7 @@ class ItemTypeCycleButton(
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        graphics.renderScaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
+        graphics.scaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
     }
 
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
