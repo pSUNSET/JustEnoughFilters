@@ -47,7 +47,7 @@ class FilterToggleButton(
         guiGraphics.renderScaledItem(icon, iconX, iconY, size.toFloat())
     }
 
-    private fun refreshTooltip() {
+    internal fun refreshTooltip() {
         tooltip = Tooltip.create(
             filter.tooltip.copy().withStyle(
                 if (FilterManager.isFilterEnabled(filter))
