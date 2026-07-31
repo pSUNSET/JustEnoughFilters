@@ -10,11 +10,13 @@ import net.psunset.jef.gui.inventory.widget.LogicModeCycleButton
 
 class FilterBarOverlay internal constructor() {
 
-    private var buttons: MutableList<AbstractButton> = ArrayList(0)
+    internal var buttons: MutableList<AbstractButton> = ArrayList(0)
+    internal var toggledButtons: MutableList<FilterToggleButton> = ArrayList(0)
 
     fun init(x: Int, y: Int, availableWidth: Int? = null) {
         val buttonCount = InventoryOverlayManager.allButtonsCount()
         buttons = ArrayList(buttonCount)
+        toggledButtons = ArrayList(buttonCount - 3)
 
         var btnSize = EXPECTED_BTN_SIZE
         var totalWidth = (btnSize + PADDING) * buttonCount - PADDING // removing last padding
@@ -59,11 +61,12 @@ class FilterBarOverlay internal constructor() {
         for (filter in FilterManager.activeToggledFilters) {
             val btn = FilterToggleButton(filter, currentX, currentY, btnSize, btnSize)
             buttons.add(btn)
-            currentX += btnSize + PADDING // 2px spacing
+            toggledButtons.add(btn)
+            currentX += btnSize + PADDING
         }
 
         // Clear Button
-        val clearBtn = ClearButton(currentX, currentY, btnSize, btnSize)
+        val clearBtn = ClearButton(this, currentX, currentY, btnSize, btnSize)
         buttons.add(clearBtn)
     }
 
