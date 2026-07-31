@@ -8,9 +8,11 @@ import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.psunset.jef.builtin.FilterManager
+import net.psunset.jef.gui.inventory.FilterBarOverlay
 import net.psunset.jef.tool.IdUtl
 
 class ClearButton(
+    overlay: FilterBarOverlay,
     x: Int,
     y: Int,
     width: Int,
@@ -21,7 +23,10 @@ class ClearButton(
     width,
     height,
     CommonComponents.EMPTY,
-    { FilterManager.disableAllFilters() },
+    {
+        FilterManager.disableAllFilters()
+        for (btn in overlay.toggledButtons) btn.refreshTooltip()
+    },
     DEFAULT_NARRATION
 ) {
 
