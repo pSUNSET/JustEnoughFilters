@@ -51,6 +51,6 @@ public class ReiScreenOverlayMixin {
 
     @Inject(method = "lateRender", at = @At("HEAD"))
     private void jef$drawFilterBar(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().screen, graphics, mouseX, mouseY);
+        InventoryOverlayManager.INSTANCE.drawFilterBar(Minecraft.getInstance().gui.screen(), graphics, mouseX, mouseY);
     }
 }

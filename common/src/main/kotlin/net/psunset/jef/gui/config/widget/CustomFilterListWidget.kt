@@ -75,7 +75,7 @@ internal class CustomFilterListWidget(
 
         private val editBtn = Button.builder(Component.literal(filter.name)) {
             screen.isSubScreenNext = true
-            minecraft.setScreen(
+            minecraft.setScreenAndShow(
                 CustomFilterConfigScreen(i, filter, screen, widget)
             )
         }

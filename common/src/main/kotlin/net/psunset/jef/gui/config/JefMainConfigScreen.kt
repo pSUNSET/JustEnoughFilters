@@ -20,7 +20,7 @@ class JefMainConfigScreen(
 
     private val customFilterConfigBtn =
         Button.builder(Component.translatable("gui.button.justenoughfilters.config.custom_filters")) {
-            minecraft.setScreen(CustomFilterListScreen(this))
+            minecraft.setScreenAndShow(CustomFilterListScreen(this))
         }
             .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.custom_filters.tooltip")))
             .width(Button.BIG_WIDTH)
@@ -28,7 +28,7 @@ class JefMainConfigScreen(
 
     private val activeFilterConfigBtn =
         Button.builder(Component.translatable("gui.button.justenoughfilters.config.active_filters")) {
-            minecraft.setScreen(ActiveFilterListScreen(this))
+            minecraft.setScreenAndShow(ActiveFilterListScreen(this))
         }
             .tooltip(Tooltip.create(Component.translatable("gui.button.justenoughfilters.config.active_filters.tooltip")))
             .width(Button.BIG_WIDTH)

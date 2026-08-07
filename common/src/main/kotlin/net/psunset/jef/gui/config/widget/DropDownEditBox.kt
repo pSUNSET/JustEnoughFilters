@@ -163,7 +163,7 @@ abstract class DropDownEditBox(
         }
 
         fun safeReversed() {
-            if (parent.bottom + minecraft.font.lineHeight * 10 + 31 > minecraft.screen!!.height) {
+            if (parent.bottom + minecraft.font.lineHeight * 10 + 31 > minecraft.gui.screen()!!.height) {
                 if (!isReversed) {
                     reversed()
                 }

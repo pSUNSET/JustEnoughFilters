@@ -52,7 +52,7 @@ abstract class AbstractJefOptionScreen(
     }
 
     override fun onClose() {
-        minecraft.setScreen(lastScreen)
+        minecraft.setScreenAndShow(lastScreen)
     }
 
     override fun removed() {
