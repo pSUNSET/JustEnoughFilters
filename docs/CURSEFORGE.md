@@ -1,9 +1,3 @@
-<h2 style="text-align: center; color: #ff4f3f">
-Customizable Configuration is out!<br/>Enjoy it in latest version!
-</h2>
-
----
-
 # Just Enough Filters (JEF)
 
 A lightweight add-on for **JEI**, **REI**, and **EMI**.
@@ -64,4 +58,4 @@ Following are the customizable options available:
 ## For Developers
 
 - Including this mod in every mod pack is welcome!
-- To dependent our mod and use API, please check out [code repo](https://github.com/pSUNSET/JustEnoughFilters).
+- To depend on our mod and use API, please check out [code repo](https://github.com/pSUNSET/JustEnoughFilters).
