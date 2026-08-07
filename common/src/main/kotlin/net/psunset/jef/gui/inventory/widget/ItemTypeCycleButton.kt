@@ -1,15 +1,17 @@
 package net.psunset.jef.gui.inventory.widget
 
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractButton
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.InputWithModifiers
 import net.minecraft.client.input.MouseButtonInfo
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.builtin.ItemTypeFilter
-import net.psunset.jef.tool.renderScaledItem
+import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.scaledItem
 import kotlin.math.min
 
 class ItemTypeCycleButton(
@@ -36,16 +38,36 @@ class ItemTypeCycleButton(
         setTooltip(Tooltip.create(ItemTypeFilter.genTooltip()))
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        guiGraphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+//        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+
+        graphics.blit(
+            RenderPipelines.GUI_TEXTURED,
+            BG,
+            x,
+            y,
+            0.0f,
+            0.0f,
+            width,
+            height,
+            16,
+            16,
+            16,
+            16
+        )
 
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        guiGraphics.renderScaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
+        graphics.scaledItem(FilterManager.itemTypeFilter.icon, iconX, iconY, size.toFloat())
     }
 
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput)
+    }
+
+    companion object {
+        @JvmField
+        val BG = IdUtl.ofJef("textures/gui/type_button_bg.png")
     }
 }
