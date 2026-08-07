@@ -2,7 +2,7 @@ package net.psunset.jef.mixin;
 
 import mezz.jei.api.gui.handlers.IGuiProperties;
 import mezz.jei.common.util.ImmutableRect2i;
-import mezz.jei.gui.overlay.IngredientGridWithNavigation;
+import mezz.jei.gui.overlay.ingredients.IngredientGridWithNavigation;
 import mezz.jei.gui.overlay.IngredientListOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -46,7 +46,7 @@ public class JeiIngredientListOverlayMixin {
         InventoryOverlayManager.INSTANCE.updateBounds(this.jef$reservedArea.matchWidthAndX(this.contents.getBackgroundArea()).toMutable());
     }
 
-    @Inject(method = "drawScreen", at = @At(value = "INVOKE", target = "Lmezz/jei/gui/overlay/IngredientGridWithNavigation;draw(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
+    @Inject(method = "drawScreen", at = @At(value = "INVOKE", target = "Lmezz/jei/gui/overlay/ingredients/IngredientGridWithNavigation;draw(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
     private void jef$drawFilterBar(Minecraft minecraft, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         InventoryOverlayManager.INSTANCE.drawFilterBar(minecraft.screen, guiGraphics, mouseX, mouseY);
     }
