@@ -4,11 +4,10 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
-import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.builtin.FilterManager
-import net.psunset.jef.tool.IdUtl
+import net.psunset.jef.tool.RLUtl
 import net.psunset.jef.tool.renderScaledItem
 import kotlin.math.min
 
@@ -18,7 +17,7 @@ class FilterToggleButton(
     y: Int,
     width: Int,
     height: Int
-) : Button.Plain(
+) : Button(
     x,
     y,
     width,
@@ -35,7 +34,7 @@ class FilterToggleButton(
         refreshTooltip()
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val active = FilterManager.isFilterEnabled(filter)
 
 //        val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
@@ -44,14 +43,13 @@ class FilterToggleButton(
         val bg = if (active) ACTIVE_BG else INACTIVE_BG
 
         guiGraphics.blit(
-            RenderPipelines.GUI_TEXTURED,
             bg,
             x,
             y,
-            0.0f,
-            0.0f,
             width,
             height,
+            0.0f,
+            0.0f,
             16,
             16,
             16,
@@ -67,21 +65,19 @@ class FilterToggleButton(
     }
 
     internal fun refreshTooltip() {
-        setTooltip(
-            Tooltip.create(
-                filter.tooltip.copy().withStyle(
-                    if (FilterManager.isFilterEnabled(filter)) ChatFormatting.AQUA
-                    else ChatFormatting.GRAY
-                )
+        tooltip = Tooltip.create(
+            filter.tooltip.copy().withStyle(
+                if (FilterManager.isFilterEnabled(filter)) ChatFormatting.AQUA
+                else ChatFormatting.GRAY
             )
         )
     }
 
     companion object {
         @JvmField
-        val ACTIVE_BG = IdUtl.ofJef("textures/gui/filter_button/active_bg.png")
+        val ACTIVE_BG = RLUtl.ofJef("textures/gui/filter_button/active_bg.png")
 
         @JvmField
-        val INACTIVE_BG = IdUtl.ofJef("textures/gui/filter_button/inactive_bg.png")
+        val INACTIVE_BG = RLUtl.ofJef("textures/gui/filter_button/inactive_bg.png")
     }
 }
