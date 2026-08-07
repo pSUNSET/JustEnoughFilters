@@ -1,3 +1,5 @@
+- Features
+    - more pretty and editable textures for the filter bar. (#7)
+
 - Fixes
-  - is_instanceof filter function doesn't work with blocks. (#5)
-  - incompatibility with JEI update. (#6)
+    - Clear button didn't refresh tooltips of toggled filters.
