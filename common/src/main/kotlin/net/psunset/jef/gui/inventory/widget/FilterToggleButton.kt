@@ -1,7 +1,7 @@
 package net.psunset.jef.gui.inventory.widget
 
 import net.minecraft.ChatFormatting
-import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.renderer.RenderPipelines
@@ -9,7 +9,7 @@ import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.tool.IdUtl
-import net.psunset.jef.tool.scaledItem
+import net.psunset.jef.tool.renderScaledItem
 import kotlin.math.min
 
 class FilterToggleButton(
@@ -35,15 +35,15 @@ class FilterToggleButton(
         refreshTooltip()
     }
 
-    override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val active = FilterManager.isFilterEnabled(filter)
 
 //        val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
-//        graphics.fill(x, y, x + width, y + height, color)
+//        guiGraphics.fill(x, y, x + width, y + height, color)
 
         val bg = if (active) ACTIVE_BG else INACTIVE_BG
 
-        graphics.blit(
+        guiGraphics.blit(
             RenderPipelines.GUI_TEXTURED,
             bg,
             x,
@@ -63,7 +63,7 @@ class FilterToggleButton(
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
         val iconY = y + (height - size) / 2
-        graphics.scaledItem(icon, iconX, iconY, size.toFloat())
+        guiGraphics.renderScaledItem(icon, iconX, iconY, size.toFloat())
     }
 
     internal fun refreshTooltip() {
