@@ -36,11 +36,10 @@ class ClearButton(
         )
     }
 
-    override fun renderContents(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun renderWidget(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
 //        guiGraphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
         guiGraphics.blit(
-            RenderPipelines.GUI_TEXTURED,
             ICON,
             x,
             y,
