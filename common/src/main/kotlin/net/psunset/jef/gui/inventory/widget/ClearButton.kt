@@ -40,7 +40,7 @@ class ClearButton(
     }
 
     override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
-        graphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
+//        graphics.fill(x, y, x + width, y + height, 0xFFAA0000.toInt())
 
         graphics.blit(
             RenderPipelines.GUI_TEXTURED,
@@ -60,6 +60,6 @@ class ClearButton(
 
     companion object {
         @JvmField
-        val ICON = IdUtl.ofJef("textures/gui/trash_can.png")
+        val ICON = IdUtl.ofJef("textures/gui/clear_button.png")
     }
 }

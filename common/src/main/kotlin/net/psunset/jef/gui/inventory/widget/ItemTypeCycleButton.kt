@@ -6,9 +6,11 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.client.input.InputWithModifiers
 import net.minecraft.client.input.MouseButtonInfo
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.builtin.ItemTypeFilter
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.scaledItem
 import kotlin.math.min
 
@@ -37,7 +39,22 @@ class ItemTypeCycleButton(
     }
 
     override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
-        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+//        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+
+        graphics.blit(
+            RenderPipelines.GUI_TEXTURED,
+            BG,
+            x,
+            y,
+            0.0f,
+            0.0f,
+            width,
+            height,
+            16,
+            16,
+            16,
+            16
+        )
 
         val size = min(16, min(width, height) - 2)
         val iconX = x + (width - size) / 2
@@ -47,5 +64,10 @@ class ItemTypeCycleButton(
 
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput)
+    }
+
+    companion object {
+        @JvmField
+        val BG = IdUtl.ofJef("textures/gui/type_button_bg.png")
     }
 }

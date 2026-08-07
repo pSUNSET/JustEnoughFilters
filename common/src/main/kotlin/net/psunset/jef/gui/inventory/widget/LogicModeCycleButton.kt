@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 import net.psunset.jef.builtin.FilterManager
 import net.psunset.jef.builtin.LogicMode
+import net.psunset.jef.tool.IdUtl
 
 class LogicModeCycleButton(
     x: Int,
@@ -36,7 +37,22 @@ class LogicModeCycleButton(
     }
 
     override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
-        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+//        graphics.fill(x, y, x + width, y + height, 0xFF666666.toInt())
+
+        graphics.blit(
+            RenderPipelines.GUI_TEXTURED,
+            BG,
+            x,
+            y,
+            0.0f,
+            0.0f,
+            width,
+            height,
+            16,
+            16,
+            16,
+            16
+        )
 
         graphics.blit(
             RenderPipelines.GUI_TEXTURED,
@@ -54,10 +70,12 @@ class LogicModeCycleButton(
         )
     }
 
-    /**
-     * Vanilla copy: [Button.defaultButtonNarrationText]
-     */
     override fun updateWidgetNarration(narrationElementOutput: NarrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput)
+    }
+
+    companion object {
+        @JvmField
+        val BG = IdUtl.ofJef("textures/gui/logic_button_bg.png")
     }
 }

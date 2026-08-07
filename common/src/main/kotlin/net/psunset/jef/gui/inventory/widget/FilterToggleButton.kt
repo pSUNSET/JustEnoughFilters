@@ -4,9 +4,11 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.CommonComponents
 import net.psunset.jef.api.IToggledFilter
 import net.psunset.jef.builtin.FilterManager
+import net.psunset.jef.tool.IdUtl
 import net.psunset.jef.tool.scaledItem
 import kotlin.math.min
 
@@ -36,8 +38,25 @@ class FilterToggleButton(
     override fun extractContents(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
         val active = FilterManager.isFilterEnabled(filter)
 
-        val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
-        graphics.fill(x, y, x + width, y + height, color)
+//        val color = (if (active) 0xFF33CC33 else 0xFF444444).toInt()
+//        graphics.fill(x, y, x + width, y + height, color)
+
+        val bg = if (active) ACTIVE_BG else INACTIVE_BG
+
+        graphics.blit(
+            RenderPipelines.GUI_TEXTURED,
+            bg,
+            x,
+            y,
+            0.0f,
+            0.0f,
+            width,
+            height,
+            16,
+            16,
+            16,
+            16
+        )
 
         val icon = if (active) filter.activeIcon else filter.inactiveIcon
 
@@ -51,12 +70,18 @@ class FilterToggleButton(
         setTooltip(
             Tooltip.create(
                 filter.tooltip.copy().withStyle(
-                    if (FilterManager.isFilterEnabled(filter))
-                        ChatFormatting.AQUA
-                    else
-                        ChatFormatting.GRAY
+                    if (FilterManager.isFilterEnabled(filter)) ChatFormatting.AQUA
+                    else ChatFormatting.GRAY
                 )
             )
         )
+    }
+
+    companion object {
+        @JvmField
+        val ACTIVE_BG = IdUtl.ofJef("textures/gui/filter_button/active_bg.png")
+
+        @JvmField
+        val INACTIVE_BG = IdUtl.ofJef("textures/gui/filter_button/inactive_bg.png")
     }
 }
