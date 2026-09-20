@@ -38,6 +38,7 @@ dependencies {
     implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
 
     modImplementation "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    modLocalRuntime "net.mezzdev.config:mezz_config-1.21.1-neoforge:$mezz_config_version"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
