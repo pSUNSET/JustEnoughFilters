@@ -2,7 +2,7 @@ package net.psunset.jef.mixin;
 
 import mezz.jei.api.gui.handlers.IGuiProperties;
 import mezz.jei.common.util.ImmutableRect2i;
-import mezz.jei.gui.overlay.IIngredientGridView;
+import mezz.jei.gui.overlay.ingredients.IIngredientGridView;
 import net.psunset.jef.compat.jei.JeiJefAreaReserver;
 import net.psunset.jef.gui.inventory.InventoryOverlayManager;
 import org.spongepowered.asm.mixin.Final;
