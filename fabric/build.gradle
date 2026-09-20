@@ -32,6 +32,7 @@ dependencies {
     implementation "net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version"
 
     implementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
+    localRuntime "net.mezzdev.config:mezz_config-$minecraft_version-fabric:$mezz_config_version"
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
