@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(IngredientListOverlay.class)
 public abstract class JeiIngredientListOverlayMixin {
 
-    @Inject(method = "drawScreen", at = @At(value = "INVOKE", target = "Lmezz/jei/gui/overlay/IIngredientListOverlayContents;draw(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
+    @Inject(method = "drawForeground", at = @At(value = "INVOKE", target = "Lmezz/jei/gui/overlay/ingredients/IIngredientListOverlayContents;drawForeground(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiGraphics;IIF)V", shift = At.Shift.AFTER))
     private void jef$drawFilterBar(Minecraft minecraft, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
         InventoryOverlayManager.INSTANCE.drawFilterBar(minecraft.screen, guiGraphics, mouseX, mouseY);
     }
