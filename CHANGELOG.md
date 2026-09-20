@@ -1,5 +1,2 @@
-- Features
-    - more pretty and editable textures for the filter bar. (#7)
-
 - Fixes
-    - Clear button didn't refresh tooltips of toggled filters.
+    - Incompatibility with JEI (#9)
