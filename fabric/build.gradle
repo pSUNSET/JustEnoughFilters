@@ -33,6 +33,7 @@ dependencies {
 
     implementation "mezz.jei:jei-$minecraft_version-fabric:$jei_version"
     localRuntime "net.mezzdev.config:mezz_config-$minecraft_version-fabric:$mezz_config_version"
+    localRuntime "net.mezzdev.config:mezz_config_gui-$minecraft_version-fabric:mc$minecraft_version-$mezz_config_gui_version"
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 

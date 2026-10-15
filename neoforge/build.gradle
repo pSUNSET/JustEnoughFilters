@@ -39,6 +39,7 @@ dependencies {
 
     compileOnly "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
 //    localRuntime "net.mezzdev.config:mezz_config-$minecraft_version-neoforge:$mezz_config_version"
+//    localRuntime "net.mezzdev.config:mezz_config_gui-$minecraft_version-neoforge:mc$minecraft_version-$mezz_config_gui_version"
 
     implementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
 
